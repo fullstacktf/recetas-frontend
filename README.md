@@ -2,8 +2,6 @@
 
 ## MVP Mockups
 
----
-
 ### Sign in
 
 ![mockup-signin](mockups/signin.jpg)
