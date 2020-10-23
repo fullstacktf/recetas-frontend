@@ -2,5 +2,6 @@
 *.css @ManzDev
 *.tsx @raulanatol
 *.jsx @raulanatol
+*.js @raulanatol @ManzDev
 *.vue @ManzDev
 *test* @raulanatol @DanielRamosAcosta @yodralopez
