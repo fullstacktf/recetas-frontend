@@ -15,10 +15,5 @@ build/
 logs/
 *.log
 
-<<<<<<< HEAD
-#IOS
-.DS_Store
-=======
 # MacOS
 .DS_Store
->>>>>>> e4405cd71b5247ce930de3cdab78626067d31d4c
