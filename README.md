@@ -2,29 +2,45 @@
 
 ## MVP Mockups
 
+### Home
+
+![mockup-home](mockups/Home.png)
+
 ### Sign in
 
-![mockup-signin](mockups/signin.jpg)
+![mockup-signin](mockups/Registro.png)
 
 ### Login
 
-![mockup-signin](mockups/login.jpg)
+![mockup-login](mockups/Login.png)
 
-### Timeline
+### Timeline Option 1
 
-![mockup-signin](mockups/timeline.jpg)
+![mockup-option1](mockups/Timeline-Post-Example.png)
 
-### Preview
+### Timeline Option 2
 
-![mockup-signin](mockups/preview-receta.jpg)
+![mockup-option2](mockups/Timeline-Post-Example2.png)
+
+### Timeline Option 2 Extended
+
+![mockup-option2-extended](mockups/Timeline-Post-Example2-Extended.png)
+
+### Saved Recipes
+
+![mockup-saved-recipes](mockups/SavedPosts.png)
 
 ### Profile
 
-![mockup-signin](mockups/perfil.jpg)
+![mockup-profile](mockups/Profile.png)
 
 ### Recipe
 
-![mockup-signin](mockups/receta.jpg)
+![mockup-recipe](mockups/Receta.png)
+
+### New Recipe
+
+![mockup-new-recipe](mockups/New-Post.png)
 
 ---
 
