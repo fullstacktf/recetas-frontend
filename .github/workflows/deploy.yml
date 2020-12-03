@@ -49,4 +49,4 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
             cd /app/snapfork/
-            .deploy.sh frontend
+            ./deploy.sh frontend
