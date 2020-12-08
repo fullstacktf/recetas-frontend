@@ -1,6 +1,7 @@
-* @Danielmagox @izm20 @Sozhia @PanchoMen
+* @Danielmagox @izm20 @PanchoMen
 *.css @ManzDev
 *.tsx @raulanatol
 *.jsx @raulanatol
+*.js @raulanatol @ManzDev
 *.vue @ManzDev
 *test* @raulanatol @DanielRamosAcosta @yodralopez
