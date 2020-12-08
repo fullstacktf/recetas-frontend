@@ -1,5 +1,9 @@
-.github/
-docs/
-node_modules/
-.gitignore
+.*
+!.dockerignore
+docs
+node_modules
 README.md
+*.yml
+*.dockerfile
+mockups
+
