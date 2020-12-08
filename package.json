@@ -1,19 +1,13 @@
 {
   "name": "recetas-frontend",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "start": "parcel --port 3000 src/index.html",
-    "build": "parcel build src/index.html --public-url /recetas-frontend",
-    "deploy": "gh-pages -d dist",
-    "lint": "eslint --ext .js ./src",
-    "lint:fix": "eslint --ext .js --fix ./src",
-    "stylelint": "stylelint ./src/css/*.css",
-    "test": "jest",
-    "test:coverage": "jest --coverage",
-    "test:watch": "jest --watch",
-    "clean": "rimraf coverage build tmp dist .cache"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint './src/**/*.{ts,tsx}'"
   },
   "repository": {
     "type": "git",
@@ -25,41 +19,50 @@
   "bugs": {
     "url": "https://github.com/fullstacktf/recetas-frontend/issues"
   },
-  "homepage": "https://github.com/fullstacktf/recetas-frontend#readme",
-  "devDependencies": {
-    "@babel/cli": "^7.12.1",
-    "@babel/core": "^7.12.3",
-    "@babel/node": "^7.12.1",
-    "@babel/plugin-proposal-class-properties": "^7.12.1",
-    "@babel/plugin-transform-modules-commonjs": "^7.12.1",
-    "babel-jest": "^26.6.0",
-    "eslint": "^7.11.0",
-    "eslint-config-standard": "^15.0.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jest": "^24.1.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.2",
-    "jest": "^26.6.0",
-    "parcel-bundler": "^1.12.4",
-    "rimraf": "^3.0.2",
-    "stylelint": "^13.7.2",
-    "stylelint-config-standard": "^20.0.0"
+  "homepage": ".",
+  "dependencies": {
+    "@emotion/styled": "^11.0.0",
+    "@testing-library/jest-dom": "^5.11.6",
+    "@testing-library/react": "^11.2.2",
+    "@testing-library/user-event": "^12.5.0",
+    "@types/jest": "^26.0.17",
+    "@types/node": "^12.19.8",
+    "@types/react-dom": "^16.9.10",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.1",
+    "typescript": "^4.1.2",
+    "web-vitals": "^0.2.4"
   },
-  "jest": {
-    "testEnvironment": "node",
-    "moduleDirectories": [
-      "./node_modules",
-      "./src"
-    ],
-    "modulePathIgnorePatterns": [
-      "<rootDir>/build/"
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx"
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
     ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/react": "^16.14.2",
+    "@types/react-router": "^5.1.8",
+    "@types/react-router-dom": "^5.1.6",
+    "@typescript-eslint/eslint-plugin": "^4.9.1",
+    "@typescript-eslint/parser": "^4.9.1",
+    "eslint-config-prettier": "^7.0.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-plugin-prettier": "^3.2.0",
+    "prettier": "^2.2.1"
   }
 }
