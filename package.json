@@ -55,14 +55,10 @@
     ]
   },
   "devDependencies": {
+    "@cowcoders/eslint-config": "^1.2.0",
     "@types/react": "^16.14.2",
     "@types/react-router": "^5.1.8",
     "@types/react-router-dom": "^5.1.6",
-    "@typescript-eslint/eslint-plugin": "^4.9.1",
-    "@typescript-eslint/parser": "^4.9.1",
-    "eslint-config-prettier": "^7.0.0",
-    "eslint-config-react": "^1.1.7",
-    "eslint-plugin-prettier": "^3.2.0",
-    "prettier": "^2.2.1"
+    "eslint": "^7.15.0"
   }
 }
