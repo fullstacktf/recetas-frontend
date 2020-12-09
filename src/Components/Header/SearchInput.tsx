@@ -29,7 +29,7 @@ const Input = styled.input`
   }
 `;
 
-export const SearchInput: FC = (props: any) => {
+export const SearchInput: FC = () => {
   const [value, setValue] = useState('');
   const [redirect, setRedirect] = useState(false);
 
@@ -61,6 +61,7 @@ export const SearchInput: FC = (props: any) => {
     <Container>
       <form onSubmit={handleSubmit}>
         <Input
+          type="text"
           placeholder="Buscar"
           value={value}
           onChange={handleChangeValue}
