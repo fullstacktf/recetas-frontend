@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Header } from './Components/Header/Header';
+import { PostPreview } from './Components/PostPreview/PostPreview';
 import { Home } from './Pages/Home';
 import { Post } from './Pages/Post';
 import { Search } from './Pages/Search';
@@ -15,6 +16,7 @@ function App() {
         <Route path="/post" component={Post}/>
         <Route path="/search" component={Search}/>
         <span>Hola Mundo</span>
+        <PostPreview likes={3} comments={15} title="Macarrones"/>
       </div>
     </Router>
   );
