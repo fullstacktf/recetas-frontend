@@ -8,6 +8,7 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: row;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
 `;
 
 const Brand = styled.div`
