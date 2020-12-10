@@ -1,13 +1,11 @@
 import React from 'react';
-import { LoginForm } from './components/login/LoginForm';
-import { RegisterForm } from './components/login/RegisterForm';
+import { Login } from './pages/Login';
 import './css/fonts.css';
 
 function App(): JSX.Element {
   return (
     <div className="App">
-      <LoginForm/>
-      <RegisterForm/>
+      <Login/>
     </div>
   );
 }
