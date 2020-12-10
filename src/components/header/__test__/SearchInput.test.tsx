@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { SearchInput } from '../SearchInput';
+import { SearchInput } from '../subcomponents/SearchInput';
 
 describe('SearchInput', () => {
   describe('Render', () => {

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { Icons } from '../Icons';
+import { Icons } from '../subcomponents/Icons';
 
 describe('Icons', () => {
   describe('render', () => {

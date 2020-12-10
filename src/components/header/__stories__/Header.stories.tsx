@@ -10,7 +10,6 @@ export default {
   component: Header
 } as Meta;
 
-const Template: Story = (args) => <Header/>;
+const Template: Story = () => <Header/>;
 
 export const Primary = Template.bind({});
-Primary.args = {};

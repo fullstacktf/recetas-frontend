@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
-import { SearchInput } from './SearchInput';
-import { Icons } from './Icons';
+import { SearchInput } from './subcomponents/SearchInput';
+import { Icons } from './subcomponents/Icons';
 
 const Container = styled.div`
   padding: 15px;
