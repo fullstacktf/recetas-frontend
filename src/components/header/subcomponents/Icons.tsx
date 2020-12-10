@@ -1,9 +1,9 @@
-import AddCircle from './assets/add_circle_outline-24px.svg';
-import Account from './assets/account_circle-24px.svg';
-import Bookmark from './assets/bookmark-24px.svg';
-import Chat from './assets/chat-24px.svg';
-import Notifications from './assets/notifications-24px.svg';
-import Home from './assets/home-24px.svg';
+import AddCircle from '../assets/add_circle_outline-24px.svg';
+import Account from '../assets/account_circle-24px.svg';
+import Bookmark from '../assets/bookmark-24px.svg';
+import Chat from '../assets/chat-24px.svg';
+import Notifications from '../assets/notifications-24px.svg';
+import Home from '../assets/home-24px.svg';
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
 import { Link, BrowserRouter as Router } from 'react-router-dom';
