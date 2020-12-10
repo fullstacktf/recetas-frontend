@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
-import { Separator } from './utils/Separator';
-import { Input } from './utils/Input';
-import { Button } from './utils/Button';
-import { InputTag } from './utils/InputTag';
-import { PasswordRestore } from './utils/PasswordRestore';
-import { Form } from './utils/Form';
+import { Separator } from './subcomponents/Separator';
+import { Input } from './subcomponents/Input';
+import { Button } from './subcomponents/Button';
+import { InputTag } from './subcomponents/InputTag';
+import { PasswordRestore } from './subcomponents/PasswordRestore';
+import { Form } from './subcomponents/Form';
 
 // https://api.snapfork.me/static/mediaUtils/login/background.png
 
@@ -39,6 +39,3 @@ export const LoginForm: FC = () => {
     <Button onClick={() => { console.log('click'); }}>¿No tienes una cuenta?<br/><strong>Regístrate</strong></Button>
   </Container>;
 };
-
-// <Input name="email" type="text" value={email} onChange={handleEmailChange} />
-// <Input name="password" type="text" value={password} onChange={handlePasswordChange} />
