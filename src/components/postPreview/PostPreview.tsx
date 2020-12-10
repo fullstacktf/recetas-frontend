@@ -72,7 +72,7 @@ const IconGroup = styled.div`
   color: #bdbdbd;
 `;
 
-interface PostPreviewProps {
+export interface PostPreviewProps {
   likes: number;
   comments: number;
   title: string;
