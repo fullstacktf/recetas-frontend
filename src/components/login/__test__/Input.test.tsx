@@ -1,21 +1,21 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Input } from '../utils/Input';
+import { Input } from '../subcomponents/Input';
 
 describe('Test Input', () => {
   test('should render', () => {
-    render(<Input name="email" type="email" errorMessage="Email invalido" validator={(text: string) => { return true; }}/>);
+    render(<Input name="email" type="email"/>);
   });
 
   test('should be a input', () => {
-    render(<Input name="email" type="email" errorMessage="Email invalido" validator={(text: string) => { return true; }}/>);
+    render(<Input name="email" type="email"/>);
 
     const input = screen.queryByRole('textbox');
     expect(input).not.toBeNull();
   });
 
   test('should not show an error', () => {
-    const errorMessage = 'Email invalido';
-    render(<Input name="email" type="email" errorMessage={errorMessage} validator={(text: string) => { return true; }}/>);
+    const errorMessage = 'Email inválido';
+    render(<Input name="email" type="email"/>);
 
     const input = screen.getByRole('textbox');
     fireEvent.change(input, { target: { value: 'valid@email.com' } });
@@ -24,8 +24,8 @@ describe('Test Input', () => {
   });
 
   test('should show an error', () => {
-    const errorMessage = 'Email invalido';
-    render(<Input name="email" type="email" errorMessage={errorMessage} validator={(text: string) => { return false; }}/>);
+    const errorMessage = 'Email inválido';
+    render(<Input name="email" type="email"/>);
 
     const input = screen.getByRole('textbox');
     fireEvent.change(input, { target: { value: 'invalidEmail' } });
