@@ -1,10 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import Photo from './assets/macarrones-foto-principal.jpg';
-import NoLike from './assets/favorite_border-24px.svg';
+// import NoLike from './assets/favorite_border-24px.svg';
 import Like from './assets/favorite-24px.svg';
 import Comment from './assets/comment-24px.svg';
-import NoSave from './assets/bookmark_border-24px.svg';
+// import NoSave from './assets/bookmark_border-24px.svg';
 import Save from './assets/bookmark-24px.svg';
 
 const Container = styled.div`
@@ -77,23 +76,26 @@ interface PostPreviewProps {
   likes: number;
   comments: number;
   title: string;
+  photo: string;
 }
 
 export const PostPreview: FC<PostPreviewProps> = (props) => {
   const [likes, setLikes] = useState(0);
   const [comments, setComments] = useState(0);
   const [title, setTitle] = useState('');
+  const [photo, setPhoto] = useState('');
 
   useEffect(() => {
     setLikes(props.likes);
     setComments(props.comments);
     setTitle(props.title);
+    setPhoto(props.photo);
     return () => {};
   }, [props]);
 
   return (
     <Container>
-      <Image src={Photo} alt=""/>
+      <Image src={photo} alt=""/>
       <TitleBox>
         <TitleText>{title}</TitleText>
       </TitleBox>
