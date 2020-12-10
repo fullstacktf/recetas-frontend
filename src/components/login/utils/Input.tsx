@@ -1,6 +1,11 @@
 import { FC, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-import { ValidatorResult, isValidEmail, isValidPassword, isValidDefault } from './validations';
+import {
+  ValidatorResult,
+  isValidEmail,
+  isValidPassword,
+  isValidDefault
+} from './validations';
 
 const errorSize = 0.8;
 
@@ -10,7 +15,7 @@ const Container = styled.div`
 `;
 
 const StyledInput = styled.input`
-  border: 2px solid #1762A7;
+  border: 2px solid #1762a7;
   box-sizing: border-box;
   border-radius: 10px;
   height: 2.5em;
@@ -25,14 +30,14 @@ const ErrorContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: ${(errorSize + 0.2) + 'em'};
+  height: ${errorSize + 0.2 + 'em'};
   margin: 0px;
   padding: 5px;
   padding-left: 10px;
 `;
 
 const ErrorIcon = styled.p`
-  font-size: ${(errorSize / 2.6) + 'em'};
+  font-size: ${errorSize / 2.6 + 'em'};
   margin: 0px;
   margin-right: 5px;
 `;
@@ -54,7 +59,9 @@ export const Input: FC<InputProps> = (props) => {
   const [value, setValue] = useState('');
   const [isValid, setIsValid] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
-  const [validator, setValidator] = useState((value: string): any => isValidDefault(value));
+  const [validator, setValidator] = useState(() => (value: string) =>
+    isValidDefault(value)
+  );
 
   useEffect(() => {
     let validationFunction: (value: string) => ValidatorResult;
@@ -70,8 +77,8 @@ export const Input: FC<InputProps> = (props) => {
         validationFunction = isValidDefault;
         break;
     }
-      setValidator((value: string) => validationFunction(value));
-  }, [props.type]);
+    setValidator(() => (value: string) => validationFunction(value));
+  }, [props.type, value]);
 
   const handleValueChange = (event: any) => {
     const inputValue = event.currentTarget.value;
@@ -82,13 +89,20 @@ export const Input: FC<InputProps> = (props) => {
     setErrorMessage(validationResult.message);
   };
 
-  return <Container>
-    <StyledInput name={props.name} type={props.type} value={value} onChange={handleValueChange}/>
-    {!isValid &&
-      <ErrorContainer>
-        <ErrorIcon>{'❌'}</ErrorIcon>
-      <ErrorMessage>{errorMessage}</ErrorMessage>
-      </ErrorContainer>
-    }
-  </Container>;
+  return (
+    <Container>
+      <StyledInput
+        name={props.name}
+        type={props.type}
+        value={value}
+        onChange={handleValueChange}
+      />
+      {!isValid && (
+        <ErrorContainer>
+          <ErrorIcon>{'❌'}</ErrorIcon>
+          <ErrorMessage>{errorMessage}</ErrorMessage>
+        </ErrorContainer>
+      )}
+    </Container>
+  );
 };
