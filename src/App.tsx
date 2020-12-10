@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Header } from './Components/Header/Header';
-import { PostPreview } from './Components/PostPreview/PostPreview';
-import { Home } from './Pages/Home';
-import { Post } from './Pages/Post';
-import { Search } from './Pages/Search';
+import { Header } from './components/header/Header';
+import { PostPreview } from './components/postPreview/PostPreview';
+import { Home } from './pages/Home';
+import { Post } from './pages/Post';
+import { Search } from './pages/Search';
 import './css/fonts.css';
 import { LoginForm } from './components/login/LoginForm';
 import { RegisterForm } from './components/login/RegisterForm';
