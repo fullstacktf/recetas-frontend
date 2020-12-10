@@ -12,7 +12,7 @@ import { Login } from './pages/Login';
 
 function App() {
   return (
-    <Router>
+  <Router>
       <div>
         <Header/>
         <Route exact path="/" component={Home}/>
@@ -26,8 +26,8 @@ function App() {
           title="Macarrones"
           photo="https://api.snapfork.me/static/mediaUtils/login/background.png"
         />
-        <Login/>
       </div>
+      <Login/>
     </Router>
   );
 }

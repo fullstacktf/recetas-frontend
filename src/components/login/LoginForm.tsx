@@ -8,6 +8,13 @@ import { PasswordRestore } from './subcomponents/PasswordRestore';
 import { Form } from './subcomponents/Form';
 
 const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+const FormContainer = styled.div`
   font-family: Poppins;
   font-style: normal;
   font-weight: normal;
@@ -23,16 +30,20 @@ const Container = styled.div`
 
 export const LoginForm: FC = () => {
 
-  return <Container>
-    <Form onSubmit={() => { console.log('Enviando...'); }}>
-      <InputTag>Email:</InputTag>
-      <Input name="email" type="email"></Input>
-      <InputTag>Contraseña:</InputTag>
-      <Input name="password" type="password"></Input>
-      <Button onClick={() => {console.log('click');}}>Iniciar Sesión</Button>
-    </Form>
-    <Separator/>
-    <PasswordRestore href="google.es">¿Olvidates tu contraseña?</PasswordRestore>
-    <Button onClick={() => { console.log('click'); }}>¿No tienes una cuenta?<br/><strong>Regístrate</strong></Button>
-  </Container>;
+  return (
+    <Container>
+      <FormContainer>
+        <Form onSubmit={() => { console.log('Enviando...'); }}>
+          <InputTag>Email:</InputTag>
+          <Input name="email" type="email"></Input>
+          <InputTag>Contraseña:</InputTag>
+          <Input name="password" type="password"></Input>
+          <Button onClick={() => {console.log('click');}}>Iniciar Sesión</Button>
+        </Form>
+        <Separator/>
+        <PasswordRestore href="google.es">¿Olvidates tu contraseña?</PasswordRestore>
+      </FormContainer>
+      <Button onClick={() => { console.log('click'); }}>¿No tienes una cuenta?<br/><strong>Regístrate</strong></Button>
+    </Container>
+  );
 };
