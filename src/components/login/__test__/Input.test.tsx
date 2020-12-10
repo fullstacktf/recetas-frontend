@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Input } from '../utils/Input';
+import { Input } from '../subcomponents/Input';
 
 describe('Test Input', () => {
   test('should render', () => {
@@ -14,7 +14,7 @@ describe('Test Input', () => {
   });
 
   test('should not show an error', () => {
-    const errorMessage = 'Email invalido';
+    const errorMessage = 'Email inválido';
     render(<Input name="email" type="email"/>);
 
     const input = screen.getByRole('textbox');
@@ -24,7 +24,7 @@ describe('Test Input', () => {
   });
 
   test('should show an error', () => {
-    const errorMessage = 'El campo no puede estar vacío';
+    const errorMessage = 'Email inválido';
     render(<Input name="email" type="email"/>);
 
     const input = screen.getByRole('textbox');

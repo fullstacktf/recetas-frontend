@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
-import { InputTag } from './utils/InputTag';
-import { Form } from './utils/Form';
-import { Input } from './utils/Input';
-import { Button } from './utils/Button';
+import { InputTag } from './subcomponents/InputTag';
+import { Form } from './subcomponents/Form';
+import { Input } from './subcomponents/Input';
+import { Button } from './subcomponents/Button';
 
 const Container = styled.div`
   width: 30%;

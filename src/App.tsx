@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Header } from './components/header/Header';
 import { PostPreview } from './components/postPreview/PostPreview';
@@ -6,8 +7,8 @@ import { Home } from './pages/Home';
 import { Post } from './pages/Post';
 import { Search } from './pages/Search';
 import './css/fonts.css';
-import { LoginForm } from './components/login/LoginForm';
-import { RegisterForm } from './components/login/RegisterForm';
+import { Login } from './pages/Login';
+
 
 function App() {
   return (
@@ -25,8 +26,7 @@ function App() {
           title="Macarrones"
           photo="https://api.snapfork.me/static/mediaUtils/login/background.png"
         />
-        <LoginForm/>
-        <RegisterForm/>
+        <Login/>
       </div>
     </Router>
   );

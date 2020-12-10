@@ -2,10 +2,8 @@ import { FC, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import {
   ValidatorResult,
-  isValidEmail,
-  isValidPassword,
-  isValidDefault
-} from './validations';
+  getValidationFunctionByInputType
+} from '../utils/validations';
 
 const errorSize = 0.8;
 
@@ -51,40 +49,43 @@ const ErrorMessage = styled.p`
 interface InputProps {
   name: string;
   type: string;
-  //errorMessage: string;
-  //validator: (value: string) => boolean;
+  validatorFunction?: (value: string) => ValidatorResult;
 }
 
 export const Input: FC<InputProps> = (props) => {
   const [value, setValue] = useState('');
   const [isValid, setIsValid] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
-  const [validator, setValidator] = useState(() => (value: string) =>
-    isValidDefault(value)
-  );
 
-  useEffect(() => {
-    let validationFunction: (value: string) => ValidatorResult;
+  // const [validator, setValidator] = useState(() => (value: string) =>
+  //   isValidDefault(value)
+  // );
 
-    switch (props.type) {
-      case 'email':
-        validationFunction = isValidEmail;
-        break;
-      case 'password':
-        validationFunction = isValidPassword;
-        break;
-      default:
-        validationFunction = isValidDefault;
-        break;
-    }
-    setValidator(() => (value: string) => validationFunction(value));
-  }, [props.type, value]);
+  // useEffect(() => {
+  //   let validationFunction: (value: string) => ValidatorResult;
+
+  //   switch (props.type) {
+  //     case 'email':
+  //       validationFunction = isValidEmail;
+  //       break;
+  //     case 'password':
+  //       validationFunction = isValidPassword;
+  //       break;
+  //     default:
+  //       validationFunction = isValidDefault;
+  //       break;
+  //   }
+  //   setValidator(() => (value: string) => validationFunction(value));
+  // }, [props.type, value]);
+
+  const isInputValid = props.validatorFunction || getValidationFunctionByInputType(props.type);
 
   const handleValueChange = (event: any) => {
     const inputValue = event.currentTarget.value;
     setValue(inputValue);
 
-    const validationResult: ValidatorResult = validator(inputValue);
+    const validationResult: ValidatorResult = isInputValid(inputValue);
+    // const validationResult: ValidatorResult = validator(inputValue);
     setIsValid(validationResult.result);
     setErrorMessage(validationResult.message);
   };

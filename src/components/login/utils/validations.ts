@@ -9,18 +9,32 @@ export class ValidatorResult {
 
 export const isValidEmail = (value: string): ValidatorResult => {
   let result = new ValidatorResult();
-  console.log('Me ejecuto EMAIL');
+  result.message = 'Email inválido';
+  const rexep = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  result.result = rexep.test(String(value).toLowerCase());
   return result;
 };
 
 export const isValidPassword = (value: string): ValidatorResult => {
   let result = new ValidatorResult();
-  console.log('Me ejecuto PASSWORD');
+  result.message = 'Debe contener al menos 8 caracteres';
+  result.result = value.length >= 8;
   return result;
 };
 
 export const isValidDefault = (value: string): ValidatorResult => {
   let result = new ValidatorResult();
-  console.log('Me ejecuto DEFAULT');
+  result.result = value.length !== 0;
   return result;
+};
+
+export const getValidationFunctionByInputType = (type: String) => {
+  switch (type) {
+    case 'email':
+      return isValidEmail;
+    case 'password':
+      return isValidPassword;
+    default:
+      return isValidDefault;
+  }
 };
