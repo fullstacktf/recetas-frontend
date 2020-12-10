@@ -7,10 +7,7 @@ import { InputTag } from './subcomponents/InputTag';
 import { PasswordRestore } from './subcomponents/PasswordRestore';
 import { Form } from './subcomponents/Form';
 
-// https://api.snapfork.me/static/mediaUtils/login/background.png
-
 const Container = styled.div`
-  width: 30%;
   font-family: Poppins;
   font-style: normal;
   font-weight: normal;
