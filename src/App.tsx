@@ -1,9 +1,13 @@
 import React from 'react';
+import { LoginForm } from './components/login/LoginForm';
+import { RegisterForm } from './components/login/RegisterForm';
+import './css/fonts.css';
 
 function App(): JSX.Element {
   return (
     <div className="App">
-      <span>Hola Mundo</span>
+      <LoginForm/>
+      <RegisterForm/>
     </div>
   );
 }
