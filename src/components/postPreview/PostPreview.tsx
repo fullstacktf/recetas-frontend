@@ -94,6 +94,16 @@ export const PostPreview: FC<PostPreviewProps> = (props) => {
     return () => {};
   }, [props]);
 
+  const handleLikeClick = (event: any) => {
+    event.preventDefault();
+    if (!liked) {
+      setLikes(likes + 1);
+    } else {
+      setLikes(likes - 1);
+    }
+    setLiked(!liked);
+  };
+
   return (
     <Container>
       <Image src={photo} alt="Recipe Photo" aria-label="Recipe Photo"/>
@@ -101,17 +111,17 @@ export const PostPreview: FC<PostPreviewProps> = (props) => {
         <TitleText>{title}</TitleText>
       </TitleBox>
       <Icons>
-        <IconGroup>
-          {(liked && <Icon src={Like} alt="Likes" aria-label="Icon"/>)}
-          {(!liked && <Icon src={NoLike} alt="Likes" aria-label="Icon"/>)}
+        <IconGroup onClick={handleLikeClick} aria-label="LikeGroup">
+          {(liked && <Icon src={Like} alt="Likes" aria-label="Like"/>)}
+          {(!liked && <Icon src={NoLike} alt="No Likes" aria-label="NoLike"/>)}
           <span>{likes}</span>
         </IconGroup>
         <IconGroup>
-          <Icon src={Comment} alt="Comment" aria-label="Icon"/>
+          <Icon src={Comment} alt="Comment" aria-label="Comment"/>
           <span>{comments}</span>
         </IconGroup>
         <IconGroup>
-          <Icon src={Save} alt="Save" aria-label="Icon"/>
+          <Icon src={Save} alt="Save" aria-label="Save"/>
         </IconGroup>
       </Icons>
     </Container>

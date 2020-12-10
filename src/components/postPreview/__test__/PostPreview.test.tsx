@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { PostPreview } from '../PostPreview';
 
 const title = 'Macarrones';
@@ -47,7 +47,7 @@ describe('PostPreview', () => {
       expect(image).not.toBeNull();
     });
 
-    test('should render a tree icons', () => {
+    test('should render 4 images', () => {
       render(
         <PostPreview
           likes={likes}
@@ -57,8 +57,8 @@ describe('PostPreview', () => {
         />
       );
 
-      const icons = screen.getAllByLabelText('Icon');
-      expect(icons).toHaveLength(3);
+      const icons = screen.getAllByRole('img');
+      expect(icons).toHaveLength(4);
     });
 
     test('should render a title text', () => {
@@ -73,6 +73,52 @@ describe('PostPreview', () => {
 
       const icons = screen.queryByText(title);
       expect(icons).not.toBeNull();
+    });
+
+    test('should render a NoLike img', () => {
+      render(
+        <PostPreview
+          likes={likes}
+          comments={comments}
+          title={title}
+          photo={photo}
+        />
+      );
+
+      const noLike = screen.queryByLabelText('NoLike');
+      expect(noLike).not.toBeNull();
+    });
+
+    test('should render a Like img', () => {
+      render(
+        <PostPreview
+          likes={likes}
+          comments={comments}
+          title={title}
+          photo={photo}
+        />
+      );
+
+      const likeGroup = screen.getByLabelText('LikeGroup');
+      fireEvent.click(likeGroup);
+      const likeIcon = screen.getByLabelText('Like');
+      expect(likeIcon).not.toBeNull();
+    });
+
+    test('should add a new like', () => {
+      render(
+        <PostPreview
+          likes={likes}
+          comments={comments}
+          title={title}
+          photo={photo}
+        />
+      );
+
+      const likeGroup = screen.getByLabelText('LikeGroup');
+      fireEvent.click(likeGroup);
+      const likeCounter = screen.queryByText(likes + 1);
+      expect(likeCounter).not.toBeNull();
     });
   });
 });
