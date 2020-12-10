@@ -11,7 +11,7 @@ describe('Header', () => {
     test('should render Brand', () => {
       render(<Header/>);
 
-      const brans = screen.getAllByRole('Brand');
+      const brans = screen.getAllByRole('banner');
       expect(brans).toHaveLength(1);
     });
 

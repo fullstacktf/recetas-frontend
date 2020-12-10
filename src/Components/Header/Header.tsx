@@ -28,7 +28,7 @@ const Brand = styled.div`
 export const Header: FC = () => {
   return (
     <Container>
-      <Brand role="Brand">SnapFork</Brand>
+      <Brand role="banner">SnapFork</Brand>
       <SearchInput/>
       <Icons/>
     </Container>

@@ -18,7 +18,7 @@ describe('SearchInput', () => {
   test('should render a input with text User', () => {
     render(<SearchInput/>);
 
-    const input = screen.queryByRole('textbox') as HTMLInputElement;
+    const input = screen.getByRole('textbox') as HTMLInputElement;
     fireEvent.change(input, { target: { value: 'User' } });
     expect(input.value).toBe('User');
   });

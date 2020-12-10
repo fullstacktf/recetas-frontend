@@ -7,7 +7,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint './src/**/*.{ts,tsx}'"
+    "lint": "eslint './src/**/*.{ts,tsx}'",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "repository": {
     "type": "git",
@@ -23,6 +25,7 @@
   "dependencies": {
     "@emotion/react": "^11.1.2",
     "@emotion/styled": "^11.0.0",
+    "@storybook/addon-a11y": "^6.1.10",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.5.0",
@@ -31,6 +34,7 @@
     "@types/react-dom": "^16.9.10",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-image": "^4.0.3",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
@@ -57,10 +61,17 @@
   },
   "devDependencies": {
     "@cowcoders/eslint-config": "^1.2.0",
+    "@storybook/addon-actions": "^6.1.10",
+    "@storybook/addon-essentials": "^6.1.10",
+    "@storybook/addon-links": "^6.1.10",
+    "@storybook/node-logger": "^6.1.10",
+    "@storybook/preset-create-react-app": "^3.1.5",
+    "@storybook/react": "^6.1.10",
     "@types/react": "^16.14.2",
     "@types/react-router": "^5.1.8",
     "@types/react-router-dom": "^5.1.6",
     "eslint": "^7.15.0",
-    "file-loader": "^6.2.0"
+    "file-loader": "^6.2.0",
+    "url-loader": "^4.1.1"
   }
 }
