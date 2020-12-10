@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
-// import NoLike from './assets/favorite_border-24px.svg';
+import NoLike from './assets/favorite_border-24px.svg';
 import Like from './assets/favorite-24px.svg';
 import Comment from './assets/comment-24px.svg';
-// import NoSave from './assets/bookmark_border-24px.svg';
+import NoSave from './assets/bookmark_border-24px.svg';
 import Save from './assets/bookmark-24px.svg';
 
 const Container = styled.div`
@@ -84,6 +84,7 @@ export const PostPreview: FC<PostPreviewProps> = (props) => {
   const [comments, setComments] = useState(0);
   const [title, setTitle] = useState('');
   const [photo, setPhoto] = useState('');
+  const [liked, setLiked] = useState(false);
 
   useEffect(() => {
     setLikes(props.likes);
@@ -95,21 +96,22 @@ export const PostPreview: FC<PostPreviewProps> = (props) => {
 
   return (
     <Container>
-      <Image src={photo} alt=""/>
+      <Image src={photo} alt="Recipe Photo" aria-label="Recipe Photo"/>
       <TitleBox>
         <TitleText>{title}</TitleText>
       </TitleBox>
       <Icons>
         <IconGroup>
-          <Icon src={Like} alt=""/>
+          {(liked && <Icon src={Like} alt="Likes" aria-label="Icon"/>)}
+          {(!liked && <Icon src={NoLike} alt="Likes" aria-label="Icon"/>)}
           <span>{likes}</span>
         </IconGroup>
         <IconGroup>
-          <Icon src={Comment} alt=""/>
+          <Icon src={Comment} alt="Comment" aria-label="Icon"/>
           <span>{comments}</span>
         </IconGroup>
         <IconGroup>
-          <Icon src={Save} alt=""/>
+          <Icon src={Save} alt="Save" aria-label="Icon"/>
         </IconGroup>
       </Icons>
     </Container>

@@ -19,7 +19,7 @@ const IconGroup = styled.div`
 export const Icons: FC = () => {
   return (
     <Router>
-      <IconGroup role="IconGroup">
+      <IconGroup role="navigation">
         <Link to="/post">
           <Icon src={AddCircle} alt="AddCircle"/>
         </Link>

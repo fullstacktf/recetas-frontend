@@ -32,7 +32,7 @@ describe('Header', () => {
     test('should render a icons', () => {
       render(<Header/>);
 
-      const icons = screen.getAllByRole('IconGroup');
+      const icons = screen.getAllByRole('navigation');
       expect(icons).toHaveLength(1);
     });
   });
