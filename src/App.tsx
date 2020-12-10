@@ -6,6 +6,8 @@ import { Home } from './Pages/Home';
 import { Post } from './Pages/Post';
 import { Search } from './Pages/Search';
 import './css/fonts.css';
+import { LoginForm } from './components/login/LoginForm';
+import { RegisterForm } from './components/login/RegisterForm';
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
           title="Macarrones"
           photo="https://api.snapfork.me/static/mediaUtils/login/background.png"
         />
+        <LoginForm/>
+        <RegisterForm/>
       </div>
     </Router>
   );
