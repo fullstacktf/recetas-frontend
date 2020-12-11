@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import styled from '@emotion/styled';
 import { LoginForm } from '../components/login/LoginForm';
 import { Brand } from '../components/header/subcomponents/Brand';
+import { RegisterForm } from '../components/login/RegisterForm';
 
 const Container = styled.div`
   display: grid;
@@ -30,10 +31,20 @@ const Grid3 = styled.div`
 `;
 
 export const Login: FC = () => {
+  const [view, setView] = useState('Login');
+
+  const changeView = () => {
+    setView('Register');
+  };
 
   return <Container>
     <Grid1><Brand fontSize="70px">SnapFork</Brand></Grid1>
     <Grid2/>
-    <Grid3><LoginForm/></Grid3>
+    <Grid3>
+      {view === 'Login'
+        ? <LoginForm onSubmit={() => { console.log('Enviando...'); }} goToRegister={changeView}/>
+        : <RegisterForm onSubmit={() => { console.log('Enviando...'); }}/>
+      }
+    </Grid3>
   </Container>;
 };

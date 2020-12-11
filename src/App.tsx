@@ -12,7 +12,7 @@ import { Login } from './pages/Login';
 
 function App() {
   return (
-  <Router>
+    <Router>
       <div>
         <Header/>
         <Route exact path="/" component={Home}/>
