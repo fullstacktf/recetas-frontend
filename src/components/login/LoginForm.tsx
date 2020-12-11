@@ -6,6 +6,7 @@ import { Button } from './subcomponents/Button';
 import { InputTag } from './subcomponents/InputTag';
 import { PasswordRestore } from './subcomponents/PasswordRestore';
 import { Form } from './subcomponents/Form';
+import { useHistory } from 'react-router-dom';
 
 const Container = styled.div`
   width: 100%;
@@ -30,12 +31,13 @@ const FormContainer = styled.div`
 
 export interface LoginFormProps{
   onSubmit: () => void;
-  goToRegister: () => void;
 }
 
 export const LoginForm: FC<LoginFormProps> = (props) => {
+  const history = useHistory();
+
   const handleClick = () => {
-    props.goToRegister();
+    history.push('/register');
   };
 
   return (

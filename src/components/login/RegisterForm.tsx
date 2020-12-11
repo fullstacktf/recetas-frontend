@@ -4,12 +4,16 @@ import { InputTag } from './subcomponents/InputTag';
 import { Form } from './subcomponents/Form';
 import { Input } from './subcomponents/Input';
 import { Button } from './subcomponents/Button';
+import { useHistory } from 'react-router-dom';
 
 const Container = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
+`;
+
+const SubContainer = styled.div`
   font-family: Poppins;
   font-style: normal;
   font-weight: normal;
@@ -25,11 +29,20 @@ const Container = styled.div`
 
 export interface RegisterFormProps {
   onSubmit: () => void;
+  //goToLogin: () => void;
+  loginUrl?: string;
 }
 
 export const RegisterForm: FC<RegisterFormProps> = (props) =>{
+  const history = useHistory();
+
+  const handleClick = () => {
+    //props.goToLogin();
+    history.push('/login');
+  };
 
   return <Container>
+    <SubContainer>
     <Form onSubmit={props.onSubmit}>
               <InputTag>Email:</InputTag>
               <Input name="email" type="email"/>
@@ -40,6 +53,8 @@ export const RegisterForm: FC<RegisterFormProps> = (props) =>{
               <InputTag>Contraseña:</InputTag>
               <Input name="passwordConfirm" type="password"/>
               <Button type="submit">Registro</Button>
+              <Button secondary={true} onClick={handleClick}>Volver</Button>
             </Form>
+            </SubContainer>
         </Container>;
 };
