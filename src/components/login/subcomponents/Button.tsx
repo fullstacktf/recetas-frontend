@@ -30,15 +30,16 @@ const StyledButton = styled.button`
 `;
 
 interface ButtonProps {
-  onClick: () => void;
+  type?: 'button' | 'submit' | 'reset';
+  onClick?: () => void;
 }
 
 export const Button: FC<ButtonProps> = (props) => {
 
   const hanleOnClick = (event: any) => {
     event.preventDefault();
-    props.onClick();
+    props.onClick && props.onClick();
   };
 
-  return <StyledButton onClick={hanleOnClick}>{props.children}</StyledButton>;
+  return <StyledButton type={props.type} onClick={hanleOnClick}>{props.children}</StyledButton>;
 };
