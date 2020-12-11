@@ -6,7 +6,10 @@ import { Input } from './subcomponents/Input';
 import { Button } from './subcomponents/Button';
 
 const Container = styled.div`
-  width: 30%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   font-family: Poppins;
   font-style: normal;
   font-weight: normal;
@@ -20,10 +23,14 @@ const Container = styled.div`
   padding-top: 20px;
 `;
 
-export const RegisterForm: FC = () =>{
+export interface RegisterFormProps {
+  onSubmit: () => void;
+}
+
+export const RegisterForm: FC<RegisterFormProps> = (props) =>{
 
   return <Container>
-            <Form onSubmit={() => { console.log('Enviando...'); }}>
+    <Form onSubmit={props.onSubmit}>
               <InputTag>Email:</InputTag>
               <Input name="email" type="email"/>
               <InputTag>Repite tu Email:</InputTag>
@@ -32,7 +39,7 @@ export const RegisterForm: FC = () =>{
               <Input name="password" type="password"/>
               <InputTag>Contraseña:</InputTag>
               <Input name="passwordConfirm" type="password"/>
-              <Button onClick={() => { console.log('click'); }}>Registro</Button>
+              <Button type="submit">Registro</Button>
             </Form>
         </Container>;
 };
