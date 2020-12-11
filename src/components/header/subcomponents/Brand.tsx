@@ -11,6 +11,10 @@ const Container = styled.div`
   color: #18a0fb;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
   margin: auto;
+
+  :hover{
+    cursor: pointer;
+  }
 `;
 
 interface BrandProps {
