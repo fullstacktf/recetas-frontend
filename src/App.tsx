@@ -8,6 +8,7 @@ import { Post } from './pages/Post';
 import { Search } from './pages/Search';
 import './css/fonts.css';
 import { Login } from './pages/Login';
+import { PostMakerView } from './pages/PostMakerView';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route exact path="/home" component={Home}/>
         <Route path="/post" component={Post}/>
         <Route path="/search" component={Search}/>
+        <PostMakerView/>
         <span>Hola Mundo</span>
         <PostPreview
           likes={3}
