@@ -28,22 +28,30 @@ const FormContainer = styled.div`
   padding-top: 20px;
 `;
 
-export const LoginForm: FC = () => {
+export interface LoginFormProps{
+  onSubmit: () => void;
+  goToRegister: () => void;
+}
+
+export const LoginForm: FC<LoginFormProps> = (props) => {
+  const handleClick = () => {
+    props.goToRegister();
+  };
 
   return (
     <Container>
       <FormContainer>
-        <Form onSubmit={() => { console.log('Enviando...'); }}>
+        <Form onSubmit={props.onSubmit}>
           <InputTag>Email:</InputTag>
           <Input name="email" type="email"></Input>
           <InputTag>Contraseña:</InputTag>
           <Input name="password" type="password"></Input>
-          <Button onClick={() => {console.log('click');}}>Iniciar Sesión</Button>
+          <Button type="submit">Iniciar Sesión</Button>
         </Form>
         <Separator/>
         <PasswordRestore href="google.es">¿Olvidates tu contraseña?</PasswordRestore>
       </FormContainer>
-      <Button onClick={() => { console.log('click'); }}>¿No tienes una cuenta?<br/><strong>Regístrate</strong></Button>
+      <Button onClick={handleClick}>¿No tienes una cuenta?<br/><strong>Regístrate</strong></Button>
     </Container>
   );
 };
