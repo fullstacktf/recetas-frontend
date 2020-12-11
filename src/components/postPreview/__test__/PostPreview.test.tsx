@@ -120,5 +120,35 @@ describe('PostPreview', () => {
       const likeCounter = screen.queryByText(likes + 1);
       expect(likeCounter).not.toBeNull();
     });
+
+    test('should render a Saved img', () => {
+      render(
+        <PostPreview
+          likes={likes}
+          comments={comments}
+          title={title}
+          photo={photo}
+        />
+      );
+
+      const saveIcon = screen.getByLabelText('NoSaved');
+      expect(saveIcon).not.toBeNull();
+    });
+
+    test('should mark as saved', () => {
+      render(
+        <PostPreview
+          likes={likes}
+          comments={comments}
+          title={title}
+          photo={photo}
+        />
+      );
+
+      const saveGroup = screen.getByLabelText('SaveGroup');
+      fireEvent.click(saveGroup);
+      const savedIcon = screen.getAllByAltText('Saved');
+      expect(savedIcon).not.toBeNull();
+    });
   });
 });
