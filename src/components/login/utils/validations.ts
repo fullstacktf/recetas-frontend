@@ -28,7 +28,7 @@ export const isValidDefault = (value: string): ValidatorResult => {
   return result;
 };
 
-export const getValidationFunctionByInputType = (type: String) => {
+export const getValidationFunctionByInputType = (type: string): (value: string) => ValidatorResult => {
   switch (type) {
     case 'email':
       return isValidEmail;
