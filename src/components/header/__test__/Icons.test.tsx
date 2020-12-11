@@ -1,63 +1,100 @@
 import { render, screen } from '@testing-library/react';
 import { Icons } from '../Icons';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 describe('Icons', () => {
   describe('render', () => {
     test('should render component', () => {
-      render(<Icons/>);
+      render(
+        <Router>
+          <Icons/>
+        </Router>
+      );
     });
 
     test('should render 6 images', () => {
-      render(<Icons/>);
+      render(
+        <Router>
+          <Icons/>
+        </Router>
+      );
 
       const images = screen.getAllByRole('img');
       expect(images).toHaveLength(6);
     });
 
     test('should get a image by alt text "AddCircle"', () => {
-      render(<Icons/>);
+      render(
+        <Router>
+          <Icons/>
+        </Router>
+      );
 
       const images = screen.queryByAltText('AddCircle');
       expect(images).not.toBeNull();
     });
 
     test('should get a image by alt text "Notifications"', () => {
-      render(<Icons/>);
+      render(
+        <Router>
+          <Icons/>
+        </Router>
+      );
 
       const images = screen.queryByAltText('Notifications');
       expect(images).not.toBeNull();
     });
 
     test('should get a image by alt text "Bookmark"', () => {
-      render(<Icons/>);
+      render(
+        <Router>
+          <Icons/>
+        </Router>
+      );
 
       const images = screen.queryByAltText('Bookmark');
       expect(images).not.toBeNull();
     });
 
     test('should get a image by alt text "Account"', () => {
-      render(<Icons/>);
+      render(
+        <Router>
+          <Icons/>
+        </Router>
+      );
 
       const images = screen.queryByAltText('Account');
       expect(images).not.toBeNull();
     });
 
     test('should get a image by alt text "AddCircle"', () => {
-      render(<Icons/>);
+      render(
+        <Router>
+          <Icons/>
+        </Router>
+      );
 
       const images = screen.queryByAltText('AddCircle');
       expect(images).not.toBeNull();
     });
 
     test('should get a image by alt text "Chat"', () => {
-      render(<Icons/>);
+      render(
+        <Router>
+          <Icons/>
+        </Router>
+      );
 
       const images = screen.queryByAltText('Chat');
       expect(images).not.toBeNull();
     });
 
     test('should get a image by alt text "Home"', () => {
-      render(<Icons/>);
+      render(
+        <Router>
+          <Icons/>
+        </Router>
+      );
 
       const images = screen.queryByAltText('Home');
       expect(images).not.toBeNull();
