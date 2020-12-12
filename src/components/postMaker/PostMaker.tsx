@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
-import { Dropzone } from './Dropzone';
+import { ImageInput } from './ImageInput';
 
 export const PostMaker: FC = () => {
   return (
     <div>
-      <Dropzone/>
+      <ImageInput/>
     </div>
   );
 };
