@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import PhotoIcon from './assets/add_a_photo-24px.svg';
+import { ImagePreview } from './ImagePreview';
 
 const HEIGHT = 384;
 const WIDTH = 902;
@@ -19,22 +20,11 @@ const getBorderColor = (props: any) => {
   return '#eeeeee';
 };
 
-const ThumbsContainer = styled.aside``;
-
-const ImgWrap = styled.div``;
-
-const Img = styled.img`
-  height: auto;
-  width: auto;
-  max-height: ${HEIGHT * 0.9}px;
-  max-width: ${WIDTH * 0.9}px;
-`;
-
 const Container = styled.div`
   margin: auto;
   margin-top: 10px;
-  height: 384px;
-  width: 902px;
+  height: ${HEIGHT}px;
+  width: ${WIDTH}px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,15 +56,15 @@ const Text = styled.div`
 `;
 
 export const ImageInput: FC = () => {
-  const [image, setImage] = useState<any[]>([]);
+  const [images, setImage] = useState<any[]>([]);
   const [isImgLoad, setIsImgLoad] = useState(false);
 
-  const onDrop = useCallback((acceptedFiles) => {
-    if (acceptedFiles.length) {
+  const onDrop = useCallback((acceptedImages) => {
+    if (acceptedImages.length) {
       setImage(
-        acceptedFiles.map((file: any) => {
-          return Object.assign(file, {
-            preview: URL.createObjectURL(file)
+        acceptedImages.map((image: any) => {
+          return Object.assign(image, {
+            preview: URL.createObjectURL(image)
           });
         })
       );
@@ -95,22 +85,16 @@ export const ImageInput: FC = () => {
 
   useEffect(
     () => () => {
-      image.forEach((file) => URL.revokeObjectURL(file.preview));
+      images.forEach((image) => URL.revokeObjectURL(image.preview));
     },
-    [image]
+    [images]
   );
-
-  const thumbs = image.map((file) => (
-    <ImgWrap key={file.name}>
-      <Img src={file.preview} alt=""/>
-    </ImgWrap>
-  ));
 
   return (
     <Container {...getRootProps({ isDragActive, isDragAccept, isDragReject })}>
       <input {...getInputProps()} aria-label="dropzone"/>
       {isImgLoad ? (
-        <ThumbsContainer>{thumbs}</ThumbsContainer>
+        <ImagePreview images={images} maxHeight={HEIGHT * 0.9} maxWidth={WIDTH * 0.9}/>
       ) : (
         <Text>
           {isDragActive ? (
