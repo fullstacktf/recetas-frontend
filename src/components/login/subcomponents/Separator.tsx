@@ -13,7 +13,7 @@ const Container = styled.div`
 const Line = styled.div`
   width: 42%;
   height: 0px;
-
+  background-color: #18A0FB;
   border: 1px solid #18A0FB;
 `;
 

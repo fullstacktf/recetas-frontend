@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import { Icons } from '../Icons';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { Icons } from '../subcomponents/Icons';
 
 describe('Icons', () => {
   describe('render', () => {

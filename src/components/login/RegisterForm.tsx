@@ -4,9 +4,16 @@ import { InputTag } from './subcomponents/InputTag';
 import { Form } from './subcomponents/Form';
 import { Input } from './subcomponents/Input';
 import { Button } from './subcomponents/Button';
+import { useHistory } from 'react-router-dom';
 
 const Container = styled.div`
-  width: 30%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+const SubContainer = styled.div`
   font-family: Poppins;
   font-style: normal;
   font-weight: normal;
@@ -20,10 +27,23 @@ const Container = styled.div`
   padding-top: 20px;
 `;
 
-export const RegisterForm: FC = () =>{
+export interface RegisterFormProps {
+  onSubmit: () => void;
+  //goToLogin: () => void;
+  loginUrl?: string;
+}
+
+export const RegisterForm: FC<RegisterFormProps> = (props) =>{
+  const history = useHistory();
+
+  const handleClick = () => {
+    //props.goToLogin();
+    history.push('/login');
+  };
 
   return <Container>
-            <Form onSubmit={() => { console.log('Enviando...'); }}>
+    <SubContainer>
+    <Form onSubmit={props.onSubmit}>
               <InputTag>Email:</InputTag>
               <Input name="email" type="email"/>
               <InputTag>Repite tu Email:</InputTag>
@@ -32,7 +52,9 @@ export const RegisterForm: FC = () =>{
               <Input name="password" type="password"/>
               <InputTag>Contraseña:</InputTag>
               <Input name="passwordConfirm" type="password"/>
-              <Button onClick={() => { console.log('click'); }}>Registro</Button>
+              <Button type="submit">Registro</Button>
+              <Button secondary={true} onClick={handleClick}>Volver</Button>
             </Form>
+            </SubContainer>
         </Container>;
 };

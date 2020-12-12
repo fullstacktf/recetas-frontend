@@ -6,8 +6,16 @@ import { Button } from './subcomponents/Button';
 import { InputTag } from './subcomponents/InputTag';
 import { PasswordRestore } from './subcomponents/PasswordRestore';
 import { Form } from './subcomponents/Form';
+import { useHistory } from 'react-router-dom';
 
 const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+const FormContainer = styled.div`
   font-family: Poppins;
   font-style: normal;
   font-weight: normal;
@@ -21,18 +29,31 @@ const Container = styled.div`
   padding-top: 20px;
 `;
 
-export const LoginForm: FC = () => {
+export interface LoginFormProps{
+  onSubmit: () => void;
+}
 
-  return <Container>
-    <Form onSubmit={() => { console.log('Enviando...'); }}>
-      <InputTag>Email:</InputTag>
-      <Input name="email" type="email"></Input>
-      <InputTag>Contraseña:</InputTag>
-      <Input name="password" type="password"></Input>
-      <Button onClick={() => {console.log('click');}}>Iniciar Sesión</Button>
-    </Form>
-    <Separator/>
-    <PasswordRestore href="google.es">¿Olvidates tu contraseña?</PasswordRestore>
-    <Button onClick={() => { console.log('click'); }}>¿No tienes una cuenta?<br/><strong>Regístrate</strong></Button>
-  </Container>;
+export const LoginForm: FC<LoginFormProps> = (props) => {
+  const history = useHistory();
+
+  const handleClick = () => {
+    history.push('/register');
+  };
+
+  return (
+    <Container>
+      <FormContainer>
+        <Form onSubmit={props.onSubmit}>
+          <InputTag>Email:</InputTag>
+          <Input name="email" type="email"></Input>
+          <InputTag>Contraseña:</InputTag>
+          <Input name="password" type="password"></Input>
+          <Button type="submit">Iniciar Sesión</Button>
+        </Form>
+        <Separator/>
+        <PasswordRestore href="google.es">¿Olvidates tu contraseña?</PasswordRestore>
+      </FormContainer>
+      <Button onClick={handleClick}>¿No tienes una cuenta?<br/><strong>Regístrate</strong></Button>
+    </Container>
+  );
 };

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React, { FC, useEffect, useState } from 'react';
-import SearchImg from './assets/search.svg';
+import SearchImg from '../assets/search.svg';
 import { Redirect } from 'react-router';
 
 const Container = styled.div`
