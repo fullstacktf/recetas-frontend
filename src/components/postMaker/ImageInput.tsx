@@ -21,7 +21,6 @@ const getBorderColor = (props: any) => {
 };
 
 const Container = styled.div`
-  margin: auto;
   margin-top: 10px;
   height: ${HEIGHT}px;
   width: ${WIDTH}px;
@@ -37,7 +36,6 @@ const Container = styled.div`
   border-color: ${(props) => getBorderColor(props)};
   transition: border 0.24s ease-in-out;
 
-  background-color: #fafafa;
   background-image: url(${PhotoIcon});
   background-size: 10%;
   background-position: 50% 15%;
