@@ -5,6 +5,9 @@ import { InputWithIcon } from './InputWithIcon';
 import { TitleInput } from './TitleInput';
 import TimeImage from './assets/query_builder-24px.svg';
 import PeopleImage from './assets/people-24px.svg';
+import { CollapseInput } from './CollapseInput';
+import { DescriptionInput } from './DescriptionInput';
+import { MultipleInput } from './MultipleInput';
 
 const WIDTH: number = 862;
 
@@ -46,12 +49,35 @@ export const PostMaker: FC = () => {
       </SubContainer>
       <SubContainer>
         <InfoContainer>
-            <InputWithIcon
-              image={TimeImage}
-              placeHolder="Tiempo de preparación..."
-            />
-            <InputWithIcon image={PeopleImage} placeHolder="Raciones..."/>
+          <InputWithIcon
+            image={TimeImage}
+            placeHolder="Tiempo de preparación..."
+          />
+          <InputWithIcon image={PeopleImage} placeHolder="Raciones..."/>
         </InfoContainer>
+      </SubContainer>
+      <SubContainer>
+        <Line/>
+      </SubContainer>
+      <SubContainer>
+        <CollapseInput title="DESCRIPCIÓN" width={WIDTH}>
+          <DescriptionInput width={WIDTH}/>
+        </CollapseInput>
+      </SubContainer>
+      <SubContainer>
+        <CollapseInput title="INGREDIENTES" width={WIDTH}>
+          <MultipleInput width={WIDTH}/>
+        </CollapseInput>
+      </SubContainer>
+      <SubContainer>
+        <CollapseInput title="PASOS" width={WIDTH}>
+          <DescriptionInput width={WIDTH}/>
+        </CollapseInput>
+      </SubContainer>
+      <SubContainer>
+        <CollapseInput title="ETIQUETAS" width={WIDTH}>
+          <DescriptionInput width={WIDTH}/>
+        </CollapseInput>
       </SubContainer>
     </Container>
   );
