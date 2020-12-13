@@ -13,7 +13,9 @@ const IconGroup = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 33%;
+  align-items: center;
+  width: 70%;
+  max-width: 500px;
 `;
 
 export const Icons: FC = () => {

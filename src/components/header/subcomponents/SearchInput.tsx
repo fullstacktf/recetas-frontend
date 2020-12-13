@@ -5,14 +5,27 @@ import { Redirect } from 'react-router';
 
 const Container = styled.div`
   align-self: center;
+  width: 60%;
+  height: 50%;
+  min-width: 200px;
+  min-height: 30px;
+  max-width: 500px;
+  max-height: 50px;
+`;
+
+const Form = styled.form`
+  width: 100%;
+  height: 100%;
 `;
 
 const Input = styled.input`
+  width: 100%;
+  height: 100%;
   text-align: center;
   background: #ffffff;
   background-image: url(${SearchImg});
   background-size: contain;
-  background-position: 30%;
+  background-position: 35%;
   background-repeat: no-repeat;
   border: 1px solid rgba(189, 189, 189, 0.1);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
@@ -59,14 +72,14 @@ export const SearchInput: FC = () => {
 
   return (
     <Container>
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Input
           type="text"
           placeholder="Buscar"
           value={value}
           onChange={handleChangeValue}
         />
-      </form>
+      </Form>
       {redirect && <Redirect to="/search"/>}
     </Container>
   );

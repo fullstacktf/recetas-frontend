@@ -6,11 +6,10 @@ const Container = styled.div`
   font-family: Poppins;
   font-style: italic;
   font-weight: bold;
-  font-size: ${(props: BrandProps) => props.fontSize || '24px'};
-  line-height: 26px;
+  font-size: ${(props: BrandProps) => props.fontSize || '2em'};
   color: #18a0fb;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
-  margin: auto;
+  text-align: center;
 
   :hover{
     cursor: pointer;
