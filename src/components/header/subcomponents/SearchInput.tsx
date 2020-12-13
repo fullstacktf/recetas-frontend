@@ -7,7 +7,7 @@ const Container = styled.div`
   align-self: center;
   width: 60%;
   height: 50%;
-  min-width: 200px;
+  min-width: 250px;
   min-height: 30px;
   max-width: 500px;
   max-height: 50px;
