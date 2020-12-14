@@ -1,36 +1,57 @@
 import { Header } from '../Header';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 describe('Header', () => {
   describe('render', () => {
     test('should render component', () => {
-      render(<Header/>);
+      render(
+        <Router>
+          <Header/>
+        </Router>
+      );
     });
 
     test('should render Brand', () => {
-      render(<Header/>);
+      render(
+        <Router>
+          <Header/>
+        </Router>
+      );
 
       const brans = screen.getAllByRole('banner');
       expect(brans).toHaveLength(1);
     });
 
     test('should render a title', () => {
-      render(<Header/>);
+      render(
+        <Router>
+          <Header/>
+        </Router>
+      );
 
       const paragraph = screen.getByText('SnapFork');
       expect(paragraph).toBeInTheDocument();
     });
 
     test('should render a SearchInput', () => {
-      render(<Header/>);
+      render(
+        <Router>
+          <Header/>
+        </Router>
+      );
 
       const input = screen.getAllByRole('textbox');
       expect(input).toHaveLength(1);
     });
 
     test('should render a icons', () => {
-      render(<Header isLogged/>);
+      render(
+        <Router>
+          <Header isLogged/>
+        </Router>
+      );
 
       const icons = screen.getAllByRole('navigation');
       expect(icons).toHaveLength(1);
