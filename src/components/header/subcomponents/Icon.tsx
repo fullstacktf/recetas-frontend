@@ -19,5 +19,5 @@ interface IconProps {
 }
 
 export const Icon: FC<IconProps> = (props) => {
-  return <Container src={props.src}/>;
+  return <Container src={props.src} aria-label={props.alt}/>;
 };

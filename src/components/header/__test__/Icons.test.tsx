@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Icons } from '../subcomponents/Icons';
-import { BrowserRouter as Router } from 'react-router-dom';
 
 describe('Icons', () => {
   describe('render', () => {
@@ -31,7 +30,7 @@ describe('Icons', () => {
         </Router>
       );
 
-      const images = screen.queryByAltText('AddCircle');
+      const images = screen.queryByLabelText('AddCircle');
       expect(images).not.toBeNull();
     });
 
@@ -42,7 +41,7 @@ describe('Icons', () => {
         </Router>
       );
 
-      const images = screen.queryByAltText('Notifications');
+      const images = screen.queryByLabelText('Notifications');
       expect(images).not.toBeNull();
     });
 
@@ -53,7 +52,7 @@ describe('Icons', () => {
         </Router>
       );
 
-      const images = screen.queryByAltText('Bookmark');
+      const images = screen.queryByLabelText('Bookmark');
       expect(images).not.toBeNull();
     });
 
@@ -64,7 +63,7 @@ describe('Icons', () => {
         </Router>
       );
 
-      const images = screen.queryByAltText('Account');
+      const images = screen.queryByLabelText('Account');
       expect(images).not.toBeNull();
     });
 
@@ -75,7 +74,7 @@ describe('Icons', () => {
         </Router>
       );
 
-      const images = screen.queryByAltText('AddCircle');
+      const images = screen.queryByLabelText('AddCircle');
       expect(images).not.toBeNull();
     });
 
@@ -86,7 +85,7 @@ describe('Icons', () => {
         </Router>
       );
 
-      const images = screen.queryByAltText('Chat');
+      const images = screen.queryByLabelText('Chat');
       expect(images).not.toBeNull();
     });
 
@@ -97,7 +96,7 @@ describe('Icons', () => {
         </Router>
       );
 
-      const images = screen.queryByAltText('Home');
+      const images = screen.queryByLabelText('Home');
       expect(images).not.toBeNull();
     });
   });
