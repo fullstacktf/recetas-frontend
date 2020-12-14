@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import {css, SerializedStyles} from '@emotion/react';
 import { FC } from 'react';
 import { formatStatistic } from '../utils/statisticFormater';
 
@@ -42,39 +41,6 @@ const ContentWithOutIcon = styled.div`
 export interface StatisticProps {
   number: number;
   icon?: boolean;
-}
-
-function getNumberCSS(icon: boolean = false): SerializedStyles {
-  if(icon){
-    return css`
-              // display: flex;
-              // justify-content: flex-end;
-              text-align: left;
-              padding-right: 10px;
-              background: red;
-            `;
-  }else{
-    return css`
-              // display: flex;
-              // justify-content: flex-start;
-              text-align: right;
-              background: blue;
-            `;
-  }
-}
-
-function getContentCSS(icon: boolean = false): SerializedStyles {
-  if (icon) {
-    return css`
-              text-align: left;
-              font-size: 1.4em;
-              background: red;
-              `;
-  } else {
-    return css`
-              text-align: right;
-              `;
-  }
 }
 
 export const Statistic: FC<StatisticProps> = (props) => {
