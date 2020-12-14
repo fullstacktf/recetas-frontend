@@ -30,7 +30,7 @@ describe('Header', () => {
     });
 
     test('should render a icons', () => {
-      render(<Header/>);
+      render(<Header isLogged/>);
 
       const icons = screen.getAllByRole('navigation');
       expect(icons).toHaveLength(1);

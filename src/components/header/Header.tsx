@@ -12,21 +12,6 @@ const Container = styled.div`
   flex-direction: row;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
 `;
-/*
-const Brand = styled.div`
-  background: white;
-  display: flex;
-  align-items: center;
-  width: 33%;
-  font-family: Poppins;
-  font-style: italic;
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 26px;
-  color: #18a0fb;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
-`;
-*/
 
 const ButtonsContainer = styled.div`
   width: 70%;
@@ -58,14 +43,14 @@ const Row3 = styled.div`
 `;
 
 export interface HeaderProps{
-  isLogged: boolean;
+  isLogged?: boolean;
 }
 
 export const Header: FC<HeaderProps> = (props) => {
 
   return (
     <Container>
-      <Row1>
+      <Row1 role="banner">
         <Brand>SnapFork</Brand>
       </Row1>
       <Row2>
