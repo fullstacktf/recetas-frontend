@@ -14,7 +14,7 @@ describe('Header', () => {
     });
 
     test('should render Brand', () => {
-            render(
+      render(
         <Router>
           <Header/>
         </Router>
@@ -25,7 +25,7 @@ describe('Header', () => {
     });
 
     test('should render a title', () => {
-            render(
+      render(
         <Router>
           <Header/>
         </Router>
@@ -36,7 +36,7 @@ describe('Header', () => {
     });
 
     test('should render a SearchInput', () => {
-            render(
+      render(
         <Router>
           <Header/>
         </Router>
@@ -47,9 +47,9 @@ describe('Header', () => {
     });
 
     test('should render a icons', () => {
-            render(
+      render(
         <Router>
-          <Header/>
+          <Header isLogged/>
         </Router>
       );
 

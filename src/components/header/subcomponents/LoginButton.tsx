@@ -1,20 +1,20 @@
-import React, { FC} from 'react';
+import { FC } from 'react';
 import styled from '@emotion/styled';
 
 const StyledButton = styled.button<any>`
   width: 100%;
+  max-width: 200px;
+  max-height: 50px;
   text-align: center;
-  font-size: 1em;
+  font-size: 0.8em;
+  font-weight: bolder;
 
   color:  ${(props) => props.secondary ? '#18A0FB;' : '#FFFFFF;'};
   background: ${(props) => props.secondary ? '#FFFFFF;' : '#18A0FB;'};
-  border-radius: 10px;
   border: 0.5px solid #18A0FB;;
   box-sizing: border-box;
-
-  margin-top: 2em;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 10px;
+  margin: 5px;
 
   :hover{
     cursor: pointer;
@@ -29,17 +29,15 @@ const StyledButton = styled.button<any>`
   }
 `;
 
-interface ButtonProps {
-  type?: 'button' | 'submit' | 'reset';
+interface LoginButtonProps {
+  onclick: () => void;
   secondary?: boolean;
-  onClick?: () => void;
 }
 
-export const Button: FC<ButtonProps> = (props) => {
-
-  const hanleOnClick = (event: any) => {
-    props.onClick && props.onClick();
+export const LoginButton: FC<LoginButtonProps> = (props) => {
+  const handleClick = () => {
+    props.onclick();
   };
 
-  return <StyledButton secondary={props.secondary} type={props.type} onClick={hanleOnClick}>{props.children}</StyledButton>;
+  return <StyledButton secondary={props.secondary} onClick={handleClick}>{props.children}</StyledButton>;
 };

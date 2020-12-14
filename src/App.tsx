@@ -14,23 +14,25 @@ import { PostMakerView } from './pages/PostMakerView';
 function App() {
   const [isLogged, setIsLogged] = useState(true);
 
-  useEffect(() => {
+  /*useEffect(() => {
     const result = false;
     //result = getIsUserLoged(); // TODO Comprobar si el usuario se encuentra logueado
     setIsLogged(result);
-  }, []);
+  },[]);*/
 
   return (
     <Router>
       {isLogged ? (
         <div>
-          <Header/>
+          <Header isLogged={isLogged}/>
+          <Route exact path="/" component={Home}/>
           <Route exact path="/home" component={Home}/>
           <Route path="/post" component={Post}/>
           <Route path="/search" component={Search}/>
         </div>
       ) : (
         <div>
+          <Route exact path="/" component={Login}/>
           <Route path="/login" component={Login}/>
           <Route path="/register" component={Register}/>
         </div>

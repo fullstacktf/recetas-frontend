@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { InputTag } from './subcomponents/InputTag';
 import { Form } from './subcomponents/Form';
 import { Input } from './subcomponents/Input';
-import { Button } from './subcomponents/Button';
+import { Button } from '../../subcomponents/Button';
 import { useHistory } from 'react-router-dom';
 
 const Container = styled.div`
@@ -52,8 +52,8 @@ export const RegisterForm: FC<RegisterFormProps> = (props) =>{
               <Input name="password" type="password"/>
               <InputTag>Contraseña:</InputTag>
               <Input name="passwordConfirm" type="password"/>
-              <Button type="submit">Registro</Button>
-              <Button secondary={true} onClick={handleClick}>Volver</Button>
+              <Button rounded type="submit">Registro</Button>
+              <Button rounded secondary onClick={handleClick}>Volver</Button>
             </Form>
             </SubContainer>
         </Container>;

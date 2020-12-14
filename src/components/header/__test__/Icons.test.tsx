@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Icons } from '../subcomponents/Icons';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 describe('Icons', () => {
   describe('render', () => {
@@ -12,14 +13,14 @@ describe('Icons', () => {
       );
     });
 
-    test('should render 6 images', () => {
+    test('should render 6 "buttons"', () => {
       render(
         <Router>
           <Icons/>
         </Router>
       );
 
-      const images = screen.getAllByRole('img');
+      const images = screen.getAllByRole('button');
       expect(images).toHaveLength(6);
     });
 
