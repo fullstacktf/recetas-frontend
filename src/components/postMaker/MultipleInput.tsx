@@ -35,7 +35,7 @@ const SubContainer = styled.div`
   flex-direction: row;
 `;
 
-const Button = styled.button<any>`
+const Button = styled.button`
   margin: 5%;
   width: 244px;
   height: 64px;
@@ -70,26 +70,54 @@ export interface MultipleInputProps {
   width: number;
 }
 
-export const MultipleInput: FC<MultipleInputProps> = (props) => {
+const DynamicInputs = (props: any) => {
   const [value, setValue] = useState('');
 
   const handleChangeValue = (event: any) => {
+    event.preventDefault();
     setValue(event.currentTarget.value);
   };
 
   return (
+    <SubContainer>
+      <Input
+        value={value}
+        placeholder="Descripción..."
+        aria-label="description-input"
+        onChange={handleChangeValue}
+        width={props.width}
+      />
+      <RemoveButton onClick={props.remove} id={props.inputKey}> X </RemoveButton>
+    </SubContainer>
+  );
+};
+
+export const MultipleInput: FC<MultipleInputProps> = (props) => {
+  const [inputs, setInputs] = useState<any[]>([]);
+
+  const generateKey = (pre: any) => {
+    return `${ pre }_${ new Date().getTime() }`;
+  };
+
+  const appendInput = () => {
+    let newInput = generateKey('input');
+    setInputs(inputs.concat([newInput]));
+  };
+
+  const handleRemoveInput = (event: any) => {
+    event.preventDefault();
+    console.log(event.currentTarget.id);
+    setInputs(inputs.filter((input) => input !== event.currentTarget.id));
+  };
+
+  return (
     <Container>
-      <SubContainer>
-        <Input
-          value={value}
-          placeholder="Descripción..."
-          aria-label="description-input"
-          onChange={handleChangeValue}
-          width={props.width}
-        />
-        <RemoveButton> X </RemoveButton>
-      </SubContainer>
-      <Button> + INGREDIENTE </Button>
+      <form>
+        {inputs.map((input: any) => (
+          <DynamicInputs key={input} inputKey={input} width={props.width} remove={handleRemoveInput}/>
+        ))}
+      </form>
+      <Button onClick={appendInput}> + INGREDIENTE </Button>
     </Container>
   );
 };
