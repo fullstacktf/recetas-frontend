@@ -7,60 +7,11 @@ describe('Icons', () => {
       render(<Icons/>);
     });
 
-    test('should render 6 images', () => {
+    test('should render 6 "buttons"', () => {
       render(<Icons/>);
 
-      const images = screen.getAllByRole('img');
+      const images = screen.getAllByRole('button');
       expect(images).toHaveLength(6);
-    });
-
-    test('should get a image by alt text "AddCircle"', () => {
-      render(<Icons/>);
-
-      const images = screen.queryByAltText('AddCircle');
-      expect(images).not.toBeNull();
-    });
-
-    test('should get a image by alt text "Notifications"', () => {
-      render(<Icons/>);
-
-      const images = screen.queryByAltText('Notifications');
-      expect(images).not.toBeNull();
-    });
-
-    test('should get a image by alt text "Bookmark"', () => {
-      render(<Icons/>);
-
-      const images = screen.queryByAltText('Bookmark');
-      expect(images).not.toBeNull();
-    });
-
-    test('should get a image by alt text "Account"', () => {
-      render(<Icons/>);
-
-      const images = screen.queryByAltText('Account');
-      expect(images).not.toBeNull();
-    });
-
-    test('should get a image by alt text "AddCircle"', () => {
-      render(<Icons/>);
-
-      const images = screen.queryByAltText('AddCircle');
-      expect(images).not.toBeNull();
-    });
-
-    test('should get a image by alt text "Chat"', () => {
-      render(<Icons/>);
-
-      const images = screen.queryByAltText('Chat');
-      expect(images).not.toBeNull();
-    });
-
-    test('should get a image by alt text "Home"', () => {
-      render(<Icons/>);
-
-      const images = screen.queryByAltText('Home');
-      expect(images).not.toBeNull();
     });
   });
 });

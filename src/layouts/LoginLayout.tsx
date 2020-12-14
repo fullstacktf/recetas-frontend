@@ -13,6 +13,7 @@ const Container = styled.div`
 const Grid1 = styled.div`
   grid-area: 2 / 6 / 3 / 9;
   display: flex;
+  margin: auto;
 `;
 const Grid2 = styled.div`
   grid-area: 4 / 2 / 7 / 5;
