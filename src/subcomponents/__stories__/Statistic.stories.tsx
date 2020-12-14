@@ -24,5 +24,5 @@ WithIcon.args = {
 export const WithText = Template.bind({});
 WithText.args = {
   number: 14,
-  children: [<p>publicaciones</p>]
+  children: [<span>publicaciones</span>]
 };

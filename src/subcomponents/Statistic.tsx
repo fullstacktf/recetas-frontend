@@ -3,38 +3,40 @@ import {css, SerializedStyles} from '@emotion/react';
 import { FC } from 'react';
 import { formatStatistic } from '../utils/statisticFormater';
 
-const Container = styled.div`
+const Container = styled.div<any>`
   display: flex;
-  flex-direction: row;
+  flex-direction: ${(props) => props.icon ? 'row' : 'row-reverse'};
   align-items: center;
-
   font-family: Poppins;
   font-size: 1em;
   color: black;
 `;
 
-const Number = styled.div`
+const NumberWithIcon = styled.div`
+  font-weight: bold;
+  width: 60%;
+  text-align: left;
+  font-size: 1.4em;
+`;
+
+const NumberWithOutIcon = styled.div`
   font-weight: bold;
   width: 40%;
-
-  // SIN ICONO
-  // text-align: right;
-
-  // CON ICONO
-  // text-align: left;
-  // font-size: 1.4em;
+  text-align: right;
 `;
-const Content = styled.div`
+
+const ContentWithIcon = styled.div`
+  width: 40%;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 15px;
+`;
+
+const ContentWithOutIcon = styled.div`
   width: 60%;
-
-  // SIN ICONO
-  // text-align: left;
-  // margin-left: 15px;
-
-  // CON ICONO
-  // display: flex;
-  // justify-content: flex-end;
-  // padding-right: 10px;
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 15px;
 `;
 
 export interface StatisticProps {
@@ -76,8 +78,14 @@ function getContentCSS(icon: boolean = false): SerializedStyles {
 }
 
 export const Statistic: FC<StatisticProps> = (props) => {
-  return <Container>
-    <Content css={getContentCSS(props.icon)}>{props.children}</Content>
-    <Number css={getNumberCSS(props.icon)}>{formatStatistic(props.number)}</Number>
+  return <Container icon={props.icon}>
+    {props.icon
+      ? <ContentWithIcon>{props.children}</ContentWithIcon>
+      : <ContentWithOutIcon>{props.children}</ContentWithOutIcon>
+    }
+    {props.icon
+      ? <NumberWithIcon>{formatStatistic(props.number)}</NumberWithIcon>
+      : <NumberWithOutIcon>{formatStatistic(props.number)}</NumberWithOutIcon>
+    }
   </Container>;
 };
