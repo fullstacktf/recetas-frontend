@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import {
   ValidatorResult,
   getValidationFunctionByInputType
-} from '../utils/validations';
+} from '../../../utils/validations';
 
 const errorSize = 0.8;
 
