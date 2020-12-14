@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styled from '@emotion/styled';
 import { Separator } from './subcomponents/Separator';
 import { Input } from './subcomponents/Input';
-import { Button } from './subcomponents/Button';
+import { Button } from '../../subcomponents/Button';
 import { InputTag } from './subcomponents/InputTag';
 import { PasswordRestore } from './subcomponents/PasswordRestore';
 import { Form } from './subcomponents/Form';
@@ -48,12 +48,12 @@ export const LoginForm: FC<LoginFormProps> = (props) => {
           <Input name="email" type="email"></Input>
           <InputTag>Contraseña:</InputTag>
           <Input name="password" type="password"></Input>
-          <Button type="submit">Iniciar Sesión</Button>
+          <Button rounded type="submit">Iniciar Sesión</Button>
         </Form>
         <Separator/>
         <PasswordRestore href="google.es">¿Olvidates tu contraseña?</PasswordRestore>
       </FormContainer>
-      <Button onClick={handleClick}>¿No tienes una cuenta?<br/><strong>Regístrate</strong></Button>
+      <Button rounded onClick={handleClick}>¿No tienes una cuenta?<br/><strong>Regístrate</strong></Button>
     </Container>
   );
 };
