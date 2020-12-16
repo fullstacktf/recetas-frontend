@@ -1,38 +1,11 @@
 import React, { FC, useState } from 'react';
 import styled from '@emotion/styled';
-
-const Input = styled.input<any>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: ${(props) => props.width * 0.9}px;
-  max-width: ${(props) => props.width * 0.9}px;
-  min-width: ${(props) => props.width * 0.9}px;
-  height: auto;
-  outline: none;
-  border: 0px;
-  border-radius: 0px 0px 25px 25px;
-  font-family: Poppins;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 36px;
-  color: #bdbdbd;
-`;
-
+import { DynamicInputs } from './DynamicInputs';
 const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-`;
-
-const SubContainer = styled.div`
-  margin-top: 5%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: row;
 `;
 
 const Button = styled.button`
@@ -53,50 +26,16 @@ const Button = styled.button`
   outline: none;
 `;
 
-const RemoveButton = styled.button<any>`
-  background: #ffffff;
-  border: 0px;
-  font-family: Poppins;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 36px;
-  color: #000000;
-  text-align: center;
-  outline: none;
-`;
-
 export interface MultipleInputProps {
   width: number;
+  elementName: string;
 }
-
-const DynamicInputs = (props: any) => {
-  const [value, setValue] = useState('');
-
-  const handleChangeValue = (event: any) => {
-    event.preventDefault();
-    setValue(event.currentTarget.value);
-  };
-
-  return (
-    <SubContainer>
-      <Input
-        value={value}
-        placeholder="Descripción..."
-        aria-label="description-input"
-        onChange={handleChangeValue}
-        width={props.width}
-      />
-      <RemoveButton onClick={props.remove} id={props.inputKey}> X </RemoveButton>
-    </SubContainer>
-  );
-};
 
 export const MultipleInput: FC<MultipleInputProps> = (props) => {
   const [inputs, setInputs] = useState<any[]>([]);
 
   const generateKey = (pre: any) => {
-    return `${ pre }_${ new Date().getTime() }`;
+    return `${pre}_${new Date().getTime()}`;
   };
 
   const appendInput = () => {
@@ -106,18 +45,26 @@ export const MultipleInput: FC<MultipleInputProps> = (props) => {
 
   const handleRemoveInput = (event: any) => {
     event.preventDefault();
-    console.log(event.currentTarget.id);
     setInputs(inputs.filter((input) => input !== event.currentTarget.id));
   };
 
   return (
     <Container>
       <form>
-        {inputs.map((input: any) => (
-          <DynamicInputs key={input} inputKey={input} width={props.width} remove={handleRemoveInput}/>
+        {inputs.map((input: any, index: number) => (
+          <DynamicInputs
+            index={index}
+            placeholder={props.elementName}
+            key={input}
+            inputKey={input}
+            width={props.width}
+            remove={handleRemoveInput}
+          />
         ))}
       </form>
-      <Button onClick={appendInput}> + INGREDIENTE </Button>
+      <Button onClick={appendInput}>
+        + {props.elementName.toLocaleUpperCase()}
+      </Button>
     </Container>
   );
 };

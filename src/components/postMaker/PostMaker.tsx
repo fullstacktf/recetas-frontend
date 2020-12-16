@@ -66,12 +66,12 @@ export const PostMaker: FC = () => {
       </SubContainer>
       <SubContainer>
         <CollapseInput title="INGREDIENTES" width={WIDTH}>
-          <MultipleInput width={WIDTH}/>
+          <MultipleInput width={WIDTH} elementName="ingrediente"/>
         </CollapseInput>
       </SubContainer>
       <SubContainer>
         <CollapseInput title="PASOS" width={WIDTH}>
-          <DescriptionInput width={WIDTH}/>
+          <MultipleInput width={WIDTH} elementName="paso"/>
         </CollapseInput>
       </SubContainer>
       <SubContainer>
