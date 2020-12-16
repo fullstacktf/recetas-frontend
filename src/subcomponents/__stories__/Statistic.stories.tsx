@@ -12,7 +12,7 @@ export default {
   component: Statistic
 } as Meta;
 
-const Template: Story<StatisticProps> = (args) => <Statistic {...args}/>;
+const Template: Story<StatisticProps & any> = (args) => <Statistic {...args}/>;
 
 export const WithIcon = Template.bind({});
 WithIcon.args = {

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { FC } from 'react';
 import { Button } from '../../subcomponents/Button';
-import { Statistic } from './subcomponents/ Statistic';
+import { Statistic } from '../../subcomponents/Statistic';
 
 const Container = styled.div`
   width: 100%;
@@ -43,7 +43,12 @@ const StatisticContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  //justify-content: space-between;
+`;
+
+const StatisticSubContainer = styled.div`
+  width: 33%;
+  margin: auto;
 `;
 
 const DescriptionContainer = styled.div`
@@ -72,9 +77,9 @@ export const ProfileInfoBar: FC<ProfileInfoBarProps> = (props) => {
     <Column1>{props.profileInfo.username || 'Imar Abreu'}</Column1>
             <Column2>
               <StatisticContainer>
-                <Statistic number={props.profileInfo.posts} description={'publicaciones'}/>
-                <Statistic number={props.profileInfo.followers} description={'seguidores'}/>
-                <Statistic number={props.profileInfo.following} description={'seguidos'}/>
+                <StatisticSubContainer><Statistic number={props.profileInfo.posts}><span>publicaciones</span></Statistic></StatisticSubContainer>
+                <StatisticSubContainer><Statistic number={props.profileInfo.followers}><span>seguidores</span></Statistic></StatisticSubContainer>
+                <StatisticSubContainer><Statistic number={props.profileInfo.following}><span>seguidos</span></Statistic></StatisticSubContainer>
               </StatisticContainer>
               <DescriptionContainer> {props.profileInfo.description} </DescriptionContainer>
             </Column2>
