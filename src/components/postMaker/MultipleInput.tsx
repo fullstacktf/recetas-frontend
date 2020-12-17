@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import styled from '@emotion/styled';
 import { DynamicInputs } from './DynamicInputs';
+
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -29,10 +30,13 @@ const Button = styled.button`
 export interface MultipleInputProps {
   width: number;
   elementName: string;
+  numeric: boolean;
+  setValues: (values: string[]) => void;
 }
 
 export const MultipleInput: FC<MultipleInputProps> = (props) => {
   const [inputs, setInputs] = useState<any[]>([]);
+  const [values, setValues] = useState<any>({});
 
   const generateKey = (pre: any) => {
     return `${pre}_${new Date().getTime()}`;
@@ -48,14 +52,35 @@ export const MultipleInput: FC<MultipleInputProps> = (props) => {
     setInputs(inputs.filter((input) => input !== event.currentTarget.id));
   };
 
+  const numeric = (props: MultipleInputProps, index: number): string => {
+    return props.numeric ? index + 1 + '.' : '';
+  };
+
+  const getValues = () => {
+    const array = [];
+    for (const key in values) {
+      array.push(values[key]);
+    }
+    return array;
+  };
+
+  const addValue = (value: string, key: string) => {
+    const result = Object.assign(values, {
+      [key]: value
+    });
+    setValues(result);
+    props.setValues(getValues());
+  };
+
   return (
     <Container>
       <form>
         {inputs.map((input: any, index: number) => (
           <DynamicInputs
-            index={index}
-            placeholder={props.elementName}
             key={input}
+            addValue={addValue}
+            index={numeric(props, index)}
+            placeholder={props.elementName}
             inputKey={input}
             width={props.width}
             remove={handleRemoveInput}

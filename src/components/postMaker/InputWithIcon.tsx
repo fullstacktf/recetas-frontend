@@ -37,6 +37,7 @@ const Container = styled.div`
 export interface InputWithIconProps {
   image: string;
   placeHolder: string;
+  setValue: (value: string) => void;
 }
 
 export const InputWithIcon: FC<InputWithIconProps> = (props) => {
@@ -44,6 +45,7 @@ export const InputWithIcon: FC<InputWithIconProps> = (props) => {
 
   const handleChangeValue = (event: any) => {
     setValue(event.currentTarget.value);
+    props.setValue(event.currentTarget.value);
   };
 
   return (

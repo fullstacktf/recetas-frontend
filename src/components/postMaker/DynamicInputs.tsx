@@ -55,8 +55,9 @@ const NumberList = styled.span<any>`
 
 interface DynamicInputsProps {
   width: number;
-  index: number;
+  index: string;
   remove: (event: any) => void;
+  addValue: (value: string, key: string) => void;
   inputKey: string;
   placeholder: string;
 }
@@ -67,6 +68,7 @@ export const DynamicInputs: FC<DynamicInputsProps> = (props) => {
   const handleChangeValue = (event: any) => {
     event.preventDefault();
     setValue(event.currentTarget.value);
+    props.addValue(event.currentTarget.value, props.inputKey);
   };
 
   const capitalize = (string: string) => {
@@ -75,7 +77,7 @@ export const DynamicInputs: FC<DynamicInputsProps> = (props) => {
 
   return (
     <SubContainer>
-      <NumberList>{props.index}.</NumberList>
+      <NumberList>{props.index}</NumberList>
       <Input
         value={value}
         placeholder={capitalize(props.placeholder) + '...'}

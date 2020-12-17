@@ -19,13 +19,16 @@ const Input = styled.input`
   box-shadow: 0px 0px 7px 4px rgba(0, 0, 0, 0.1);
 `;
 
-export interface TitleInputProps {}
+export interface TitleInputProps {
+  setTitle: (title: string) => void;
+}
 
 export const TitleInput: FC<TitleInputProps> = (props) => {
   const [value, setValue] = useState('');
 
   const handleChangeValue = (event: any) => {
     setValue(event.currentTarget.value);
+    props.setTitle(event.currentTarget.value);
   };
 
   return (

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { ImageInput } from './ImageInput';
 import { InputWithIcon } from './InputWithIcon';
 import { TitleInput } from './TitleInput';
@@ -35,14 +35,64 @@ const Line = styled.div`
   border: 1px solid #bdbdbd;
 `;
 
+const Button = styled.button<any>`
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.5em;
+  line-height: 1.5em;
+  text-align: center;
+  color: ${(props) => (props.secondary ? '#18A0FB;' : '#FFFFFF;')};
+  background: ${(props) => (props.secondary ? '#FFFFFF;' : '#18A0FB;')};
+  border: 0.5px solid #18a0fb;
+  padding: 10px 30px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+
+  :hover {
+    cursor: pointer;
+  }
+
+  :focus {
+    outline: none;
+  }
+
+  :active {
+    background: ${(props) => (props.secondary ? '#dadada;' : '#2ba6f8;')};
+  }
+`;
+
 export const PostMaker: FC = () => {
+  const [image, setImage] = useState<any>('');
+  const [title, setTitle] = useState<string>('');
+  const [time, setTime] = useState<string>('');
+  const [servings, setServings] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  const [ingredients, setIngredients] = useState<string[]>([]);
+  const [steps, setSteps] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>([]);
+
+  const handleSubmit = (event: Event) => {
+    event.preventDefault();
+    console.log(
+      'Enviar',
+      image,
+      title,
+      time,
+      servings,
+      description,
+      ingredients,
+      steps,
+      tags
+    );
+  };
+
   return (
     <Container>
       <SubContainer>
-        <ImageInput/>
+        <ImageInput setImage={setImage}/>
       </SubContainer>
       <SubContainer>
-        <TitleInput/>
+        <TitleInput setTitle={setTitle}/>
       </SubContainer>
       <SubContainer>
         <Line/>
@@ -50,10 +100,15 @@ export const PostMaker: FC = () => {
       <SubContainer>
         <InfoContainer>
           <InputWithIcon
+            setValue={setTime}
             image={TimeImage}
             placeHolder="Tiempo de preparación..."
           />
-          <InputWithIcon image={PeopleImage} placeHolder="Raciones..."/>
+          <InputWithIcon
+            setValue={setServings}
+            image={PeopleImage}
+            placeHolder="Raciones..."
+          />
         </InfoContainer>
       </SubContainer>
       <SubContainer>
@@ -61,23 +116,41 @@ export const PostMaker: FC = () => {
       </SubContainer>
       <SubContainer>
         <CollapseInput title="DESCRIPCIÓN" width={WIDTH}>
-          <DescriptionInput width={WIDTH}/>
+          <DescriptionInput setDescription={setDescription} width={WIDTH}/>
         </CollapseInput>
       </SubContainer>
       <SubContainer>
         <CollapseInput title="INGREDIENTES" width={WIDTH}>
-          <MultipleInput width={WIDTH} elementName="ingrediente"/>
+          <MultipleInput
+            setValues={setIngredients}
+            numeric={true}
+            width={WIDTH}
+            elementName="ingrediente"
+          />
         </CollapseInput>
       </SubContainer>
       <SubContainer>
         <CollapseInput title="PASOS" width={WIDTH}>
-          <MultipleInput width={WIDTH} elementName="paso"/>
+          <MultipleInput
+            setValues={setSteps}
+            numeric={true}
+            width={WIDTH}
+            elementName="paso"
+          />
         </CollapseInput>
       </SubContainer>
       <SubContainer>
         <CollapseInput title="ETIQUETAS" width={WIDTH}>
-          <DescriptionInput width={WIDTH}/>
+          <MultipleInput
+            setValues={setTags}
+            numeric={false}
+            width={WIDTH}
+            elementName="etiqueta"
+          />
         </CollapseInput>
+      </SubContainer>
+      <SubContainer>
+        <Button onClick={handleSubmit}>Crear</Button>
       </SubContainer>
     </Container>
   );

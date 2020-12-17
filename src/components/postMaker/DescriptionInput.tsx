@@ -21,6 +21,7 @@ const Input = styled.textarea<any>`
 
 export interface DescriptionInputProps {
   width: number;
+  setDescription: (value: string) => void;
 }
 
 export const DescriptionInput: FC<DescriptionInputProps> = (props) => {
@@ -28,6 +29,7 @@ export const DescriptionInput: FC<DescriptionInputProps> = (props) => {
 
   const handleChangeValue = (event: any) => {
     setValue(event.currentTarget.value);
+    props.setDescription(event.currentTarget.value);
   };
 
   return (

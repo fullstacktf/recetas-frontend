@@ -53,7 +53,11 @@ const Text = styled.div`
   color: #bdbdbd;
 `;
 
-export const ImageInput: FC = () => {
+interface ImageInputProps {
+  setImage: (image: any) => void;
+}
+
+export const ImageInput: FC<ImageInputProps> = (props) => {
   const [images, setImage] = useState<any[]>([]);
   const [isImgLoad, setIsImgLoad] = useState(false);
 
@@ -61,6 +65,7 @@ export const ImageInput: FC = () => {
     if (acceptedImages.length) {
       setImage(
         acceptedImages.map((image: any) => {
+          props.setImage(image);
           return Object.assign(image, {
             preview: URL.createObjectURL(image)
           });
@@ -68,7 +73,7 @@ export const ImageInput: FC = () => {
       );
       setIsImgLoad(true);
     }
-  }, []);
+  }, [props]);
   const {
     getRootProps,
     getInputProps,
