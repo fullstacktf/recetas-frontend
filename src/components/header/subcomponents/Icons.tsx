@@ -7,7 +7,7 @@ import Home from '../assets/home-24px.svg';
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
 import { Link, BrowserRouter as Router } from 'react-router-dom';
-import { Icon } from './Icon';
+import { Icon } from '../../../subcomponents/Icon';
 
 const IconGroup = styled.div`
   display: flex;
@@ -23,22 +23,22 @@ export const Icons: FC = () => {
     <Router>
       <IconGroup role="navigation">
         <Link role="button" to="/post">
-          <Icon src={AddCircle} alt="AddCircle"/>
+          <Icon src={AddCircle}/>
         </Link>
         <Link role="button" to="/home">
-          <Icon src={Home} alt="Home"/>
+          <Icon src={Home}/>
         </Link>
         <Link role="button" to="/notifications">
-          <Icon src={Notifications} alt="Notifications"/>
+          <Icon src={Notifications}/>
         </Link>
         <Link role="button" to="/chat">
-          <Icon src={Chat} alt="Chat"/>
+          <Icon src={Chat}/>
         </Link>
         <Link role="button" to="/bookmark">
-          <Icon src={Bookmark} alt="Bookmark"/>
+          <Icon src={Bookmark}/>
         </Link>
         <Link role="button" to="/account">
-          <Icon src={Account} alt="Account"/>
+          <Icon src={Account}/>
         </Link>
       </IconGroup>
     </Router>

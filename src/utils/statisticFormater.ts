@@ -13,10 +13,8 @@ const B = {
   symbol: '🔥'
 };
 
-const fixDecimals = (value: number, decimals: number = 2): number => {
-  return Math.round((value + Number.EPSILON) * (10 * decimals)) / (10 * decimals);
-
-
+const fixLength = (value: string, length: number = 4): string => {
+  return value.concat(' '.repeat(length - value.length));
 };
 
 export const formatStatistic = (value: number): string => {
@@ -24,12 +22,12 @@ export const formatStatistic = (value: number): string => {
   if(value < K.value){
     formated = String(value);
   }else if(value < M.value) {
-    formated = (fixDecimals(value / K.value) + K.symbol);
+    formated = (Math.round(value / K.value) + K.symbol);
   }else if (value < B.value) {
-    formated = (fixDecimals(value / M.value) + M.symbol);
+    formated = (Math.round(value / M.value) + M.symbol);
   }else{
     formated = B.symbol;
   }
 
-  return formated;
+  return fixLength(formated);
 };

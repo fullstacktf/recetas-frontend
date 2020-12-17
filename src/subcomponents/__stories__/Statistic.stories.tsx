@@ -3,8 +3,9 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import '../../css/fonts.css';
 import { Statistic, StatisticProps } from '../Statistic';
-import { Icon } from '../../components/header/subcomponents/Icon';
+import { Icon } from '../Icon';
 import Like from '../../components/postPreview/assets/favorite-24px.svg';
+import NoLike from '../../components/postPreview/assets/favorite_border-24px.svg';
 
 
 export default {
@@ -18,7 +19,7 @@ export const WithIcon = Template.bind({});
 WithIcon.args = {
   number: 14,
   icon: true,
-  children: [<Icon src={Like} aria-label="Icon"/>]
+  children: [<Icon src={NoLike} active_src={Like} aria-label="Icon"/>]
 };
 
 export const WithText = Template.bind({});

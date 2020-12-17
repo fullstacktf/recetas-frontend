@@ -3,51 +3,55 @@ import { FC } from 'react';
 import { formatStatistic } from '../utils/statisticFormater';
 
 const Container = styled.div<any>`
+  width: fit-content;
   display: flex;
   flex-direction: ${(props) => props.icon ? 'row' : 'row-reverse'};
   align-items: center;
   font-family: Poppins;
-  font-size: 1em;
-  color: black;
+  font-size: ${(props) => props.size ? props.size + ';' : '1em;'};
 `;
 
-const NumberWithIcon = styled.div`
-  font-weight: bold;
-  width: 60%;
+const NumberWithIcon = styled.div<any>`
+  width: fit-content;
+  height: fit-content;
   text-align: left;
-  font-size: 1.4em;
-`;
-
-const NumberWithOutIcon = styled.div`
   font-weight: bold;
-  width: 40%;
-  text-align: right;
 `;
 
-const ContentWithIcon = styled.div`
-  width: 40%;
+const NumberWithOutIcon = styled.div<any>`
+  width: fit-content;
+  height: fit-content;
+  text-align: right;
+  font-weight: bold;
+`;
+
+const ContentWithIcon = styled.div<any>`
+  width: fit-content;
   display: flex;
   justify-content: flex-end;
-  padding-right: 15px;
+  padding-right: ${(props) => props.spaceBetween ? props.spaceBetween + ';' : '15px;'};
 `;
 
-const ContentWithOutIcon = styled.div`
-  width: 60%;
+const ContentWithOutIcon = styled.div<any>`
+  width:fit-content;
+  height:fit-content;
   display: flex;
   justify-content: flex-start;
-  padding-left: 15px;
+  padding-left: ${(props) => props.spaceBetween ? props.spaceBetween + ';' : '15px;'};
 `;
 
 export interface StatisticProps {
   number: number;
   icon?: boolean;
+  size?: string;
+  spaceBetween?: string;
 }
 
 export const Statistic: FC<StatisticProps> = (props) => {
-  return <Container icon={props.icon}>
+  return <Container icon={props.icon} size={props.size}>
     {props.icon
-      ? <ContentWithIcon>{props.children}</ContentWithIcon>
-      : <ContentWithOutIcon>{props.children}</ContentWithOutIcon>
+      ? <ContentWithIcon size={props.size} spaceBetween={props.spaceBetween}>{props.children}</ContentWithIcon>
+      : <ContentWithOutIcon size={props.size} spaceBetween={props.spaceBetween}>{props.children}</ContentWithOutIcon>
     }
     {props.icon
       ? <NumberWithIcon>{formatStatistic(props.number)}</NumberWithIcon>
