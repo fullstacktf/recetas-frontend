@@ -8,6 +8,7 @@ import PeopleImage from './assets/people-24px.svg';
 import { CollapseInput } from './CollapseInput';
 import { DescriptionInput } from './DescriptionInput';
 import { MultipleInput } from './MultipleInput';
+import { Post, savePost } from '../../api';
 
 const WIDTH: number = 862;
 
@@ -62,7 +63,7 @@ const Button = styled.button<any>`
 `;
 
 export const PostMaker: FC = () => {
-  const [image, setImage] = useState<any>('');
+  const [image, setImage] = useState<File>();
   const [title, setTitle] = useState<string>('');
   const [time, setTime] = useState<string>('');
   const [servings, setServings] = useState<string>('');
@@ -90,20 +91,29 @@ export const PostMaker: FC = () => {
     }
   };
 
+  const sendPost = async (body: Post) => {
+    savePost(
+      body,
+      'post/'
+    );
+  };
+
   const handleSubmit = (event: Event) => {
+    if (!image) {
+      return;
+    }
     event.preventDefault();
     if (isFormData() || true) {
-      console.log(
-        'Enviar',
-        image,
-        title,
-        time,
-        servings,
-        description,
-        ingredients,
-        steps,
-        tags
-      );
+      sendPost({
+        image: image,
+        title: title,
+        time: time,
+        servings: servings,
+        description: description,
+        ingredients: ingredients,
+        steps: steps,
+        tags: tags
+      });
     }
   };
 
