@@ -173,7 +173,6 @@ export const PostMaker: FC = () => {
       <SubContainer>
         <InfoContainer>
           <Button onClick={handleSubmit}>Crear</Button>
-          <Button onClick={handleSubmit} secondary>Borrar</Button>
         </InfoContainer>
       </SubContainer>
     </Container>
