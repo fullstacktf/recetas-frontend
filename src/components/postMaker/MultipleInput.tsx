@@ -47,21 +47,22 @@ export const MultipleInput: FC<MultipleInputProps> = (props) => {
     setInputs(inputs.concat([newInput]));
   };
 
-  const handleRemoveInput = (event: any) => {
-    event.preventDefault();
-    setInputs(inputs.filter((input) => input !== event.currentTarget.id));
+  const handleRemoveInput = (inputKey: string) => {
+    setInputs(inputs.filter((input) => input !== inputKey));
+    delete values[inputKey];
+    props.setValues(getValuesAsArray());
   };
 
   const numeric = (props: MultipleInputProps, index: number): string => {
     return props.numeric ? index + 1 + '.' : '';
   };
 
-  const getValues = () => {
-    const array = [];
+  const getValuesAsArray = () => {
+    const result = [];
     for (const key in values) {
-      array.push(values[key]);
+      result.push(values[key]);
     }
-    return array;
+    return result;
   };
 
   const addValue = (value: string, key: string) => {
@@ -69,7 +70,7 @@ export const MultipleInput: FC<MultipleInputProps> = (props) => {
       [key]: value
     });
     setValues(result);
-    props.setValues(getValues());
+    props.setValues(getValuesAsArray());
   };
 
   return (

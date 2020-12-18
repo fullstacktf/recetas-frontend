@@ -71,19 +71,40 @@ export const PostMaker: FC = () => {
   const [steps, setSteps] = useState<string[]>([]);
   const [tags, setTags] = useState<string[]>([]);
 
+  const isFormData = (): boolean => {
+    if (
+      image &&
+      title &&
+      time &&
+      servings &&
+      description &&
+      ingredients.length &&
+      steps.length &&
+      tags.length
+    ) {
+      console.log('Send data');
+      return true;
+    } else {
+      console.log('No data');
+      return false;
+    }
+  };
+
   const handleSubmit = (event: Event) => {
     event.preventDefault();
-    console.log(
-      'Enviar',
-      image,
-      title,
-      time,
-      servings,
-      description,
-      ingredients,
-      steps,
-      tags
-    );
+    if (isFormData() || true) {
+      console.log(
+        'Enviar',
+        image,
+        title,
+        time,
+        servings,
+        description,
+        ingredients,
+        steps,
+        tags
+      );
+    }
   };
 
   return (
@@ -150,7 +171,10 @@ export const PostMaker: FC = () => {
         </CollapseInput>
       </SubContainer>
       <SubContainer>
-        <Button onClick={handleSubmit}>Crear</Button>
+        <InfoContainer>
+          <Button onClick={handleSubmit}>Crear</Button>
+          <Button onClick={handleSubmit} secondary>Borrar</Button>
+        </InfoContainer>
       </SubContainer>
     </Container>
   );

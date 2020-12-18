@@ -75,6 +75,11 @@ export const DynamicInputs: FC<DynamicInputsProps> = (props) => {
     return string.charAt(0).toUpperCase() + string.slice(1).toLocaleLowerCase();
   };
 
+  const handleRemoveInput = (event: any) => {
+    event.preventDefault();
+    props.remove(props.inputKey);
+  };
+
   return (
     <SubContainer>
       <NumberList>{props.index}</NumberList>
@@ -85,7 +90,7 @@ export const DynamicInputs: FC<DynamicInputsProps> = (props) => {
         onChange={handleChangeValue}
         width={props.width}
       />
-      <RemoveButton onClick={props.remove} id={props.inputKey}> X </RemoveButton>
+      <RemoveButton onClick={handleRemoveInput} id={props.inputKey}> X </RemoveButton>
     </SubContainer>
   );
 };
