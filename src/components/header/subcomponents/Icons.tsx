@@ -7,7 +7,7 @@ import Home from '../assets/home-24px.svg';
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
 import { Link, BrowserRouter as Router } from 'react-router-dom';
-import { Icon } from '../../../subcomponents/Icon';
+import { Icon } from '../../../subcomponents/Icon/Icon';
 
 const IconGroup = styled.div`
   display: flex;
