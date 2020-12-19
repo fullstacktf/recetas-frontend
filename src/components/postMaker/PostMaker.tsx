@@ -8,7 +8,7 @@ import PeopleImage from './assets/people-24px.svg';
 import { CollapseInput } from './CollapseInput';
 import { DescriptionInput } from './DescriptionInput';
 import { MultipleInput } from './MultipleInput';
-import { Post, savePost } from '../../api';
+import { FormPost, savePost } from '../../api';
 
 const WIDTH: number = 862;
 
@@ -91,11 +91,8 @@ export const PostMaker: FC = () => {
     }
   };
 
-  const sendPost = async (body: Post) => {
-    savePost(
-      body,
-      'post/'
-    );
+  const sendPost = async (body: FormPost, image: File) => {
+    savePost(body, image,'post/');
   };
 
   const handleSubmit = (event: Event) => {
@@ -105,7 +102,6 @@ export const PostMaker: FC = () => {
     event.preventDefault();
     if (isFormData() || true) {
       sendPost({
-        image: image,
         title: title,
         time: time,
         servings: servings,
@@ -113,7 +109,7 @@ export const PostMaker: FC = () => {
         ingredients: ingredients,
         steps: steps,
         tags: tags
-      });
+      }, image);
     }
   };
 
