@@ -75,7 +75,6 @@ export const MultipleInput: FC<MultipleInputProps> = (props) => {
 
   return (
     <Container>
-      <form>
         {inputs.map((input: any, index: number) => (
           <DynamicInputs
             key={input}
@@ -87,7 +86,6 @@ export const MultipleInput: FC<MultipleInputProps> = (props) => {
             remove={handleRemoveInput}
           />
         ))}
-      </form>
       <Button onClick={appendInput}>
         + {props.elementName.toLocaleUpperCase()}
       </Button>

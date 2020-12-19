@@ -96,11 +96,11 @@ export const PostMaker: FC = () => {
   };
 
   const handleSubmit = (event: Event) => {
+    event.preventDefault();
     if (!image) {
       return;
     }
-    event.preventDefault();
-    if (isFormData() || true) {
+    if (isFormData()) {
       sendPost({
         title: title,
         time: time,
