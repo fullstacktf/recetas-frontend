@@ -37,7 +37,7 @@ function App() {
           <Route path="/register" component={Register}/>
         </div>
       )}
-      <PostMakerView/>
+      <Post/>
     </Router>
   );
 }
