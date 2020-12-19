@@ -8,7 +8,7 @@ import PeopleImage from './assets/people-24px.svg';
 import { CollapseInput } from './CollapseInput';
 import { DescriptionInput } from './DescriptionInput';
 import { MultipleInput } from './MultipleInput';
-import { FormPost, savePost } from '../../api';
+import { FormPost, uploadFormData } from '../../api';
 
 const WIDTH: number = 862;
 
@@ -72,27 +72,43 @@ export const PostMaker: FC = () => {
   const [steps, setSteps] = useState<string[]>([]);
   const [tags, setTags] = useState<string[]>([]);
 
-  const isFormData = (): boolean => {
-    if (
-      image &&
+  const isImageReady = () => {
+    return image ? true : false;
+  };
+
+  const checkServings = (
+    servings: string
+  ): { isValid: boolean; msg: string } => {
+    if (!isNaN(+servings)) {
+      const number: number = +servings;
+      if (number < 100) {
+        return { isValid: true, msg: '' };
+      } else {
+        return { isValid: false, msg: 'Máximo de 99 raciones' };
+      }
+    }
+    return { isValid: false, msg: 'Solo se aceptan números' };
+  };
+
+  const isServingsReady = () => {
+    return image ? true : false;
+  };
+
+  const isDataReady = () => {
+    return (
+      isImageReady() &&
+      isServingsReady() &&
       title &&
       time &&
-      servings &&
       description &&
       ingredients.length &&
       steps.length &&
       tags.length
-    ) {
-      console.log('Send data');
-      return true;
-    } else {
-      console.log('No data');
-      return false;
-    }
+    );
   };
 
   const sendPost = async (body: FormPost, image: File) => {
-    savePost(body, image,'post/');
+    uploadFormData(body, image, 'post/');
   };
 
   const handleSubmit = (event: Event) => {
@@ -100,16 +116,19 @@ export const PostMaker: FC = () => {
     if (!image) {
       return;
     }
-    if (isFormData()) {
-      sendPost({
-        title: title,
-        time: time,
-        servings: servings,
-        description: description,
-        ingredients: ingredients,
-        steps: steps,
-        tags: tags
-      }, image);
+    if (isDataReady()) {
+      sendPost(
+        {
+          title,
+          time,
+          servings,
+          description,
+          ingredients,
+          steps,
+          tags
+        },
+        image
+      );
     }
   };
 
@@ -130,23 +149,25 @@ export const PostMaker: FC = () => {
             setValue={setTime}
             image={TimeImage}
             placeHolder="Tiempo de preparación..."
+            checkInput={(value: string) => { return {isValid: true, msg: ''};}}
           />
           <InputWithIcon
             setValue={setServings}
             image={PeopleImage}
             placeHolder="Raciones..."
+            checkInput={checkServings}
           />
         </InfoContainer>
       </SubContainer>
       <SubContainer>
         <Line/>
       </SubContainer>
-      <SubContainer>
+      <SubContainer aria-label="collapse-div">
         <CollapseInput title="DESCRIPCIÓN" width={WIDTH}>
           <DescriptionInput setDescription={setDescription} width={WIDTH}/>
         </CollapseInput>
       </SubContainer>
-      <SubContainer>
+      <SubContainer aria-label="collapse-div">
         <CollapseInput title="INGREDIENTES" width={WIDTH}>
           <MultipleInput
             setValues={setIngredients}
@@ -156,7 +177,7 @@ export const PostMaker: FC = () => {
           />
         </CollapseInput>
       </SubContainer>
-      <SubContainer>
+      <SubContainer aria-label="collapse-div">
         <CollapseInput title="PASOS" width={WIDTH}>
           <MultipleInput
             setValues={setSteps}
@@ -166,7 +187,7 @@ export const PostMaker: FC = () => {
           />
         </CollapseInput>
       </SubContainer>
-      <SubContainer>
+      <SubContainer aria-label="collapse-div">
         <CollapseInput title="ETIQUETAS" width={WIDTH}>
           <MultipleInput
             setValues={setTags}
