@@ -54,6 +54,7 @@ const ErrorIcon = styled.p`
 
 const ErrorMessage = styled.p`
   color: red;
+  font-family: Poppins;
   font-size: ${ERROR_SIZE + 'em'};
   margin: 0px;
 `;
