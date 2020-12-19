@@ -6,6 +6,7 @@ import Notifications from '../assets/notifications-24px.svg';
 import Home from '../assets/home-24px.svg';
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
+
 import { Link, BrowserRouter as Router } from 'react-router-dom';
 import { Icon } from '../../../subcomponents/Icon/Icon';
 
