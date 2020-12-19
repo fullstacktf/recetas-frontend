@@ -6,7 +6,7 @@ import Comment from './assets/comment-24px.svg';
 import NoSave from './assets/bookmark_border-24px.svg';
 import Save from './assets/bookmark-24px.svg';
 import { Statistic } from '../../subcomponents/Statistic';
-import { Icon } from '../../subcomponents/Icon';
+import { Icon } from '../../subcomponents/Icon/Icon';
 
 const Container = styled.div`
   width: 200px;
