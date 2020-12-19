@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import styled from '@emotion/styled';
 import { DynamicInputs } from './DynamicInputs';
+import { generateKey } from '../../utils/generateKey';
 
 const Container = styled.div`
   display: flex;
@@ -38,10 +39,6 @@ export const MultipleInput: FC<MultipleInputProps> = (props) => {
   const [inputs, setInputs] = useState<any[]>([]);
   const [values, setValues] = useState<any>({});
 
-  const generateKey = (pre: any) => {
-    return `${pre}_${new Date().getTime()}`;
-  };
-
   const appendInput = () => {
     let newInput = generateKey('input');
     setInputs(inputs.concat([newInput]));
@@ -75,17 +72,17 @@ export const MultipleInput: FC<MultipleInputProps> = (props) => {
 
   return (
     <Container>
-        {inputs.map((input: any, index: number) => (
-          <DynamicInputs
-            key={input}
-            addValue={addValue}
-            index={numeric(props, index)}
-            placeholder={props.elementName}
-            inputKey={input}
-            width={props.width}
-            remove={handleRemoveInput}
-          />
-        ))}
+      {inputs.map((input: any, index: number) => (
+        <DynamicInputs
+          key={input}
+          addValue={addValue}
+          index={numeric(props, index)}
+          placeholder={props.elementName}
+          inputKey={input}
+          width={props.width}
+          remove={handleRemoveInput}
+        />
+      ))}
       <Button onClick={appendInput}>
         + {props.elementName.toLocaleUpperCase()}
       </Button>
