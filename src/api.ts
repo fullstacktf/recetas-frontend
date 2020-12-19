@@ -1,6 +1,4 @@
 const API = 'https://api.snapfork.me/';
-const API_TEST = 'https://localhost:3000/';
-
 export interface FormPost {
   title: string;
   time: string;
@@ -11,14 +9,32 @@ export interface FormPost {
   tags: string[];
 }
 
-export const savePost = async (body: FormPost, image: File, endpoint: string) => {
+interface RequestOptions {
+  method: string;
+  headers?: {};
+  body: any;
+}
+
+const sendToBackend = async (
+  endpoint: string,
+  requestOptions: RequestOptions
+) => {
+  return fetch(API + endpoint, requestOptions).then((response) =>
+    response.json()
+  );
+};
+
+export const uploadFormData = async (
+  body: FormPost,
+  image: File,
+  endpoint: string
+) => {
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
   };
-  const data = await fetch(API_TEST + endpoint, requestOptions)
-    .then((response) => response.json())
+  const data = await sendToBackend(endpoint, requestOptions)
     .then((data) => data.data)
     .catch((error) => console.log(error));
   if (data) {
@@ -29,11 +45,11 @@ export const savePost = async (body: FormPost, image: File, endpoint: string) =>
 export const uploadImage = async (image: File) => {
   const fd = new FormData();
   fd.append('image', image);
-  fetch(API_TEST + 'post/upload-image', {
-      method: 'POST',
-      body: fd
-  })
-  .then(res => res.json())
-  .then(json => console.log(json))
-  .catch(err => console.error(err));
+  const requestOptions = {
+    method: 'POST',
+    body: fd
+  };
+  await sendToBackend('post/upload-image', requestOptions)
+    .then((data) => data.data)
+    .catch((error) => console.log(error));
 };
