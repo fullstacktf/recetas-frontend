@@ -25,14 +25,13 @@ function App() {
         ?
         <div>
           <Header isLogged={isLogged}/>
-          <Route exact path="/" component={Home}/>
-          <Route exact path="/home" component={Home}/>
+          <Route exact path="/" render={() => (<Home isLogged={isLogged}/>)}/>
+          <Route exact path="/home" render={() => (<Home isLogged={isLogged}/>)}/>
           <Route path="/post" component={Post}/>
           <Route path="/search" component={Search}/>
         </div>
         :
         <div>
-          <Route exact path="/" component={Login}/>
           <Route path="/login" component={Login}/>
           <Route path="/register" component={Register}/>
         </div>

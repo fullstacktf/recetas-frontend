@@ -47,20 +47,6 @@ describe('PostPreview', () => {
       expect(image).not.toBeNull();
     });
 
-    test('should render a tree icons', () => {
-      render(
-        <PostPreview
-          likes={likes}
-          comments={comments}
-          title={title}
-          photo={photo}
-        />
-      );
-
-      const icons = screen.getAllByLabelText('Icon');
-      expect(icons).toHaveLength(3);
-    });
-
     test('should render a title text', () => {
       render(
         <PostPreview
