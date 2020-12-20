@@ -1,12 +1,14 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { ShowImage } from './ShowImage';
 import TimeImage from './assets/schedule-24px.svg';
 import PeopleImage from './assets/people-24px.svg';
-import Image from './assets/patatas-con-alioli-y-picada-de-ajo-y-perejil-escalivada-picante-foto-principal.jpg';
 import { CollapseInput } from './ShowCollapse';
 import { ShowMultiple } from './ShowMultiple';
 import { ShowWithIcon } from './ShowWithIcon';
+import { API, getPostData } from '../../api';
+import { PostHeader } from '../timelinePost/subcomponents/PostHeader';
+import { PostFooter } from '../timelinePost/subcomponents/PostFooter';
 
 const WIDTH = 862;
 const HEIGHT = 384;
@@ -62,42 +64,71 @@ const Description = styled.div`
   margin-top: 5%;
 `;
 
-export interface ShowPostProps {}
+const HeaderContainer = styled.div`
+  width: ${WIDTH}px;
+`;
+
+const FooterContainer = styled.div`
+  width: ${WIDTH}px;
+`;
+
+export interface ShowPostProps {
+  idPost: string;
+}
 
 export const ShowPost: FC<ShowPostProps> = (props) => {
-  const [image, setImage] = useState<string>(
-    'https://api.snapfork.me/static/mediaUtils/login/background.png'
-  );
-  const [title, setTitle] = useState('Carbonara con nata');
-  const [
-    description,
-    setDescription
-  ] = useState(`Estos espaguetis a la carbonara con nata parten de la tradicional receta italiana de espaguetis a la carbonara, pero añadiéndole nata y cebolla pochada.
-  Se trata de una versión muy popular fuera de las fronteras italianas, que le aporta un extra de cremosidad, y aunque no se trate de la auténtica receta,
-  lo cierto es que queda deliciosa, ya que uno de los mejores aliados de la pasta sin duda es la nata.`);
-  const [time, setTime] = useState<string>('1h');
-  const [servings, setServings] = useState<string>('2');
-  const [ingredients, setIngredients] = useState<string[]>([
-    `Estos espaguetis a la carbonara con nata parten de la tradicional receta italiana de espaguetis a la carbonara, pero añadiéndole nata y cebolla pochada.
-  Se trata de una versión muy popular fuera de las fronteras italianas, que le aporta un extra de cremosidad, y aunque no se trate de la auténtica receta,
-  lo cierto es que queda deliciosa, ya que uno de los mejores aliados de la pasta sin duda es la nata.`,
-    'otro ingrediente',
-    'ultimoIngrediente'
-  ]);
-  const [steps, setSteps] = useState<string[]>([
-    'hacer eso',
-    'hacer esto',
-    'por ultimo esto'
-  ]);
-  const [tags, setTags] = useState<string[]>(['cosa', 'cosa2']);
+  const [image, setImage] = useState<string>('');
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [time, setTime] = useState<string>('');
+  const [servings, setServings] = useState<string>('');
+  const [ingredients, setIngredients] = useState<string[]>([]);
+  const [steps, setSteps] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>([]);
+  const [isDataReady, setIsDataReady] = useState<boolean>(false);
+  const [likes, setLikes] = useState<number>(0);
+  const [comments, setComments] = useState<number>(0);
+  const [owner, setOwner] = useState<string>('');
+
+  const setData = async (post: any) => {
+    post.then((data: any) => {
+      console.log(data);
+      setImage(
+       `${API}static/users/${data.owner._id}/${data._id}/${data._id}`
+      );
+      setOwner(data.owner.username);
+      setDescription(data.description);
+      setTitle(data.title);
+      setTime(data.time);
+      setServings(data.servings);
+      setIngredients(data.ingredients);
+      setSteps(data.steps);
+      setTags(data.tags);
+      setLikes(data.likes);
+      setComments(data.comments);
+      setIsDataReady(true);
+    });
+  };
+
+  useEffect(() => {
+    setData(getPostData('post/' + props.idPost));
+    return () => {};
+  }, [props]);
 
   return (
     <Container>
-      {/* Poner header con nomber */}
+      <HeaderContainer>
+        <PostHeader
+          phofilePhoto={'https://api.snapfork.me/static/profile/default.svg'}
+          username={owner}
+        />
+      </HeaderContainer>
       <SubContainer>
-        <ShowImage image={Image} maxWidth={WIDTH} maxHeight={HEIGHT}/>
+        <ShowImage image={image} maxWidth={WIDTH} maxHeight={HEIGHT}/>
       </SubContainer>
-      {/* Poner iconos like etc */}
+      <FooterContainer>
+        <PostFooter size={'35px'} likes={likes} comments={comments}/>
+      </FooterContainer>
       <SubContainer>
         <Title>{title}</Title>
       </SubContainer>
@@ -120,32 +151,38 @@ export const ShowPost: FC<ShowPostProps> = (props) => {
       </SubContainer>
       <SubContainer aria-label="collapse-div">
         <CollapseInput title="INGREDIENTES" width={WIDTH}>
-          <ShowMultiple
-            numeric={false}
-            infoToShow={ingredients}
-            maxWidth={WIDTH}
-            maxHeight={HEIGHT}
-          />
+          {isDataReady && (
+            <ShowMultiple
+              numeric={false}
+              infoToShow={ingredients}
+              maxWidth={WIDTH}
+              maxHeight={HEIGHT}
+            />
+          )}
         </CollapseInput>
       </SubContainer>
       <SubContainer aria-label="collapse-div">
         <CollapseInput title="PASOS" width={WIDTH}>
-          <ShowMultiple
-            numeric={true}
-            infoToShow={steps}
-            maxWidth={WIDTH}
-            maxHeight={HEIGHT}
-          />
+          {isDataReady && (
+            <ShowMultiple
+              numeric={true}
+              infoToShow={steps}
+              maxWidth={WIDTH}
+              maxHeight={HEIGHT}
+            />
+          )}
         </CollapseInput>
       </SubContainer>
       <SubContainer aria-label="collapse-div">
         <CollapseInput title="ETIQUETAS" width={WIDTH}>
-          <ShowMultiple
-            numeric={false}
-            infoToShow={tags}
-            maxWidth={WIDTH}
-            maxHeight={HEIGHT}
-          />
+          {isDataReady && (
+            <ShowMultiple
+              numeric={false}
+              infoToShow={tags}
+              maxWidth={WIDTH}
+              maxHeight={HEIGHT}
+            />
+          )}
         </CollapseInput>
       </SubContainer>
     </Container>

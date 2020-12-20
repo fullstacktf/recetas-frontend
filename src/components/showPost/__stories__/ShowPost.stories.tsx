@@ -14,4 +14,5 @@ const Template: Story<ShowPostProps> = (args) => <ShowPost {...args}/>;
 
 export const Primary = Template.bind({});
 Primary.args = {
+  idPost: '5fddfe4b4d3bf162d342b71d'
 };
