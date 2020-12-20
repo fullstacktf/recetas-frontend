@@ -63,7 +63,7 @@ export interface InputWithIconProps {
   image: string;
   placeHolder: string;
   setValue: (value: string) => void;
-  checkInput: (value: string) => { isValid: boolean; msg: string } ;
+  checkInput: (value: string) => { isValid: boolean; msg: string };
 }
 
 export const InputWithIcon: FC<InputWithIconProps> = (props) => {

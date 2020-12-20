@@ -53,7 +53,7 @@ const NumberList = styled.span<any>`
   text-align: center;
 `;
 
-interface DynamicInputsProps {
+export interface DynamicInputsProps {
   width: number;
   index: string;
   remove: (event: any) => void;

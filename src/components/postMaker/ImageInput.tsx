@@ -53,7 +53,7 @@ const Text = styled.div`
   color: #bdbdbd;
 `;
 
-interface ImageInputProps {
+export interface ImageInputProps {
   setImage: (image: any) => void;
 }
 

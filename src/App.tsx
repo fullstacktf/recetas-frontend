@@ -9,7 +9,6 @@ import { Post } from './pages/Post';
 import { Search } from './pages/Search';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
-import { PostMakerView } from './pages/PostMakerView';
 
 function App() {
   const [isLogged, setIsLogged] = useState(true);
@@ -37,7 +36,6 @@ function App() {
           <Route path="/register" component={Register}/>
         </div>
       )}
-      <PostMakerView/>
     </Router>
   );
 }
