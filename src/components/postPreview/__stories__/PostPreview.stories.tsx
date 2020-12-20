@@ -14,8 +14,5 @@ const Template: Story<PostPreviewProps> = (args) => <PostPreview {...args}/>;
 
 export const Primary = Template.bind({});
 Primary.args = {
-  likes: 3,
-  comments: 15,
-  title: 'Macarrones',
-  photo: 'https://api.snapfork.me/static/mediaUtils/login/background.png'
+  idPost: '5fddfe4b4d3bf16ad342b71d'
 };

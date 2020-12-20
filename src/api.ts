@@ -64,10 +64,24 @@ export const getPostData = async (endpoint: string) => {
   return data;
 };
 
-export const updateLike = async (endpoint: string, method: string) => {
+export const updateLike = async (endpoint: string, method: string, body = {userID: '5fddfe4b4d3bf162d342b71d'}) => {
   const requestOptions = {
-    method: method
+    method: method,
+    body: JSON.stringify(body)
   };
+  const data = await sendToBackend(endpoint, requestOptions)
+    .then((data) => data.data)
+    .catch((error) => console.log(error));
+  return data;
+};
+
+export const updateSave = async (endpoint: string, method: string, body = {userID: '5fddfe4b4d3bf162d342b71d'}) => {
+  const requestOptions = {
+    method: method,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  };
+  console.log(requestOptions);
   const data = await sendToBackend(endpoint, requestOptions)
     .then((data) => data.data)
     .catch((error) => console.log(error));

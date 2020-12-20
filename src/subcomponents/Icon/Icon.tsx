@@ -20,9 +20,8 @@ const Container = styled.div<any>`
 interface IconProps {
   src: string;
   active_src?: string;
-  onClick?: () => any;
   size?: string;
-  handleLikes?: (isLiked: boolean) => void;
+  handleClicks?: (isActive: boolean) => void;
 }
 
 export const Icon: FC<IconProps> = (props) => {
@@ -37,10 +36,9 @@ export const Icon: FC<IconProps> = (props) => {
       } else {
         setImage(props.src);
       }
-      props.handleLikes?.(!active);
+      props.handleClicks?.(!active);
       setActive(!active);
     }
-    props.onClick?.();
   };
 
   return <Container src={image} onClick={handleClick} size={props.size}/>;
