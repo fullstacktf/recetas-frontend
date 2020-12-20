@@ -23,7 +23,7 @@ const Image = styled.div<any>`
   min-width: 60px;
   min-height: 60px;
   background: url(${props => props.src});
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
   border-radius: 100%;

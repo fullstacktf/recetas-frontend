@@ -78,6 +78,7 @@ export interface ShowPostProps {
 
 export const ShowPost: FC<ShowPostProps> = (props) => {
   const [image, setImage] = useState<string>('');
+  const [profile, setProfile] = useState<string>('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [time, setTime] = useState<string>('');
@@ -92,9 +93,9 @@ export const ShowPost: FC<ShowPostProps> = (props) => {
 
   const setData = async (post: any) => {
     post.then((data: any) => {
-      console.log(data);
+      setProfile(`${API}static/users/${data.owner._id}/profile/${data.owner._id}.jpg`);
       setImage(
-       `${API}static/users/${data.owner._id}/${data._id}/${data._id}`
+       `${API}static/users/${data.owner._id}/posts/${data._id}/${data._id}.jpg`
       );
       setOwner(data.owner.username);
       setDescription(data.description);
@@ -119,7 +120,7 @@ export const ShowPost: FC<ShowPostProps> = (props) => {
     <Container>
       <HeaderContainer>
         <PostHeader
-          phofilePhoto={'https://api.snapfork.me/static/profile/default.svg'}
+          phofilePhoto={profile}
           username={owner}
         />
       </HeaderContainer>
