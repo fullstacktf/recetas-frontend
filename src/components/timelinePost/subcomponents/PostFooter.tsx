@@ -46,22 +46,23 @@ const Separator = styled.div`
 
 export interface PostFooterProps {
   likes: number,
-  comments: number
+  comments: number,
+  size?: string
 }
 
 export const PostFooter: FC<PostFooterProps> = (props) => {
   return <Container>
     <Left>
-      <Statistic icon number={props.likes} spaceBetween={'5px'}><Icon src={NoLike} active_src={Like}/></Statistic>
+      <Statistic size={props.size} icon number={props.likes} spaceBetween={'5px'}><Icon size={props.size} src={NoLike} active_src={Like}/></Statistic>
       <Separator/>
-      <Statistic icon number={props.comments} spaceBetween={'5px'}><Icon src={Comment}/></Statistic>
+      <Statistic size={props.size} icon number={props.comments} spaceBetween={'5px'}><Icon size={props.size} src={Comment}/></Statistic>
       <Separator/>
-      <Icon src={NoSave} active_src={Save}/>
+      <Icon size={props.size} src={NoSave} active_src={Save}/>
     </Left>
     <Right>
-      <Icon src={Launch} onClick={() => console.log('Click')}/>
+      <Icon size={props.size} src={Launch} onClick={() => console.log('Click')}/>
       <Separator/>
-      <Icon src={Share}/>
+      <Icon size={props.size} src={Share}/>
     </Right>
   </Container>;
 };
