@@ -61,7 +61,7 @@ export const PostFooter: FC<PostFooterProps> = (props) => {
           number={props.likes}
           spaceBetween={'5px'}
         >
-          <Icon size={props.size} src={NoLike} active_src={Like} handleLikes={props.handleLikes}/>
+          <Icon size={props.size} src={NoLike} active_src={Like} handleClicks={props.handleLikes}/>
         </Statistic>
         <Separator/>
         <Statistic
@@ -79,7 +79,6 @@ export const PostFooter: FC<PostFooterProps> = (props) => {
         <Icon
           size={props.size}
           src={Launch}
-          onClick={() => console.log('Click')}
         />
         <Separator/>
         <Icon size={props.size} src={Share}/>

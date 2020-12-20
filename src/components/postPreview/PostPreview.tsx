@@ -7,6 +7,7 @@ import NoSave from './assets/bookmark_border-24px.svg';
 import Save from './assets/bookmark-24px.svg';
 import { Statistic } from '../../subcomponents/Statistic';
 import { Icon } from '../../subcomponents/Icon/Icon';
+import { API, getPostData, updateLike, updateSave } from '../../api';
 
 const Container = styled.div`
   width: 200px;
@@ -59,14 +60,11 @@ const Icons = styled.div`
 const IconGroup = styled.div`
   width: fit-content;
   margin: auto;
-  color: #BDBDBD;
+  color: #bdbdbd;
 `;
 
 export interface PostPreviewProps {
-  likes: number;
-  comments: number;
-  title: string;
-  photo: string;
+  idPost: string;
 }
 
 const buttonSize = '25px';
@@ -74,46 +72,93 @@ const textSize = '12px';
 const spaceBetween = '5px';
 
 export const PostPreview: FC<PostPreviewProps> = (props) => {
-  /*const [likes, setLikes] = useState(0);
-  const [comments, setComments] = useState(0);
-  const [title, setTitle] = useState('');
-  const [photo, setPhoto] = useState('');*/
-  const [liked, setLiked] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [image, setImage] = useState<string>('');
+  const [title, setTitle] = useState('');
+  const [likes, setLikes] = useState<number>(0);
+  const [comments, setComments] = useState<number>(0);
 
-  /*useEffect(() => {
-    setLikes(props.likes);
-    setComments(props.comments);
-    setTitle(props.title);
-    setPhoto(props.photo);
-    return () => {};
-  }, [props]);*/
-
-  const handleLikeClick = (event: any) => {
-    event.preventDefault();
-    if (!liked) {
-      setLikes(likes + 1);
-    } else {
-      setLikes(likes - 1);
-    }
-    setLiked(!liked);
+  const setData = async (post: any) => {
+    post.then((data: any) => {
+      setImage(
+        `${API}static/users/${data.owner._id}/posts/${data._id}/${data._id}.jpg`
+      );
+      setTitle(data.title);
+      setLikes(data.likes);
+      setComments(data.comments);
+    });
   };
 
-  const handleSaveClick = (event: any) => {
-    event.preventDefault();
-    setSaved(!saved);
+  useEffect(() => {
+    setData(getPostData('post/' + props.idPost));
+    return () => {};
+  }, [props]);
+
+  const handleClickLikes = (isLiked: boolean) => {
+    const endpoint = `post/${props.idPost}/like`;
+    if (isLiked) {
+      setLikes(likes + 1);
+      updateLike(endpoint, 'POST');
+    } else {
+      setLikes(likes - 1);
+      updateLike(endpoint, 'DELETE');
+    }
+  };
+
+  const handleClickSave = (isSaved: boolean) => {
+    const endpoint = `post/${props.idPost}/save`;
+    if (isSaved) {
+      setSaved(!saved);
+      updateSave(endpoint, 'POST');
+    } else {
+      setSaved(!saved);
+      updateSave(endpoint, 'DELETE');
+    }
   };
 
   return (
     <Container>
-      <Image src={props.photo} alt="Recipe Photo" aria-label="Recipe Photo"/>
+      <Image src={image} alt="Recipe Photo" aria-label="Recipe Photo"/>
       <TitleBox>
-        <TitleText>{props.title}</TitleText>
+        <TitleText>{title}</TitleText>
       </TitleBox>
       <Icons>
-        <IconGroup><Statistic size={textSize} spaceBetween={spaceBetween} icon number={props.likes}><Icon src={NoLike} active_src={Like} onClick={() => console.log('Like')} size={buttonSize}/></Statistic></IconGroup>
-        <IconGroup><Statistic size={textSize} spaceBetween={spaceBetween} icon number={props.comments}><Icon src={Comment} onClick={() => console.log('Comentarios')} size={buttonSize}/></Statistic></IconGroup>
-        <IconGroup><Icon src={NoSave} active_src={Save} onClick={() => console.log('Guardar')} size={buttonSize}/></IconGroup>
+        <IconGroup>
+          <Statistic
+            size={textSize}
+            spaceBetween={spaceBetween}
+            icon
+            number={likes}
+          >
+            <Icon
+              src={NoLike}
+              active_src={Like}
+              handleClicks={handleClickLikes}
+              size={buttonSize}
+            />
+          </Statistic>
+        </IconGroup>
+        <IconGroup>
+          <Statistic
+            size={textSize}
+            spaceBetween={spaceBetween}
+            icon
+            number={comments}
+          >
+            <Icon
+              src={Comment}
+              size={buttonSize}
+            />
+          </Statistic>
+        </IconGroup>
+        <IconGroup>
+          <Icon
+            src={NoSave}
+            active_src={Save}
+            handleClicks={handleClickSave}
+            size={buttonSize}
+          />
+        </IconGroup>
       </Icons>
     </Container>
   );
