@@ -4,7 +4,7 @@ import { ShowImage } from './ShowImage';
 import TimeImage from './assets/schedule-24px.svg';
 import PeopleImage from './assets/people-24px.svg';
 import Image from './assets/patatas-con-alioli-y-picada-de-ajo-y-perejil-escalivada-picante-foto-principal.jpg';
-import { CollapseInput } from '../postMaker/CollapseInput';
+import { CollapseInput } from './ShowCollapse';
 import { ShowMultiple } from './ShowMultiple';
 import { ShowWithIcon } from './ShowWithIcon';
 
