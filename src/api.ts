@@ -1,4 +1,4 @@
-const API = 'https://api.snapfork.me/';
+export const API = 'https://api.snapfork.me/';
 export interface FormPost {
   title: string;
   time: string;
@@ -12,7 +12,7 @@ export interface FormPost {
 interface RequestOptions {
   method: string;
   headers?: {};
-  body: any;
+  body?: any;
 }
 
 const sendToBackend = async (
@@ -52,4 +52,16 @@ export const uploadImage = async (image: File) => {
   await sendToBackend('post/upload-image', requestOptions)
     .then((data) => data.data)
     .catch((error) => console.log(error));
+};
+
+export const getPostData = async (
+  endpoint: string
+) => {
+  const requestOptions = {
+    method: 'GET'
+  };
+  const data = await sendToBackend(endpoint, requestOptions)
+    .then((data) => data.data)
+    .catch((error) => console.log(error));
+    return data;
 };
