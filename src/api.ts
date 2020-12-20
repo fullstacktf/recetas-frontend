@@ -81,7 +81,6 @@ export const updateSave = async (endpoint: string, method: string, body = {userI
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
   };
-  console.log(requestOptions);
   const data = await sendToBackend(endpoint, requestOptions)
     .then((data) => data.data)
     .catch((error) => console.log(error));

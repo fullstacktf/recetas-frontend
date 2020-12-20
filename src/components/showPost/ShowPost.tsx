@@ -6,7 +6,7 @@ import PeopleImage from './assets/people-24px.svg';
 import { CollapseInput } from './ShowCollapse';
 import { ShowMultiple } from './ShowMultiple';
 import { ShowWithIcon } from './ShowWithIcon';
-import { API, getPostData, updateLike } from '../../api';
+import { API, getPostData, updateLike, updateSave } from '../../api';
 import { PostHeader } from '../timelinePost/subcomponents/PostHeader';
 import { PostFooter } from '../timelinePost/subcomponents/PostFooter';
 
@@ -77,6 +77,7 @@ export interface ShowPostProps {
 }
 
 export const ShowPost: FC<ShowPostProps> = (props) => {
+  const [saved, setSaved] = useState(false);
   const [image, setImage] = useState<string>('');
   const [profile, setProfile] = useState<string>('');
   const [title, setTitle] = useState('');
@@ -129,6 +130,18 @@ export const ShowPost: FC<ShowPostProps> = (props) => {
     }
   };
 
+  const handleClickSave = (isSaved: boolean) => {
+    const endpoint = `post/${props.idPost}/save`;
+    if (isSaved) {
+      setSaved(!saved);
+      updateSave(endpoint, 'POST');
+    } else {
+      setSaved(!saved);
+      updateSave(endpoint, 'DELETE');
+    }
+  };
+
+
   return (
     <Container>
       <HeaderContainer>
@@ -143,6 +156,7 @@ export const ShowPost: FC<ShowPostProps> = (props) => {
           likes={likes}
           comments={comments}
           handleLikes={handleClickLikes}
+          handleSave={handleClickSave}
         />
       </FooterContainer>
       <SubContainer>

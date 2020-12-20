@@ -49,6 +49,7 @@ export interface PostFooterProps {
   comments: number;
   size?: string;
   handleLikes?: (isLiked: boolean) => void;
+  handleSave?: (isSaved: boolean) => void;
 }
 
 export const PostFooter: FC<PostFooterProps> = (props) => {
@@ -73,7 +74,7 @@ export const PostFooter: FC<PostFooterProps> = (props) => {
           <Icon size={props.size} src={Comment}/>
         </Statistic>
         <Separator/>
-        <Icon size={props.size} src={NoSave} active_src={Save}/>
+        <Icon size={props.size} src={NoSave} active_src={Save} handleClicks={props.handleSave}/>
       </Left>
       <Right>
         <Icon
