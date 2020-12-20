@@ -9,7 +9,6 @@ import { Post } from './pages/Post';
 import { Search } from './pages/Search';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
-import { PostMakerView } from './pages/PostMakerView';
 
 function App() {
   const [isLogged, setIsLogged] = useState(true);
@@ -25,19 +24,17 @@ function App() {
       {isLogged ? (
         <div>
           <Header isLogged={isLogged}/>
-          <Route exact path="/" component={Home}/>
-          <Route exact path="/home" component={Home}/>
+          <Route exact path="/" render={() => (<Home isLogged={isLogged}/>)}/>
+          <Route exact path="/home" render={() => (<Home isLogged={isLogged}/>)}/>
           <Route path="/post" component={Post}/>
           <Route path="/search" component={Search}/>
         </div>
       ) : (
         <div>
-          <Route exact path="/" component={Login}/>
           <Route path="/login" component={Login}/>
           <Route path="/register" component={Register}/>
         </div>
       )}
-      <Post/>
     </Router>
   );
 }

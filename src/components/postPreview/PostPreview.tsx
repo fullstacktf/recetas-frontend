@@ -5,6 +5,8 @@ import Like from './assets/favorite-24px.svg';
 import Comment from './assets/comment-24px.svg';
 import NoSave from './assets/bookmark_border-24px.svg';
 import Save from './assets/bookmark-24px.svg';
+import { Statistic } from '../../subcomponents/Statistic';
+import { Icon } from '../../subcomponents/Icon/Icon';
 
 const Container = styled.div`
   width: 200px;
@@ -46,30 +48,18 @@ const TitleText = styled.div`
 `;
 
 const Icons = styled.div`
+  width: 100%;
   height: 25%;
   display: flex;
   flex-direction: row;
   justify-content: center;
-`;
-
-const Icon = styled.img`
-  width: 20px;
-  height: 20px;
-  object-fit: fill;
-  margin-right: 5%;
+  align-items: center;
 `;
 
 const IconGroup = styled.div`
-  display: flex;
-  margin: 5%;
-  font-family: Poppins;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 20px;
-  line-height: 0px;
-  display: flex;
-  align-items: center;
-  color: #bdbdbd;
+  width: fit-content;
+  margin: auto;
+  color: #BDBDBD;
 `;
 
 export interface PostPreviewProps {
@@ -79,21 +69,25 @@ export interface PostPreviewProps {
   photo: string;
 }
 
+const buttonSize = '25px';
+const textSize = '12px';
+const spaceBetween = '5px';
+
 export const PostPreview: FC<PostPreviewProps> = (props) => {
-  const [likes, setLikes] = useState(0);
+  /*const [likes, setLikes] = useState(0);
   const [comments, setComments] = useState(0);
   const [title, setTitle] = useState('');
-  const [photo, setPhoto] = useState('');
+  const [photo, setPhoto] = useState('');*/
   const [liked, setLiked] = useState(false);
   const [saved, setSaved] = useState(false);
 
-  useEffect(() => {
+  /*useEffect(() => {
     setLikes(props.likes);
     setComments(props.comments);
     setTitle(props.title);
     setPhoto(props.photo);
     return () => {};
-  }, [props]);
+  }, [props]);*/
 
   const handleLikeClick = (event: any) => {
     event.preventDefault();
@@ -112,30 +106,14 @@ export const PostPreview: FC<PostPreviewProps> = (props) => {
 
   return (
     <Container>
-      <Image src={photo} alt="Recipe Photo" aria-label="Recipe Photo"/>
+      <Image src={props.photo} alt="Recipe Photo" aria-label="Recipe Photo"/>
       <TitleBox>
-        <TitleText>{title}</TitleText>
+        <TitleText>{props.title}</TitleText>
       </TitleBox>
       <Icons>
-        <IconGroup onClick={handleLikeClick} aria-label="LikeGroup">
-          {liked ? (
-            <Icon src={Like} alt="Likes" aria-label="Like"/>
-          ) : (
-            <Icon src={NoLike} alt="No Likes" aria-label="NoLike"/>
-          )}
-          <span>{likes}</span>
-        </IconGroup>
-        <IconGroup>
-          <Icon src={Comment} alt="Comment" aria-label="Comment"/>
-          <span>{comments}</span>
-        </IconGroup>
-        <IconGroup onClick={handleSaveClick} aria-label="SaveGroup">
-          {saved ? (
-            <Icon src={Save} alt="Saved" aria-label="Saved"/>
-          ) : (
-            <Icon src={NoSave} alt="NoSaved" aria-label="NoSaved"/>
-          )}
-        </IconGroup>
+        <IconGroup><Statistic size={textSize} spaceBetween={spaceBetween} icon number={props.likes}><Icon src={NoLike} active_src={Like} onClick={() => console.log('Like')} size={buttonSize}/></Statistic></IconGroup>
+        <IconGroup><Statistic size={textSize} spaceBetween={spaceBetween} icon number={props.comments}><Icon src={Comment} onClick={() => console.log('Comentarios')} size={buttonSize}/></Statistic></IconGroup>
+        <IconGroup><Icon src={NoSave} active_src={Save} onClick={() => console.log('Guardar')} size={buttonSize}/></IconGroup>
       </Icons>
     </Container>
   );
