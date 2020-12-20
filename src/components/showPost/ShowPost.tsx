@@ -6,7 +6,7 @@ import PeopleImage from './assets/people-24px.svg';
 import { CollapseInput } from './ShowCollapse';
 import { ShowMultiple } from './ShowMultiple';
 import { ShowWithIcon } from './ShowWithIcon';
-import { API, getPostData } from '../../api';
+import { API, getPostData, updateLike } from '../../api';
 import { PostHeader } from '../timelinePost/subcomponents/PostHeader';
 import { PostFooter } from '../timelinePost/subcomponents/PostFooter';
 
@@ -93,9 +93,11 @@ export const ShowPost: FC<ShowPostProps> = (props) => {
 
   const setData = async (post: any) => {
     post.then((data: any) => {
-      setProfile(`${API}static/users/${data.owner._id}/profile/${data.owner._id}.jpg`);
+      setProfile(
+        `${API}static/users/${data.owner._id}/profile/${data.owner._id}.jpg`
+      );
       setImage(
-       `${API}static/users/${data.owner._id}/posts/${data._id}/${data._id}.jpg`
+        `${API}static/users/${data.owner._id}/posts/${data._id}/${data._id}.jpg`
       );
       setOwner(data.owner.username);
       setDescription(data.description);
@@ -116,19 +118,32 @@ export const ShowPost: FC<ShowPostProps> = (props) => {
     return () => {};
   }, [props]);
 
+  const handleClickLikes = (isLiked: boolean) => {
+    const endpoint = `post/${props.idPost}/like`;
+    if (isLiked) {
+      setLikes(likes + 1);
+      updateLike(endpoint, 'POST');
+    } else {
+      setLikes(likes - 1);
+      updateLike(endpoint, 'DELETE');
+    }
+  };
+
   return (
     <Container>
       <HeaderContainer>
-        <PostHeader
-          phofilePhoto={profile}
-          username={owner}
-        />
+        <PostHeader phofilePhoto={profile} username={owner}/>
       </HeaderContainer>
       <SubContainer>
         <ShowImage image={image} maxWidth={WIDTH} maxHeight={HEIGHT}/>
       </SubContainer>
       <FooterContainer>
-        <PostFooter size={'35px'} likes={likes} comments={comments}/>
+        <PostFooter
+          size={'35px'}
+          likes={likes}
+          comments={comments}
+          handleLikes={handleClickLikes}
+        />
       </FooterContainer>
       <SubContainer>
         <Title>{title}</Title>

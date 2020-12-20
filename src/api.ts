@@ -54,14 +54,22 @@ export const uploadImage = async (image: File) => {
     .catch((error) => console.log(error));
 };
 
-export const getPostData = async (
-  endpoint: string
-) => {
+export const getPostData = async (endpoint: string) => {
   const requestOptions = {
     method: 'GET'
   };
   const data = await sendToBackend(endpoint, requestOptions)
     .then((data) => data.data)
     .catch((error) => console.log(error));
-    return data;
+  return data;
+};
+
+export const updateLike = async (endpoint: string, method: string) => {
+  const requestOptions = {
+    method: method
+  };
+  const data = await sendToBackend(endpoint, requestOptions)
+    .then((data) => data.data)
+    .catch((error) => console.log(error));
+  return data;
 };
