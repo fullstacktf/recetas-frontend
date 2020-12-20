@@ -50,6 +50,8 @@ export interface PostFooterProps {
   size?: string;
   handleLikes?: (isLiked: boolean) => void;
   handleSave?: (isSaved: boolean) => void;
+  isSaveActive?: boolean;
+  isLikeActive?: boolean;
 }
 
 export const PostFooter: FC<PostFooterProps> = (props) => {
@@ -62,7 +64,7 @@ export const PostFooter: FC<PostFooterProps> = (props) => {
           number={props.likes}
           spaceBetween={'5px'}
         >
-          <Icon size={props.size} src={NoLike} active_src={Like} handleClicks={props.handleLikes}/>
+          <Icon isActive={props.isLikeActive} size={props.size} src={NoLike} active_src={Like} handleClicks={props.handleLikes}/>
         </Statistic>
         <Separator/>
         <Statistic
@@ -74,7 +76,7 @@ export const PostFooter: FC<PostFooterProps> = (props) => {
           <Icon size={props.size} src={Comment}/>
         </Statistic>
         <Separator/>
-        <Icon size={props.size} src={NoSave} active_src={Save} handleClicks={props.handleSave}/>
+        <Icon isActive={props.isSaveActive} size={props.size} src={NoSave} active_src={Save} handleClicks={props.handleSave}/>
       </Left>
       <Right>
         <Icon

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 const Container = styled.div<any>`
   width: ${(props) => (props.size ? props.size + ';' : '24px;')};
@@ -22,23 +22,27 @@ interface IconProps {
   active_src?: string;
   size?: string;
   handleClicks?: (isActive: boolean) => void;
+  isActive?: boolean;
 }
 
 export const Icon: FC<IconProps> = (props) => {
-  const [image, setImage] = useState(props.src);
-  const [active, setActive] = useState(false);
-
-  const handleClick = (event: any) => {
-    event.preventDefault();
+  const [active, setActive] = useState(props.isActive);
+  const [image, setImage] = useState(active ? props.active_src : props.src);
+  const changeIcon = () => {
     if (props.active_src) {
       if (!active) {
         setImage(props.active_src);
       } else {
         setImage(props.src);
       }
+    }
+  };
+
+    const handleClick = (event: any) => {
+      event.preventDefault();
+      changeIcon();
       props.handleClicks?.(!active);
       setActive(!active);
-    }
   };
 
   return <Container src={image} onClick={handleClick} size={props.size}/>;

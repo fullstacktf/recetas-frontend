@@ -9,6 +9,7 @@ import { ShowWithIcon } from './ShowWithIcon';
 import { API, getPostData, updateLike, updateSave } from '../../api';
 import { PostHeader } from '../timelinePost/subcomponents/PostHeader';
 import { PostFooter } from '../timelinePost/subcomponents/PostFooter';
+import { isPostSave } from '../../user';
 
 const WIDTH = 862;
 const HEIGHT = 384;
@@ -78,6 +79,7 @@ export interface ShowPostProps {
 
 export const ShowPost: FC<ShowPostProps> = (props) => {
   const [saved, setSaved] = useState(false);
+  const [liked, setLiked] = useState(false);
   const [image, setImage] = useState<string>('');
   const [profile, setProfile] = useState<string>('');
   const [title, setTitle] = useState('');
@@ -100,6 +102,7 @@ export const ShowPost: FC<ShowPostProps> = (props) => {
       setImage(
         `${API}static/users/${data.owner._id}/posts/${data._id}/${data._id}.jpg`
       );
+      setSaved(isPostSave(data._id));
       setOwner(data.owner.username);
       setDescription(data.description);
       setTitle(data.title);
@@ -141,7 +144,6 @@ export const ShowPost: FC<ShowPostProps> = (props) => {
     }
   };
 
-
   return (
     <Container>
       <HeaderContainer>
@@ -151,13 +153,15 @@ export const ShowPost: FC<ShowPostProps> = (props) => {
         <ShowImage image={image} maxWidth={WIDTH} maxHeight={HEIGHT}/>
       </SubContainer>
       <FooterContainer>
-        <PostFooter
+        {isDataReady && <PostFooter
           size={'35px'}
           likes={likes}
           comments={comments}
           handleLikes={handleClickLikes}
           handleSave={handleClickSave}
-        />
+          isSaveActive={saved}
+          isLikeActive={liked}
+        />}
       </FooterContainer>
       <SubContainer>
         <Title>{title}</Title>

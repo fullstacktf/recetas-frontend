@@ -19,8 +19,7 @@ export interface PostGridProps {
 export const PostGrid: FC<PostGridProps> = (props) => {
   return <Container>
           {props.post.map(post => {
-            return (<PostPreview likes={post.likes} comments={post.comments} title={post.title}
-              photo={post.photo}></PostPreview>);
+            return (<PostPreview idPost="5fddfe4b4d3bf16ad342b71d"></PostPreview>);
           })}
         </Container>;
 };
