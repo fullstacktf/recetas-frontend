@@ -1,4 +1,4 @@
-const API = 'https://api.snapfork.me/';
+export const API = 'https://api.snapfork.me/';
 export interface FormPost {
   title: string;
   time: string;
@@ -12,7 +12,7 @@ export interface FormPost {
 interface RequestOptions {
   method: string;
   headers?: {};
-  body: any;
+  body?: any;
 }
 
 const sendToBackend = async (
@@ -52,4 +52,37 @@ export const uploadImage = async (image: File) => {
   await sendToBackend('post/upload-image', requestOptions)
     .then((data) => data.data)
     .catch((error) => console.log(error));
+};
+
+export const getPostData = async (endpoint: string) => {
+  const requestOptions = {
+    method: 'GET'
+  };
+  const data = await sendToBackend(endpoint, requestOptions)
+    .then((data) => data.data)
+    .catch((error) => console.log(error));
+  return data;
+};
+
+export const updateLike = async (endpoint: string, method: string, body = {userID: '5fddfe4b4d3bf162d342b71d'}) => {
+  const requestOptions = {
+    method: method,
+    body: JSON.stringify(body)
+  };
+  const data = await sendToBackend(endpoint, requestOptions)
+    .then((data) => data.data)
+    .catch((error) => console.log(error));
+  return data;
+};
+
+export const updateSave = async (endpoint: string, method: string, body = {userID: '5fddfe4b4d3bf162d342b71d'}) => {
+  const requestOptions = {
+    method: method,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  };
+  const data = await sendToBackend(endpoint, requestOptions)
+    .then((data) => data.data)
+    .catch((error) => console.log(error));
+  return data;
 };

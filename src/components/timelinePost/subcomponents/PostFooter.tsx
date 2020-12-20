@@ -45,23 +45,47 @@ const Separator = styled.div`
 `;
 
 export interface PostFooterProps {
-  likes: number,
-  comments: number
+  likes: number;
+  comments: number;
+  size?: string;
+  handleLikes?: (isLiked: boolean) => void;
+  handleSave?: (isSaved: boolean) => void;
+  isSaveActive?: boolean;
+  isLikeActive?: boolean;
 }
 
 export const PostFooter: FC<PostFooterProps> = (props) => {
-  return <Container>
-    <Left>
-      <Statistic icon number={props.likes} spaceBetween={'5px'}><Icon src={NoLike} active_src={Like}/></Statistic>
-      <Separator/>
-      <Statistic icon number={props.comments} spaceBetween={'5px'}><Icon src={Comment}/></Statistic>
-      <Separator/>
-      <Icon src={NoSave} active_src={Save}/>
-    </Left>
-    <Right>
-      <Icon src={Launch} onClick={() => console.log('Click')}/>
-      <Separator/>
-      <Icon src={Share}/>
-    </Right>
-  </Container>;
+  return (
+    <Container>
+      <Left>
+        <Statistic
+          size={props.size}
+          icon
+          number={props.likes}
+          spaceBetween={'5px'}
+        >
+          <Icon isActive={props.isLikeActive} size={props.size} src={NoLike} active_src={Like} handleClicks={props.handleLikes}/>
+        </Statistic>
+        <Separator/>
+        <Statistic
+          size={props.size}
+          icon
+          number={props.comments}
+          spaceBetween={'5px'}
+        >
+          <Icon size={props.size} src={Comment}/>
+        </Statistic>
+        <Separator/>
+        <Icon isActive={props.isSaveActive} size={props.size} src={NoSave} active_src={Save} handleClicks={props.handleSave}/>
+      </Left>
+      <Right>
+        <Icon
+          size={props.size}
+          src={Launch}
+        />
+        <Separator/>
+        <Icon size={props.size} src={Share}/>
+      </Right>
+    </Container>
+  );
 };
