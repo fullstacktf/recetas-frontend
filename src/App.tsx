@@ -21,8 +21,7 @@ function App() {
 
   return (
     <Router>
-      {isLogged
-        ?
+      {isLogged ? (
         <div>
           <Header isLogged={isLogged}/>
           <Route exact path="/" render={() => (<Home isLogged={isLogged}/>)}/>
@@ -30,12 +29,12 @@ function App() {
           <Route path="/post" component={Post}/>
           <Route path="/search" component={Search}/>
         </div>
-        :
+      ) : (
         <div>
           <Route path="/login" component={Login}/>
           <Route path="/register" component={Register}/>
         </div>
-      }
+      )}
     </Router>
   );
 }

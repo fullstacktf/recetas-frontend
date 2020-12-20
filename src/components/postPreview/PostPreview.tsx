@@ -89,6 +89,21 @@ export const PostPreview: FC<PostPreviewProps> = (props) => {
     return () => {};
   }, [props]);*/
 
+  const handleLikeClick = (event: any) => {
+    event.preventDefault();
+    if (!liked) {
+      setLikes(likes + 1);
+    } else {
+      setLikes(likes - 1);
+    }
+    setLiked(!liked);
+  };
+
+  const handleSaveClick = (event: any) => {
+    event.preventDefault();
+    setSaved(!saved);
+  };
+
   return (
     <Container>
       <Image src={props.photo} alt="Recipe Photo" aria-label="Recipe Photo"/>
