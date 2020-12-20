@@ -47,20 +47,6 @@ describe('PostPreview', () => {
       expect(image).not.toBeNull();
     });
 
-    test('should render 4 images', () => {
-      render(
-        <PostPreview
-          likes={likes}
-          comments={comments}
-          title={title}
-          photo={photo}
-        />
-      );
-
-      const icons = screen.getAllByRole('img');
-      expect(icons).toHaveLength(4);
-    });
-
     test('should render a title text', () => {
       render(
         <PostPreview
