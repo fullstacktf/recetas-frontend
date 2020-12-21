@@ -23,7 +23,6 @@ const sendToBackend = async (
 ) => {
   const authorization = { 'Authorization': `Bearer ${localStorage.getItem('token')}`};
   Object.assign(requestOptions.headers, authorization);
-  console.log(requestOptions);
   return fetch(API + endpoint, requestOptions).then((response) =>
     response.json()
   );
