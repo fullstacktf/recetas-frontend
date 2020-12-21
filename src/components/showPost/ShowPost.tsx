@@ -97,7 +97,7 @@ export const ShowPost: FC<ShowPostProps> = (props) => {
   const setData = async (post: any) => {
     post.then((data: any) => {
       setProfile(
-        `${API}static/users/${data.owner._id}/profile/${data.owner._id}.jpg`
+        `${API}static/users/${data.owner._id}/${data.owner._id}.jpg`
       );
       setImage(
         `${API}static/users/${data.owner._id}/posts/${data._id}/${data._id}.jpg`
