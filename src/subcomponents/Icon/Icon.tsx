@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 
 const Container = styled.div<any>`
   width: ${(props) => (props.size ? props.size + ';' : '24px;')};
@@ -39,7 +39,6 @@ export const Icon: FC<IconProps> = (props) => {
   };
 
     const handleClick = (event: any) => {
-      event.preventDefault();
       changeIcon();
       props.handleClicks?.(!active);
       setActive(!active);

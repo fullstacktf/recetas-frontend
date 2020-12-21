@@ -7,7 +7,7 @@ import Home from '../assets/home-24px.svg';
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
 
-import { Link, BrowserRouter as Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Icon } from '../../../subcomponents/Icon/Icon';
 
 const IconGroup = styled.div`
@@ -21,9 +21,8 @@ const IconGroup = styled.div`
 
 export const Icons: FC = () => {
   return (
-    <Router>
       <IconGroup role="navigation">
-        <Link role="button" to="/post">
+        <Link role="button" to="/postMaker">
           <Icon src={AddCircle}/>
         </Link>
         <Link role="button" to="/home">
@@ -42,6 +41,5 @@ export const Icons: FC = () => {
           <Icon src={Account}/>
         </Link>
       </IconGroup>
-    </Router>
   );
 };
