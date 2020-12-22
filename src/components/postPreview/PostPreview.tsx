@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import styled from '@emotion/styled';
 import NoLike from './assets/favorite_border-24px.svg';
 import Like from './assets/favorite-24px.svg';
@@ -7,7 +7,8 @@ import NoSave from './assets/bookmark_border-24px.svg';
 import Save from './assets/bookmark-24px.svg';
 import { Statistic } from '../../subcomponents/Statistic';
 import { Icon } from '../../subcomponents/Icon/Icon';
-import { API, getPostData, getUserData, Post, updateLike, updateSave } from '../../api';
+import { API, getUserData, Post, updateLike, updateSave, updateUserData } from '../../api';
+import { isPostSave } from '../../user';
 
 const Container = styled.div`
   width: 200px;
@@ -72,23 +73,10 @@ const textSize = '12px';
 const spaceBetween = '5px';
 
 export const PostPreview: FC<PostPreviewProps> = (props) => {
-  const [saved, setSaved] = useState(false);
-  // const [image, setImage] = useState<string>('');
-  // const [title, setTitle] = useState('');
+  const [saved, setSaved] = useState(isPostSave(props.post._id));
   const [likes, setLikes] = useState<number>(props.post.likes);
-  // const [comments, setComments] = useState<number>(0);
-
-  /*const setData = (post: Post) => {
-      setImage(
-        `${API}static/users/${post.owner.id}/posts/${post._id}/${post._id}.jpg`
-      );
-      setTitle(post.title);
-      setLikes(post.likes);
-      setComments(post.comments);
-  };*/
 
   const handleClickLikes = (isLiked: boolean) => {
-    console.log('SUMANDO CLICK');
     const endpoint = `post/${props.post._id}/like`;
     const userID = getUserData()._id;
     if (isLiked) {
@@ -105,10 +93,18 @@ export const PostPreview: FC<PostPreviewProps> = (props) => {
     const userID = getUserData()._id;
     if (isSaved) {
       setSaved(!saved);
-      updateSave(endpoint, 'POST', { userID });
+      updateSave(endpoint, 'POST', { userID }).then(() => {
+        updateUserData().then((data) => {
+          localStorage.setItem('userdata', JSON.stringify(data));
+        });
+      });
     } else {
       setSaved(!saved);
-      updateSave(endpoint, 'DELETE', { userID });
+      updateSave(endpoint, 'DELETE', { userID }).then(() => {
+        updateUserData().then((data) => {
+          localStorage.setItem('userdata', JSON.stringify(data));
+        });
+      });
     }
   };
 
@@ -153,6 +149,7 @@ export const PostPreview: FC<PostPreviewProps> = (props) => {
             active_src={Save}
             handleClicks={handleClickSave}
             size={buttonSize}
+            isActive={saved}
           />
         </IconGroup>
       </Icons>
