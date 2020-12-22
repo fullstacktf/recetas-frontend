@@ -4,6 +4,7 @@ import { Icon } from '../../../subcomponents/Icon/Icon';
 import Servings from '../assets/people-24px.svg';
 import Clock from '../assets/query_builder-24px.svg';
 import { TimelinePostProps } from '../TimelinePost';
+import { generateKey } from '../../../utils/generateKey';
 
 const Container = styled.div`
   display: flex;
@@ -79,11 +80,11 @@ export const PostContent: FC<TimelinePostProps> = (props) => {
       <InfoContainer><Icon src={Servings}/><InfoText>{props.post.servings + 'raciones'}</InfoText></InfoContainer>
           </Left>
           <Right>
-            <Title>{props.post.title}</Title>
+            <Title>{props.post.name}</Title>
             <span>{props.post.description}</span>
             <Title>Ingredientes</Title>
             {
-              props.post.ingredients?.map(ingredient => (<Ingredient>{ingredient}</Ingredient>))
+              props.post.ingredients?.map(ingredient => (<Ingredient key={generateKey('ing')}>{ingredient}</Ingredient>))
             }
           </Right>
         </Container>;

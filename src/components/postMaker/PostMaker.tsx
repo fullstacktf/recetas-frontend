@@ -8,8 +8,9 @@ import PeopleImage from './assets/people-24px.svg';
 import { CollapseInput } from './CollapseInput';
 import { DescriptionInput } from './DescriptionInput';
 import { MultipleInput } from './MultipleInput';
-import { FormPost, uploadFormData } from '../../api';
+import { getUserData, Post, uploadFormData } from '../../api';
 import { Button } from '../../subcomponents/Button';
+import { useHistory } from 'react-router';
 
 const WIDTH: number = 862;
 
@@ -39,13 +40,14 @@ const Line = styled.div`
 
 export const PostMaker: FC = () => {
   const [image, setImage] = useState<File>();
-  const [title, setTitle] = useState<string>('');
+  const [name, setName] = useState<string>('');
   const [time, setTime] = useState<string>('');
   const [servings, setServings] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [ingredients, setIngredients] = useState<string[]>([]);
   const [steps, setSteps] = useState<string[]>([]);
   const [tags, setTags] = useState<string[]>([]);
+  const history = useHistory();
 
   const isImageReady = () => {
     return image ? true : false;
@@ -73,7 +75,7 @@ export const PostMaker: FC = () => {
     return (
       isImageReady() &&
       isServingsReady() &&
-      title &&
+      name &&
       time &&
       description &&
       ingredients.length &&
@@ -82,8 +84,8 @@ export const PostMaker: FC = () => {
     );
   };
 
-  const sendPost = async (body: FormPost, image: File) => {
-    uploadFormData(body, image, 'post/');
+  const sendPost = async (body: Partial<Post>, image: File) => {
+    return uploadFormData(body, image, 'post/');
   };
 
   const handleSubmit = (event: Event) => {
@@ -92,18 +94,32 @@ export const PostMaker: FC = () => {
       return;
     }
     if (isDataReady()) {
+      const user = getUserData();
       sendPost(
         {
-          title,
+          name,
           time,
-          servings,
+          servings: Number(servings),
           description,
           ingredients,
           steps,
-          tags
+          tags,
+          owner: {
+            _id: user._id,
+            username: user.username
+          }
         },
         image
-      );
+      )
+      .then((response) => {
+        console.log(response);
+        if(response.data && response.image){
+          history.push(`/post/${response.data._id}`);
+        }
+        // TODO implementar errores
+        console.log('Error al crear la receta');
+      })
+      .catch((error) => { console.log(error); });
     }
   };
 
@@ -113,7 +129,7 @@ export const PostMaker: FC = () => {
         <ImageInput setImage={setImage}/>
       </SubContainer>
       <SubContainer>
-        <TitleInput setTitle={setTitle}/>
+        <TitleInput setTitle={setName}/>
       </SubContainer>
       <SubContainer>
         <Line/>

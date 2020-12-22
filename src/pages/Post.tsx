@@ -1,10 +1,15 @@
 import React, { FC } from 'react';
+import { useParams } from 'react-router-dom';
 import { ShowPost } from '../components/showPost/ShowPost';
 
-export const Post: FC = () => {
+export interface PostProps {
+  postID: string
+}
+
+export const Post: FC<PostProps> = (props) => {
   return (
     <div>
-      <ShowPost idPost="5fddfe4b4d3bf16ad342b71d"/>
+      <ShowPost idPost={props.postID}/>
     </div>
   );
 };

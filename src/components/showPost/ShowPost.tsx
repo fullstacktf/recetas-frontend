@@ -6,7 +6,7 @@ import PeopleImage from './assets/people-24px.svg';
 import { CollapseInput } from './ShowCollapse';
 import { ShowMultiple } from './ShowMultiple';
 import { ShowWithIcon } from './ShowWithIcon';
-import { API, getPostData, updateLike, updateSave } from '../../api';
+import { API, checkImageUrl, getPostData, getUserData, updateLike, updateSave } from '../../api';
 import { PostHeader } from '../timelinePost/subcomponents/PostHeader';
 import { PostFooter } from '../timelinePost/subcomponents/PostFooter';
 import { isPostSave } from '../../user';
@@ -96,9 +96,15 @@ export const ShowPost: FC<ShowPostProps> = (props) => {
 
   const setData = async (post: any) => {
     post.then((data: any) => {
-      setProfile(
-        `${API}static/users/${data.owner._id}/${data.owner._id}.jpg`
-      );
+      console.log('POST DATA: ', data);
+      checkImageUrl(`${API}static/users/${data.owner._id}/${data.owner._id}.jpg`)
+      .then((isValid) =>{
+        if(isValid){
+          setProfile(`${API}static/users/${data.owner._id}/${data.owner._id}.jpg`);
+        }else{
+          setProfile(`${API}static/users/default.png`);
+        }
+      });
       setImage(
         `${API}static/users/${data.owner._id}/posts/${data._id}/${data._id}.jpg`
       );
@@ -124,23 +130,25 @@ export const ShowPost: FC<ShowPostProps> = (props) => {
 
   const handleClickLikes = (isLiked: boolean) => {
     const endpoint = `post/${props.idPost}/like`;
+    const userID = getUserData()._id;
     if (isLiked) {
       setLikes(likes + 1);
-      updateLike(endpoint, 'POST');
+      updateLike(endpoint, 'POST', { userID });
     } else {
       setLikes(likes - 1);
-      updateLike(endpoint, 'DELETE');
+      updateLike(endpoint, 'DELETE', { userID });
     }
   };
 
   const handleClickSave = (isSaved: boolean) => {
     const endpoint = `post/${props.idPost}/save`;
+    const userID = getUserData()._id;
     if (isSaved) {
       setSaved(!saved);
-      updateSave(endpoint, 'POST');
+      updateSave(endpoint, 'POST', { userID });
     } else {
       setSaved(!saved);
-      updateSave(endpoint, 'DELETE');
+      updateSave(endpoint, 'DELETE', { userID });
     }
   };
 

@@ -21,12 +21,12 @@ Primary.args = {
     likes: 12,
     comments: 3,
     tags: ['#healthy', '#vegan'],
-    title: 'Ensalada de Tofu',
+    name: 'Ensalada de Tofu',
     time: '30 min',
     servings: 2,
     description: 'Una ensalada templada diferente y muy rica. Suele hacerse con boniato o una patata dulce, pero cómo no tenía lo he cambiado por patata normal.',
     owner: {
-      id: 'jaksdhkasjdhkajshdka',
+      _id: 'jaksdhkasjdhkajshdka',
       username: 'PanchoMen'
     }
   }

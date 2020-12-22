@@ -1,8 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { PostHeader } from './subcomponents/PostHeader';
 import { PostFooter } from './subcomponents/PostFooter';
 import { PostContent } from './subcomponents/PostContent';
+import { API, checkImageUrl, Post } from '../../api';
 
 const Container = styled.div`
   width: 100%;
@@ -30,28 +31,26 @@ const FooterContainer = styled.div`
 `;
 
 export interface TimelinePostProps {
-  post: {
-    _id: string,
-    ingredients: string[],
-    steps: string[],
-    likes: number,
-    comments: number,
-    tags: string[],
-    title: string,
-    time: string;
-    servings: number,
-    description: string,
-    owner: {
-      id: string,
-      username: string,
-    }
-  };
+  post: Post
 }
 
 export const TimelinePost: FC<TimelinePostProps> = (props) => {
+  const [profile, setProfile] = useState<string>('');
+
+  useEffect(() => {
+    checkImageUrl(`${API}static/users/${props.post.owner._id}/${props.post.owner._id}.jpg`)
+    .then((isValid) => {
+      if (isValid) {
+        setProfile(`${API}static/users/${props.post.owner._id}/${props.post.owner._id}.jpg`);
+      } else {
+        setProfile(`${API}static/users/default.png`);
+      }
+    });
+  });
+
   return <Container>
             <HeaderContainer>
-              <PostHeader phofilePhoto={'https://api.snapfork.me/static/profile/default.svg'} username={'PedroGT'}/>
+              <PostHeader phofilePhoto={profile} username={props.post.owner.username}/>
             </HeaderContainer>
             <ContentContainer>
               <PostContent post={props.post}/>
