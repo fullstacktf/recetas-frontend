@@ -31,13 +31,13 @@ interface ButtonProps {
   type?: 'button' | 'submit' | 'reset';
   rounded?: boolean;
   secondary?: boolean;
-  onClick?: () => void;
+  onClick?: (event: any) => void;
 }
 
 export const Button: FC<ButtonProps> = (props) => {
 
   const hanleOnClick = (event: any) => {
-    props.onClick && props.onClick();
+    props.onClick && props.onClick(event);
   };
 
   return <StyledButton rounded={props.rounded} secondary={props.secondary} type={props.type} onClick={hanleOnClick}>{props.children}</StyledButton>;

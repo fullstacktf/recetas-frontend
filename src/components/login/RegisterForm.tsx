@@ -28,22 +28,21 @@ const SubContainer = styled.div`
 `;
 
 export interface RegisterFormProps {
-  onSubmit: () => void;
-  //goToLogin: () => void;
-  loginUrl?: string;
+  onSubmit: (event: any) => void;
 }
 
 export const RegisterForm: FC<RegisterFormProps> = (props) =>{
   const history = useHistory();
 
   const handleClick = () => {
-    //props.goToLogin();
     history.push('/login');
   };
 
   return <Container>
     <SubContainer>
     <Form onSubmit={props.onSubmit}>
+              <InputTag>Username:</InputTag>
+              <Input name="username" type="text"/>
               <InputTag>Email:</InputTag>
               <Input name="email" type="email"/>
               <InputTag>Repite tu Email:</InputTag>

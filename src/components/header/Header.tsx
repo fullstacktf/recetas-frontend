@@ -4,6 +4,7 @@ import { SearchInput } from './subcomponents/SearchInput';
 import { Icons } from './subcomponents/Icons';
 import { LoginButton } from './subcomponents/LoginButton';
 import { Brand } from '../../subcomponents/Brand';
+import { useHistory } from 'react-router';
 
 const Container = styled.div`
   padding: 15px;
@@ -47,6 +48,15 @@ export interface HeaderProps{
 }
 
 export const Header: FC<HeaderProps> = (props) => {
+  const history = useHistory();
+
+  const goToLogin = () => {
+    history.push('/login');
+  };
+
+  const goToRegister = () => {
+    history.push('/register');
+  };
 
   return (
     <Container>
@@ -60,8 +70,8 @@ export const Header: FC<HeaderProps> = (props) => {
         {props.isLogged
           ? <Icons/>
           : <ButtonsContainer>
-              <LoginButton onclick={() => {console.log('Login...');}} secondary={true}>LOG IN</LoginButton>
-              <LoginButton onclick={() => {console.log('Register...');}}>SIGN UP</LoginButton>
+            <LoginButton onclick={goToLogin} secondary={true}>LOG IN</LoginButton>
+            <LoginButton onclick={goToRegister}>SIGN UP</LoginButton>
           </ButtonsContainer>
         }
       </Row3>

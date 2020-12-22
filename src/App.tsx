@@ -2,41 +2,35 @@ import React, { useEffect, useState } from 'react';
 
 import './css/fonts.css';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
 import { Header } from './components/header/Header';
 import { Home } from './pages/Home';
 import { Post } from './pages/Post';
 import { Search } from './pages/Search';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
-import { PostMakerView } from './pages/PostMakerView';
+import { NewPost } from './pages/NewPost';
 
 function App() {
-  const [isLogged, setIsLogged] = useState(true);
+  const [isLogged, setIsLogged] = useState(false);
 
-  /*useEffect(() => {
-    const result = false;
-    //result = getIsUserLoged(); // TODO Comprobar si el usuario se encuentra logueado
-    setIsLogged(result);
-  },[]);*/
+  useEffect(() => {
+    const result = localStorage.getItem('token');
+    if(result){
+      setIsLogged(true);
+    }
+  },[]);
 
   return (
     <Router>
-      {isLogged ? (
-        <div>
-          <Header isLogged={isLogged}/>
-          <Route exact path="/" render={() => (<Home isLogged={isLogged}/>)}/>
-          <Route exact path="/home" render={() => (<Home isLogged={isLogged}/>)}/>
-          <Route path="/post" component={Post}/>
-          <Route path="/postMaker" component={PostMakerView}/>
-          <Route path="/search" component={Search}/>
-        </div>
-      ) : (
-        <div>
+          <Route exact path="/"> {isLogged ? <Redirect to="/home"/> : <Redirect to="/login"/>}</Route>
+          <Route exact path="/home" render={() => (<div><Header isLogged={isLogged}/><Home isLogged={isLogged}/></div>)}/>
+          <Route path="/post" render={() => (<div><Header isLogged={isLogged}/><Post/></div>)}/>
+          <Route path="/search" render={() => (<div><Header isLogged={isLogged}/><Search/></div>)}/>
           <Route path="/login" component={Login}/>
           <Route path="/register" component={Register}/>
-        </div>
-      )}
+          <Route path="/newPost" render={() => (<div><Header isLogged={isLogged}/><NewPost/></div>)}/>
+          {/* TODO Implement view to complete profile info <Route path="/completeProfile" component={Login}/>*/}
     </Router>
   );
 }

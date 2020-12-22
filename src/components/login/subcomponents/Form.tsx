@@ -6,14 +6,14 @@ const SubForm = styled.form`
   flex-direction: column;
 `;
 
-interface LoginFormProps {
-  onSubmit: () => void;
+interface FormProps {
+  onSubmit: (event: any) => void;
 }
 
-export const Form: FC<LoginFormProps> = (props) => {
+export const Form: FC<FormProps> = (props) => {
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    props.onSubmit();
+    props.onSubmit(event);
   };
 
   return <SubForm onSubmit={handleSubmit}>{props.children}</SubForm>;

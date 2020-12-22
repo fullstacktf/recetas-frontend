@@ -30,7 +30,7 @@ const FormContainer = styled.div`
 `;
 
 export interface LoginFormProps{
-  onSubmit: () => void;
+  onSubmit: (param: any) => void;
 }
 
 export const LoginForm: FC<LoginFormProps> = (props) => {
@@ -44,8 +44,8 @@ export const LoginForm: FC<LoginFormProps> = (props) => {
     <Container>
       <FormContainer>
         <Form onSubmit={props.onSubmit}>
-          <InputTag>Email:</InputTag>
-          <Input name="email" type="email"></Input>
+          <InputTag>Email o username:</InputTag>
+          <Input name="email" type="email/username"></Input>
           <InputTag>Contraseña:</InputTag>
           <Input name="password" type="password"></Input>
           <Button rounded type="submit">Iniciar Sesión</Button>

@@ -22,6 +22,10 @@ export const isValidPassword = (value: string): ValidatorResult => {
   return result;
 };
 
+export const isValidEmail_Username = (value: string): ValidatorResult => {
+  return value.includes('@') ? isValidEmail(value) : isValidDefault(value);
+};
+
 export const isValidDefault = (value: string): ValidatorResult => {
   let result = new ValidatorResult();
   result.result = value.length !== 0;
@@ -34,6 +38,8 @@ export const getValidationFunctionByInputType = (type: string): (value: string) 
       return isValidEmail;
     case 'password':
       return isValidPassword;
+    case 'email/username':
+      return isValidEmail_Username;
     default:
       return isValidDefault;
   }
