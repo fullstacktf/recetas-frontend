@@ -1,5 +1,3 @@
-import { user } from './user';
-
 export const API = 'https://api.snapfork.me/';
 //export const API = 'http://localhost:3001/';
 
@@ -57,8 +55,7 @@ export const sendToBackend = async (
     if (response.ok) {
       return response.json();
     }
-    return await response.json();
-    //throw new Error(`${response.status} ${await response.json()}`);
+    throw new Error(`${response.status} ${JSON.stringify(response)}`);
   } catch (error) {
     throw error;
   }

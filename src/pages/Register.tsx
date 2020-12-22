@@ -13,8 +13,8 @@ export const Register: FC = () => {
         username: event.target[0].value,
         email: event.target[1].value,
         password: event.target[3].value,
-        name: '',
-        last: ''
+        name: ' ',
+        last: ' '
       };
     let RequestOptions = {
       method: 'POST',
