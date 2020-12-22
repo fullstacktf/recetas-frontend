@@ -77,7 +77,7 @@ export const ProfileInfoBar: FC<ProfileInfoBarProps> = (props) => {
     <Column1>{props.profileInfo.username || 'Unknown'}</Column1>
             <Column2>
               <StatisticContainer>
-                <StatisticSubContainer><Statistic number={props.profileInfo.posts}><span>publicaciones</span></Statistic></StatisticSubContainer>
+                <StatisticSubContainer><Statistic number={props.profileInfo.publications}><span>publicaciones</span></Statistic></StatisticSubContainer>
                 <StatisticSubContainer><Statistic number={props.profileInfo.followers}><span>seguidores</span></Statistic></StatisticSubContainer>
                 <StatisticSubContainer><Statistic number={props.profileInfo.following}><span>seguidos</span></Statistic></StatisticSubContainer>
               </StatisticContainer>

@@ -176,11 +176,8 @@ export const getProfileInfo = async (userID: string): Promise<User> => {
       headers: {}
     };
     const response = await sendToBackend(`user/${userID}/profile`, requestOptions);
-    if (response.ok) {
-      return response.json();
-    }
-    /*throw new Error*/ console.log(`${response.status} ${response}`);
-    return response;
+    console.log('PROFILE INFO RESPONSE', response);
+    return response.data;
   } catch (error) {
     throw error;
   }
@@ -193,11 +190,8 @@ export const getUserPosts = async (userID: string): Promise<Post[]> => {
       headers: {}
     };
     const response = await sendToBackend(`post/user/${userID}`, requestOptions);
-    if (response.ok) {
-      return response.json();
-    }
-    /*throw new Error*/ console.log(`${response.status} ${response}`);
-    return [];
+    console.log('USER POST RESPONSE', response);
+    return response.data;
   } catch (error) {
     throw error;
   }
