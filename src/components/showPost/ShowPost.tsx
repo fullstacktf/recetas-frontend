@@ -92,7 +92,7 @@ export const ShowPost: FC<ShowPostProps> = (props) => {
   const [isDataReady, setIsDataReady] = useState<boolean>(false);
   const [likes, setLikes] = useState<number>(0);
   const [comments, setComments] = useState<number>(0);
-  const [owner, setOwner] = useState<string>('');
+  const [owner, setOwner] = useState<{ _id: string, username: string }>({ _id: '', username: '' });
 
   const setData = async (post: any) => {
     post.then((data: any) => {
@@ -109,7 +109,7 @@ export const ShowPost: FC<ShowPostProps> = (props) => {
         `${API}static/users/${data.owner._id}/posts/${data._id}/${data._id}.jpg`
       );
       setSaved(isPostSave(data._id));
-      setOwner(data.owner.username);
+      setOwner(data.owner);
       setDescription(data.description);
       setTitle(data.title);
       setTime(data.time);
@@ -155,7 +155,7 @@ export const ShowPost: FC<ShowPostProps> = (props) => {
   return (
     <Container>
       <HeaderContainer>
-        <PostHeader phofilePhoto={profile} username={owner}/>
+        <PostHeader phofilePhoto={profile} owner={owner}/>
       </HeaderContainer>
       <SubContainer>
         <ShowImage image={image} maxWidth={WIDTH} maxHeight={HEIGHT}/>

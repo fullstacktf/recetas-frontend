@@ -8,6 +8,7 @@ import Save from './assets/bookmark-24px.svg';
 import { Statistic } from '../../subcomponents/Statistic';
 import { Icon } from '../../subcomponents/Icon/Icon';
 import { API, getPostData, getUserData, Post, updateLike, updateSave } from '../../api';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   width: 200px;
@@ -21,11 +22,16 @@ const Container = styled.div`
 `;
 
 const Image = styled.img`
-  width: 200px;
-  height: 50%;
+  width: 100%;
+  height: 100%;
   object-fit: fill;
   border-radius: 25px 25px 0px 0px;
   align-self: flex-start;
+`;
+
+const ImageContainer = styled.div`
+  width: 200px;
+  height: 50%;
 `;
 
 const TitleBox = styled.div`
@@ -114,7 +120,11 @@ export const PostPreview: FC<PostPreviewProps> = (props) => {
 
   return (
     <Container>
+      <ImageContainer>
+      <Link role="button" to={`/post/${props.post._id}`}>
       <Image src={`${API}static/users/${props.post.owner._id}/posts/${props.post._id}/${props.post._id}.jpg`} alt="Recipe Photo" aria-label="Recipe Photo"/>
+      </Link>
+      </ImageContainer>
       <TitleBox>
         <TitleText>{props.post.name}</TitleText>
       </TitleBox>

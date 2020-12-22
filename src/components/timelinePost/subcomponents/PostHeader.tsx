@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   background-color: transparent;
@@ -39,12 +40,14 @@ const Username = styled.span`
 
 export interface PostHeaderProps {
   phofilePhoto: string;
-  username: string;
+  owner: { _id: string, username: string };
 }
 
 export const PostHeader: FC<PostHeaderProps> = (props) => {
   return <Container>
-          <Image src={props.phofilePhoto}/>
-          <Username>{props.username}</Username>
+            <Image src={props.phofilePhoto}/>
+            <Link role="button" to={`/profile/${props.owner._id}`}>
+              <Username>{props.owner.username}</Username>
+            </Link>
         </Container>;
 };

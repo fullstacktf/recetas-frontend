@@ -25,7 +25,7 @@ function App() {
           <Route path="/login" render={() => (<Login setIsLogged={setIsLogged}/>)}/>
           <Route path="/register" component={Register}/>
           <Route path="/newPost" render={() => (<div><Header isLogged={isLogged}/><NewPost/></div>)}/>
-      <Route path="/profile/:id?" render={(props) => (<div><Header isLogged={isLogged}/><Profile userID={props.match.params.id || getUserData()._id}/></div>)}/>
+          <Route path="/profile/:id?" render={(props) => (<div><Header isLogged={isLogged}/><Profile userID={props.match.params.id || getUserData()._id}/></div>)}/>
           {/* TODO Implement view to complete profile info <Route path="/completeProfile" component={Login}/>*/}
     </Router>
   );

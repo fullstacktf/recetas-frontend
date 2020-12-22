@@ -50,7 +50,7 @@ export const TimelinePost: FC<TimelinePostProps> = (props) => {
 
   return <Container>
             <HeaderContainer>
-              <PostHeader phofilePhoto={profile} username={props.post.owner.username}/>
+              <PostHeader phofilePhoto={profile} owner={props.post.owner}/>
             </HeaderContainer>
             <ContentContainer>
               <PostContent post={props.post}/>
