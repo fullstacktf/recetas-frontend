@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
+import { getProfile } from '../api';
 import { ProfileInfoBar } from '../components/profileInfoBar/ProfileInfoBar';
 import { PostGrid } from '../subcomponents/PostGrid';
+import { Post, User } from './../api';
 
 const Container = styled.div`
   width: 100%;
@@ -27,18 +29,37 @@ const Row2 = styled.div`
 `;
 
 export interface ProfileProps{
-  profileInfo: any;
+  userID: string;
 }
 
 export const Profile: FC<ProfileProps> = (props) => {
-  return <Container>
-            <Row1>
-              <ProfileInfoBarContainer>
-                <ProfileInfoBar profileInfo={props.profileInfo}/>
-              </ProfileInfoBarContainer>
-            </Row1>
-            <Row2>
-              <PostGrid post={props.profileInfo.post}/>
-            </Row2>
-          </Container>;
+  const [userData, setUserData] = useState<User>();
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    console.log('USER ID', props.userID);
+    getProfile(props.userID).then((resp) => {
+      console.log('RESPONSE: ', resp);
+      setUserData(resp.user);
+      setPosts(resp.posts);
+      setIsLoading(false);
+    });
+  }, [props.userID]);
+
+  return <div>
+            {isLoading
+            ? <p>Cargando...</p>
+            : <Container>
+                <Row1>
+                  <ProfileInfoBarContainer>
+                    <ProfileInfoBar profileInfo={userData}/>
+                  </ProfileInfoBarContainer>
+                </Row1>
+                <Row2>
+                  <PostGrid post={posts}/>
+                </Row2>
+            </Container>
+            }
+          </div>;
 };

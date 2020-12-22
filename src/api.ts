@@ -1,81 +1,113 @@
 import { user } from './user';
 
 export const API = 'https://api.snapfork.me/';
-export interface FormPost {
-  title: string;
-  time: string;
-  servings: string;
-  description: string;
-  ingredients: string[];
-  steps: string[];
-  tags: string[];
+//export const API = 'http://localhost:3001/';
+
+export interface Post {
+    _id: string,
+    ingredients: string[],
+    steps: string[],
+    likes: number,
+    comments: number,
+    tags: string[],
+    name: string,
+    time: string;
+    servings: number,
+    description: string,
+    owner: {
+      _id: string,
+      username: string,
+    },
+    creation?: string
+}
+
+export interface User {
+  _id: string,
+  username: string,
+  name: string,
+  last: string,
+  email: string,
+  password: string,
+  creation?: Date,
+  lastLogin?: Date,
+  rol: string,
+  description: string,
+  publications: number,
+  followers: number,
+  following: number,
+  saved: string[],
 }
 
 interface RequestOptions {
   method: string;
-  headers?: {};
+  headers: {};
   body?: any;
 }
 
 export const sendToBackend = async (
   endpoint: string,
   requestOptions: RequestOptions
-) => {
-  const authorization = { 'Authorization': `Bearer ${localStorage.getItem('token')}`};
+): Promise<any> => {
+  const authorization = { 'Authorization': `Bearer ${getToken()}`};
   Object.assign(requestOptions.headers, authorization);
 
-  return fetch(API + endpoint, requestOptions)
-  .then((response) => {
-    if (response.ok){
+  console.log('Headers: ', requestOptions);
+  try {
+    const response = await fetch(API + endpoint, requestOptions);
+    if (response.ok) {
       return response.json();
     }
-    throw new Error(`${response.status} ${response.json()}`);
-  })
-  .catch((error) =>{
+    return await response.json();
+    //throw new Error(`${response.status} ${await response.json()}`);
+  } catch (error) {
     throw error;
-  });
+  }
 };
 
 export const uploadFormData = async (
-  body: FormPost,
+  body: Partial<Post>,
   image: File,
   endpoint: string
-) => {
+): Promise<any> => {
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
   };
-  const data = await sendToBackend(endpoint, requestOptions)
-    .then((data) => data.data)
-    .catch((error) => console.log(error));
+  const data = await sendToBackend(endpoint, requestOptions);
+  let imageUploadResult;
   if (data) {
-    uploadImage(image, user._id, data._id);
+    imageUploadResult = await uploadImage(image, getUserData()._id, data.data._id);
   }
+  return { data: data?.data, image: imageUploadResult?.data};
 };
 
 export const uploadImage = async (
   image: File,
   userID: string,
   postID: string
-) => {
-  const body = new FormData();
-  body.append('image', image);
-  body.append('userID', userID);
-  body.append('postID', postID);
+): Promise<any> => {
+  try {
+  let fd = new FormData();
+  fd.append('image', image);
+  fd.append('userID', userID);
+  fd.append('postID', postID);
   const requestOptions = {
     method: 'POST',
-    body: body,
-    headers: { 'Content-Type': 'multipart/form-data' }
+    body: fd,
+    headers: { } // 'Content-Type': 'multipart/form-data' }
   };
-  await sendToBackend('post/upload-image', requestOptions)
-    .then((data) => data.data)
-    .catch((error) => console.log(error));
+    const response = await sendToBackend('post/upload-image', requestOptions);
+    return response;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const getPostData = async (endpoint: string) => {
   const requestOptions = {
-    method: 'GET'
+    method: 'GET',
+    headers: {}
   };
   const data = await sendToBackend(endpoint, requestOptions)
     .then((data) => data.data)
@@ -86,10 +118,11 @@ export const getPostData = async (endpoint: string) => {
 export const updateLike = async (
   endpoint: string,
   method: string,
-  body = { userID: '5fddfe4b4d3bf162d342b71d' }
+  body: {}
 ) => {
   const requestOptions = {
     method: method,
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
   };
   const data = await sendToBackend(endpoint, requestOptions)
@@ -101,7 +134,7 @@ export const updateLike = async (
 export const updateSave = async (
   endpoint: string,
   method: string,
-  body = { userID: '5fddfe4b4d3bf162d342b71d' }
+  body = {}
 ) => {
   const requestOptions = {
     method: method,
@@ -112,4 +145,63 @@ export const updateSave = async (
     .then((data) => data.data)
     .catch((error) => console.log(error));
   return data;
+};
+
+export const getToken = (): string => {
+  return localStorage.getItem('token') || '';
+};
+
+export const getUserData = (): User => {
+  const userdata = localStorage.getItem('userdata') || '{}';
+  const user = JSON.parse(userdata);
+  return user;
+};
+
+export const checkImageUrl = async (url: string): Promise<boolean> => {
+  try {
+    const response = await fetch('url', { method: 'HEAD' });
+    return response.ok;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getProfile = async (userID: string): Promise<{user: User, posts: Post[]}> => {
+  const user = await getProfileInfo(userID);
+  const posts = await getUserPosts(userID);
+  return {user , posts};
+};
+
+export const getProfileInfo = async (userID: string): Promise<User> => {
+  try {
+    const requestOptions = {
+      method: 'GET',
+      headers: {}
+    };
+    const response = await sendToBackend(`user/${userID}/profile`, requestOptions);
+    if (response.ok) {
+      return response.json();
+    }
+    /*throw new Error*/ console.log(`${response.status} ${response}`);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getUserPosts = async (userID: string): Promise<Post[]> => {
+  try {
+    const requestOptions = {
+      method: 'GET',
+      headers: {}
+    };
+    const response = await sendToBackend(`post/user/${userID}`, requestOptions);
+    if (response.ok) {
+      return response.json();
+    }
+    /*throw new Error*/ console.log(`${response.status} ${response}`);
+    return [];
+  } catch (error) {
+    throw error;
+  }
 };

@@ -37,7 +37,7 @@ export const Icons: FC = () => {
         <Link role="button" to="/bookmark">
           <Icon src={Bookmark}/>
         </Link>
-        <Link role="button" to="/account">
+        <Link role="button" to="/profile">
           <Icon src={Account}/>
         </Link>
       </IconGroup>

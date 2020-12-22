@@ -10,29 +10,9 @@ export default {
   component: Profile
 } as Meta;
 
-const generatePost = (number: number): any[] =>{
-  const post = [];
-  for (let index = 0; index < number; index++) {
-    post.push({
-      likes: 3,
-      comments: 15,
-      title: 'Macarrones',
-      photo: 'https://api.snapfork.me/static/mediaUtils/login/background.png'
-    });
-  }
-  return post;
-};
-
 const Template: Story<ProfileProps> = (args) => <Profile {...args}/>;
 
 export const Primary = Template.bind({});
   Primary.args = {
-    profileInfo: {
-      username: 'Pancho Mendoza',
-      posts: 114,
-      followers: 36703,
-      following: 6324,
-      description: 'Desde siempre me ha gustado cocinar, mi abuela y mi madre cocinaban muy bien. Aprendí de ellas un montón de recetas que con el tiempo se han mantenido en mi familia...',
-      post: generatePost(10)
-    }
+    userID: '5fe0cd67452a48155d94e341'
   };
