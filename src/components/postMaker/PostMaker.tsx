@@ -9,6 +9,7 @@ import { CollapseInput } from './CollapseInput';
 import { DescriptionInput } from './DescriptionInput';
 import { MultipleInput } from './MultipleInput';
 import { FormPost, uploadFormData } from '../../api';
+import { Button } from '../../subcomponents/Button';
 
 const WIDTH: number = 862;
 
@@ -34,32 +35,6 @@ const SubContainer = styled.div`
 const Line = styled.div`
   width: ${WIDTH}px;
   border: 1px solid #bdbdbd;
-`;
-
-const Button = styled.button<any>`
-  font-family: Poppins;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 1.5em;
-  line-height: 1.5em;
-  text-align: center;
-  color: ${(props) => (props.secondary ? '#18A0FB;' : '#FFFFFF;')};
-  background: ${(props) => (props.secondary ? '#FFFFFF;' : '#18A0FB;')};
-  border: 0.5px solid #18a0fb;
-  padding: 10px 30px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
-
-  :hover {
-    cursor: pointer;
-  }
-
-  :focus {
-    outline: none;
-  }
-
-  :active {
-    background: ${(props) => (props.secondary ? '#dadada;' : '#2ba6f8;')};
-  }
 `;
 
 export const PostMaker: FC = () => {
@@ -199,7 +174,7 @@ export const PostMaker: FC = () => {
       </SubContainer>
       <SubContainer>
         <InfoContainer>
-          <Button onClick={handleSubmit}>Crear</Button>
+          <Button rounded onClick={handleSubmit}>Crear</Button>
         </InfoContainer>
       </SubContainer>
     </Container>
