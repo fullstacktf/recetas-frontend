@@ -2,38 +2,38 @@ export const API = 'https://api.snapfork.me/';
 //export const API = 'http://localhost:3001/';
 
 export interface Post {
-    _id: string,
-    ingredients: string[],
-    steps: string[],
-    likes: number,
-    comments: number,
-    tags: string[],
-    name: string,
-    time: string;
-    servings: number,
-    description: string,
-    owner: {
-      _id: string,
-      username: string,
-    },
-    creation?: string
+  _id: string;
+  ingredients: string[];
+  steps: string[];
+  likes: number;
+  comments: number;
+  tags: string[];
+  name: string;
+  time: string;
+  servings: number;
+  description: string;
+  owner: {
+    _id: string;
+    username: string;
+  };
+  creation?: string;
 }
 
 export interface User {
-  _id: string,
-  username: string,
-  name: string,
-  last: string,
-  email: string,
-  password: string,
-  creation?: Date,
-  lastLogin?: Date,
-  rol: string,
-  description: string,
-  publications: number,
-  followers: number,
-  following: number,
-  saved: string[],
+  _id: string;
+  username: string;
+  name: string;
+  last: string;
+  email: string;
+  password: string;
+  creation?: Date;
+  lastLogin?: Date;
+  rol: string;
+  description: string;
+  publications: number;
+  followers: number;
+  following: number;
+  saved: string[];
 }
 
 interface RequestOptions {
@@ -46,10 +46,9 @@ export const sendToBackend = async (
   endpoint: string,
   requestOptions: RequestOptions
 ): Promise<any> => {
-  const authorization = { 'Authorization': `Bearer ${getToken()}`};
+  const authorization = { Authorization: `Bearer ${getToken()}` };
   Object.assign(requestOptions.headers, authorization);
 
-  console.log('Headers: ', requestOptions);
   try {
     const response = await fetch(API + endpoint, requestOptions);
     if (response.ok) {
@@ -74,9 +73,13 @@ export const uploadFormData = async (
   const data = await sendToBackend(endpoint, requestOptions);
   let imageUploadResult;
   if (data) {
-    imageUploadResult = await uploadImage(image, getUserData()._id, data.data._id);
+    imageUploadResult = await uploadImage(
+      image,
+      getUserData()._id,
+      data.data._id
+    );
   }
-  return { data: data?.data, image: imageUploadResult?.data};
+  return { data: data?.data, image: imageUploadResult?.data };
 };
 
 export const uploadImage = async (
@@ -85,15 +88,15 @@ export const uploadImage = async (
   postID: string
 ): Promise<any> => {
   try {
-  let fd = new FormData();
-  fd.append('image', image);
-  fd.append('userID', userID);
-  fd.append('postID', postID);
-  const requestOptions = {
-    method: 'POST',
-    body: fd,
-    headers: { } // 'Content-Type': 'multipart/form-data' }
-  };
+    let fd = new FormData();
+    fd.append('image', image);
+    fd.append('userID', userID);
+    fd.append('postID', postID);
+    const requestOptions = {
+      method: 'POST',
+      body: fd,
+      headers: {} // 'Content-Type': 'multipart/form-data' }
+    };
     const response = await sendToBackend('post/upload-image', requestOptions);
     return response;
   } catch (error) {
@@ -156,17 +159,19 @@ export const getUserData = (): User => {
 
 export const checkImageUrl = async (url: string): Promise<boolean> => {
   try {
-    const response = await fetch(url , { method: 'HEAD' });
+    const response = await fetch(url, { method: 'HEAD' });
     return response.ok;
   } catch (error) {
     throw error;
   }
 };
 
-export const getProfile = async (userID: string): Promise<{user: User, posts: Post[]}> => {
+export const getProfile = async (
+  userID: string
+): Promise<{ user: User; posts: Post[] }> => {
   const user = await getProfileInfo(userID);
   const posts = await getUserPosts(userID);
-  return {user , posts};
+  return { user, posts };
 };
 
 export const getProfileInfo = async (userID: string): Promise<User> => {
@@ -175,8 +180,10 @@ export const getProfileInfo = async (userID: string): Promise<User> => {
       method: 'GET',
       headers: {}
     };
-    const response = await sendToBackend(`user/${userID}/profile`, requestOptions);
-    console.log('PROFILE INFO RESPONSE', response);
+    const response = await sendToBackend(
+      `user/${userID}/profile`,
+      requestOptions
+    );
     return response.data;
   } catch (error) {
     throw error;
@@ -190,7 +197,23 @@ export const getUserPosts = async (userID: string): Promise<Post[]> => {
       headers: {}
     };
     const response = await sendToBackend(`post/user/${userID}`, requestOptions);
-    console.log('USER POST RESPONSE', response);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateUserData = async () => {
+  try {
+    const requestOptions = {
+      method: 'GET',
+      headers: {}
+    };
+    const user = getUserData();
+    const response = await sendToBackend(
+      `user/${user._id}/profile`,
+      requestOptions
+    );
     return response.data;
   } catch (error) {
     throw error;
