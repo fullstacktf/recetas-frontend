@@ -17,15 +17,23 @@ interface RequestOptions {
   body?: any;
 }
 
-const sendToBackend = async (
+export const sendToBackend = async (
   endpoint: string,
   requestOptions: RequestOptions
 ) => {
   const authorization = { 'Authorization': `Bearer ${localStorage.getItem('token')}`};
   Object.assign(requestOptions.headers, authorization);
-  return fetch(API + endpoint, requestOptions).then((response) =>
-    response.json()
-  );
+
+  return fetch(API + endpoint, requestOptions)
+  .then((response) => {
+    if (response.ok){
+      return response.json();
+    }
+    throw new Error(`${response.status} ${response.json()}`);
+  })
+  .catch((error) =>{
+    throw error;
+  });
 };
 
 export const uploadFormData = async (
