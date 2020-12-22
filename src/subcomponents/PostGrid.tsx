@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { FC } from 'react';
+import { Post } from '../api';
 import { PostPreview } from '../components/postPreview/PostPreview';
 
 
@@ -13,13 +14,13 @@ const Container = styled.div`
 `;
 
 export interface PostGridProps {
-  post: any[];
+  post: Post[];
 }
 
 export const PostGrid: FC<PostGridProps> = (props) => {
   return <Container>
           {props.post.map(post => {
-            return (<PostPreview idPost="5fddfe4b4d3bf16ad342b71d"></PostPreview>);
+            return (<PostPreview key={post._id} post={post}></PostPreview>);
           })}
         </Container>;
 };

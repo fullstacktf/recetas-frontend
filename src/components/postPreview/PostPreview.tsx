@@ -7,7 +7,7 @@ import NoSave from './assets/bookmark_border-24px.svg';
 import Save from './assets/bookmark-24px.svg';
 import { Statistic } from '../../subcomponents/Statistic';
 import { Icon } from '../../subcomponents/Icon/Icon';
-import { API, getPostData, updateLike, updateSave } from '../../api';
+import { API, getPostData, getUserData, Post, updateLike, updateSave } from '../../api';
 
 const Container = styled.div`
   width: 200px;
@@ -64,7 +64,7 @@ const IconGroup = styled.div`
 `;
 
 export interface PostPreviewProps {
-  idPost: string;
+  post: Post
 }
 
 const buttonSize = '25px';
@@ -73,54 +73,50 @@ const spaceBetween = '5px';
 
 export const PostPreview: FC<PostPreviewProps> = (props) => {
   const [saved, setSaved] = useState(false);
-  const [image, setImage] = useState<string>('');
-  const [title, setTitle] = useState('');
-  const [likes, setLikes] = useState<number>(0);
-  const [comments, setComments] = useState<number>(0);
+  // const [image, setImage] = useState<string>('');
+  // const [title, setTitle] = useState('');
+  const [likes, setLikes] = useState<number>(props.post.likes);
+  // const [comments, setComments] = useState<number>(0);
 
-  const setData = async (post: any) => {
-    post.then((data: any) => {
+  /*const setData = (post: Post) => {
       setImage(
-        `${API}static/users/${data.owner._id}/posts/${data._id}/${data._id}.jpg`
+        `${API}static/users/${post.owner.id}/posts/${post._id}/${post._id}.jpg`
       );
-      setTitle(data.title);
-      setLikes(data.likes);
-      setComments(data.comments);
-    });
-  };
-
-  useEffect(() => {
-    setData(getPostData('post/' + props.idPost));
-    return () => {};
-  }, [props]);
+      setTitle(post.title);
+      setLikes(post.likes);
+      setComments(post.comments);
+  };*/
 
   const handleClickLikes = (isLiked: boolean) => {
-    const endpoint = `post/${props.idPost}/like`;
+    console.log('SUMANDO CLICK');
+    const endpoint = `post/${props.post._id}/like`;
+    const userID = getUserData()._id;
     if (isLiked) {
       setLikes(likes + 1);
-      updateLike(endpoint, 'POST');
+      updateLike(endpoint, 'POST', { userID });
     } else {
       setLikes(likes - 1);
-      updateLike(endpoint, 'DELETE');
+      updateLike(endpoint, 'DELETE', { userID });
     }
   };
 
   const handleClickSave = (isSaved: boolean) => {
-    const endpoint = `post/${props.idPost}/save`;
+    const endpoint = `post/${props.post._id}/save`;
+    const userID = getUserData()._id;
     if (isSaved) {
       setSaved(!saved);
-      updateSave(endpoint, 'POST');
+      updateSave(endpoint, 'POST', { userID });
     } else {
       setSaved(!saved);
-      updateSave(endpoint, 'DELETE');
+      updateSave(endpoint, 'DELETE', { userID });
     }
   };
 
   return (
     <Container>
-      <Image src={image} alt="Recipe Photo" aria-label="Recipe Photo"/>
+      <Image src={`${API}static/users/${props.post.owner._id}/posts/${props.post._id}/${props.post._id}.jpg`} alt="Recipe Photo" aria-label="Recipe Photo"/>
       <TitleBox>
-        <TitleText>{title}</TitleText>
+        <TitleText>{props.post.name}</TitleText>
       </TitleBox>
       <Icons>
         <IconGroup>
@@ -143,7 +139,7 @@ export const PostPreview: FC<PostPreviewProps> = (props) => {
             size={textSize}
             spaceBetween={spaceBetween}
             icon
-            number={comments}
+            number={props.post.comments}
           >
             <Icon
               src={Comment}

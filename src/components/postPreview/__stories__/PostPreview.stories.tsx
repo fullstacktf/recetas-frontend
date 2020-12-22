@@ -14,5 +14,21 @@ const Template: Story<PostPreviewProps> = (args) => <PostPreview {...args}/>;
 
 export const Primary = Template.bind({});
 Primary.args = {
-  idPost: '5fddfe4b4d3bf16ad342b71d'
+  post: {
+    comments: 0,
+    creation: '2020-12-22T01:35:22.338Z',
+    description: 'qweqw',
+    ingredients: ['wqeqw'],
+    likes: 0,
+    name: 'asdasd',
+    owner: {
+            _id: '5fe14d7f29435b6b0bd243cb',
+            username: 'PanchoMen'
+          },
+    servings: 12,
+    steps: ['qweqw'],
+    tags: ['qwe'],
+    time: '12 min',
+    _id: '5fe14d7f29435b5a35d243cc'
+  }
 };
