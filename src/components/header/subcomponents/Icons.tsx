@@ -34,7 +34,7 @@ export const Icons: FC = () => {
         <Link role="button" to="/chat">
           <Icon src={Chat}/>
         </Link>
-        <Link role="button" to="/bookmark">
+        <Link role="button" to="/saved">
           <Icon src={Bookmark}/>
         </Link>
         <Link role="button" to="/profile">

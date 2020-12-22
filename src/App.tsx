@@ -12,6 +12,7 @@ import { Register } from './pages/Register';
 import { NewPost } from './pages/NewPost';
 import { getToken, getUserData } from './api';
 import { Profile } from './pages/Profile';
+import { SavedPosts } from './pages/SavedPosts';
 
 function App() {
   const [isLogged, setIsLogged] = useState(Boolean(getToken().length));
@@ -26,6 +27,7 @@ function App() {
           <Route path="/register" component={Register}/>
           <Route path="/newPost" render={() => (<div><Header isLogged={isLogged}/><NewPost/></div>)}/>
           <Route path="/profile/:id?" render={(props) => (<div><Header isLogged={isLogged}/><Profile userID={props.match.params.id || getUserData()._id}/></div>)}/>
+          <Route path="/saved" render={() => (<div><Header isLogged={isLogged}/><SavedPosts/></div>)}/>
           {/* TODO Implement view to complete profile info <Route path="/completeProfile" component={Login}/>*/}
     </Router>
   );
