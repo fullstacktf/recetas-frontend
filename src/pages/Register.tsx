@@ -30,7 +30,7 @@ export const Register: FC = () => {
         console.log(response);
         // TODO crear componente para completar la información del perfil
         //history.push('/completeProfile');
-        history.push('/');
+        history.push('/login');
       })
       .catch((response) => {
         console.log('Estoy en el catch');

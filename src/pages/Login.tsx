@@ -4,7 +4,12 @@ import { sendToBackend } from '../api';
 import { LoginForm } from '../components/login/LoginForm';
 import { LoginLayout } from '../layouts/LoginLayout';
 
-export const Login: FC = () => {
+
+export interface LoginProps{
+  setIsLogged: (isLogin: boolean) => void;
+}
+
+export const Login: FC<LoginProps> = (props) => {
   let history = useHistory();
 
   const handleSubmit = (event: any) => {
@@ -28,9 +33,10 @@ export const Login: FC = () => {
 
     sendToBackend('user/login', RequestOptions)
     .then((response) =>{
-      localStorage.setItem('token', response.token);
-      localStorage.setItem('userdata', JSON.stringify(response));
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('userdata', JSON.stringify(response.data));
       history.push('/');
+      props.setIsLogged(true);
     })
     .catch((response) => {
       console.log('Estoy en el catch');
