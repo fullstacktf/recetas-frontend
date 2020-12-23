@@ -5,6 +5,7 @@ import Servings from '../assets/people-24px.svg';
 import Clock from '../assets/query_builder-24px.svg';
 import { TimelinePostProps } from '../TimelinePost';
 import { generateKey } from '../../../utils/generateKey';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -72,12 +73,16 @@ const Ingredient = styled.p`
   margin-top: 5px;
 `;
 
+
 export const PostContent: FC<TimelinePostProps> = (props) => {
+  console.log('INGREDIENTES: ',props.post.ingredients);
   return <Container>
           <Left>
-            <Image src={'https://api.snapfork.me/static/post/' + props.post._id + '/1.png'}/>
+            <Link role="button" to={`/post/${props.post._id}`}>
+              <Image src={`https://api.snapfork.me/static/users/${props.post.owner._id}/posts/${props.post._id}/${props.post._id}.jpg`}/>
+            </Link>
             <InfoContainer><Icon src={Clock}/><InfoText>{props.post.time}</InfoText></InfoContainer>
-      <InfoContainer><Icon src={Servings}/><InfoText>{props.post.servings + 'raciones'}</InfoText></InfoContainer>
+            <InfoContainer><Icon src={Servings}/><InfoText>{props.post.servings + ' raciones'}</InfoText></InfoContainer>
           </Left>
           <Right>
             <Title>{props.post.name}</Title>

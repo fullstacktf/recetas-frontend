@@ -4,12 +4,13 @@ import { ShowPost } from '../components/showPost/ShowPost';
 
 export interface PostProps {
   postID: string
+  isLogged: boolean;
 }
 
 export const Post: FC<PostProps> = (props) => {
   return (
     <div>
-      <ShowPost idPost={props.postID}/>
+      <ShowPost isLogged={props.isLogged} idPost={props.postID}/>
     </div>
   );
 };

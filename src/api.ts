@@ -190,7 +190,36 @@ export const getUserPosts = async (userID: string): Promise<Post[]> => {
       headers: {}
     };
     const response = await sendToBackend(`post/user/${userID}`, requestOptions);
-    console.log('USER POST RESPONSE', response);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const follow = async (userID: string) => {
+  try {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' } ,
+      body: JSON.stringify({ id: getUserData()._id })
+    };
+    const response = await sendToBackend(`user/${userID}/follow`, requestOptions);
+    console.log('FOLLOW RESPONSE', response);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const unfollow = async (userID: string) => {
+  try {
+    const requestOptions = {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: getUserData()._id })
+    };
+    const response = await sendToBackend(`user/${userID}/follow`, requestOptions);
+    console.log('UNFOLLOW RESPONSE', response);
     return response.data;
   } catch (error) {
     throw error;

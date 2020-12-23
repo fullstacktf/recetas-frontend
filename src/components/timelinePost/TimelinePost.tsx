@@ -32,6 +32,7 @@ const FooterContainer = styled.div`
 
 export interface TimelinePostProps {
   post: Post
+  isLogged: boolean;
 }
 
 export const TimelinePost: FC<TimelinePostProps> = (props) => {
@@ -53,8 +54,8 @@ export const TimelinePost: FC<TimelinePostProps> = (props) => {
               <PostHeader phofilePhoto={profile} owner={props.post.owner}/>
             </HeaderContainer>
             <ContentContainer>
-              <PostContent post={props.post}/>
+              <PostContent isLogged={props.isLogged} post={props.post}/>
             </ContentContainer>
-            <FooterContainer><PostFooter likes={props.post.likes} comments={props.post.comments}/></FooterContainer>
+            <FooterContainer><PostFooter postID={props.post._id} isLogged={props.isLogged} likes={props.post.likes} comments={props.post.comments}/></FooterContainer>
           </Container>;
 };

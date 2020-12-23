@@ -10,6 +10,7 @@ import Launch from '../assets/launch_24dp.svg';
 import Share from '../assets/share_24dp.svg';
 import Save from '../assets/bookmark-24px.svg';
 import NoSave from '../assets/bookmark_border-24px.svg';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -52,6 +53,8 @@ export interface PostFooterProps {
   handleSave?: (isSaved: boolean) => void;
   isSaveActive?: boolean;
   isLikeActive?: boolean;
+  isLogged: boolean;
+  postID: string;
 }
 
 export const PostFooter: FC<PostFooterProps> = (props) => {
@@ -64,7 +67,7 @@ export const PostFooter: FC<PostFooterProps> = (props) => {
           number={props.likes}
           spaceBetween={'5px'}
         >
-          <Icon isActive={props.isLikeActive} size={props.size} src={NoLike} active_src={Like} handleClicks={props.handleLikes}/>
+          <Icon disabled={!props.isLogged} isActive={props.isLikeActive} size={props.size} src={NoLike} active_src={Like} handleClicks={props.handleLikes}/>
         </Statistic>
         <Separator/>
         <Statistic
@@ -76,13 +79,15 @@ export const PostFooter: FC<PostFooterProps> = (props) => {
           <Icon size={props.size} src={Comment}/>
         </Statistic>
         <Separator/>
-        <Icon isActive={props.isSaveActive} size={props.size} src={NoSave} active_src={Save} handleClicks={props.handleSave}/>
+        <Icon disabled={!props.isLogged} isActive={props.isSaveActive} size={props.size} src={NoSave} active_src={Save} handleClicks={props.handleSave}/>
       </Left>
       <Right>
+        <Link role="button" to={`/post/${props.postID}`}>
         <Icon
           size={props.size}
           src={Launch}
         />
+        </Link>
         <Separator/>
         <Icon size={props.size} src={Share}/>
       </Right>

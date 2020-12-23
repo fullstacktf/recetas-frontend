@@ -15,11 +15,18 @@ const Template: Story<ProfileInfoBarProps> = (args) => <ProfileInfoBar {...args}
 export const Primary = Template.bind({});
 Primary.args = {
   profileInfo: {
-    username: 'Pancho Mendoza',
-    posts: 114,
+    _id: 'adsad',
+    name: 'Pancho',
+    last: 'Mendoza',
+    username: 'PanchoMendoza',
+    publications: 114,
     followers: 36703,
     following: 6324,
-    description: 'Desde siempre me ha gustado cocinar, mi abuela y mi madre cocinaban muy bien. Aprendí de ellas un montón de recetas que con el tiempo se han mantenido en mi familia...'
+    description: 'Desde siempre me ha gustado cocinar, mi abuela y mi madre cocinaban muy bien. Aprendí de ellas un montón de recetas que con el tiempo se han mantenido en mi familia...',
+    email: 'paco@gmail.com',
+    password: 'sasd',
+    saved: [],
+    rol: 'user'
   }
 };
 

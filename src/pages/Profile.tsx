@@ -30,6 +30,8 @@ const Row2 = styled.div`
 
 export interface ProfileProps{
   userID: string;
+  isLogged: boolean;
+  setIsLogged: (isLogged: boolean) => void;
 }
 
 export const Profile: FC<ProfileProps> = (props) => {
@@ -53,11 +55,11 @@ export const Profile: FC<ProfileProps> = (props) => {
             : <Container>
                 <Row1>
                   <ProfileInfoBarContainer>
-                    <ProfileInfoBar profileInfo={userData}/>
+                    <ProfileInfoBar isLogged={props.isLogged} setIsLogged={props.setIsLogged} profileInfo={userData}/>
                   </ProfileInfoBarContainer>
                 </Row1>
                 <Row2>
-                  <PostGrid post={posts}/>
+                  <PostGrid isLogged={props.isLogged} post={posts}/>
                 </Row2>
             </Container>
             }

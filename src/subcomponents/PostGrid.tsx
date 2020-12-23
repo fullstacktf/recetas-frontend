@@ -15,12 +15,13 @@ const Container = styled.div`
 
 export interface PostGridProps {
   post: Post[];
+  isLogged: boolean;
 }
 
 export const PostGrid: FC<PostGridProps> = (props) => {
   return <Container>
           {props.post.map(post => {
-            return (<PostPreview key={post._id} post={post}></PostPreview>);
+            return (<PostPreview isLogged={props.isLogged} key={post._id} post={post}></PostPreview>);
           })}
         </Container>;
 };

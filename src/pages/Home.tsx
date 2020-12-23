@@ -8,6 +8,21 @@ const Container = styled.div`
 
 `;
 
+const TimelineContainer = styled.div`
+  width: 70%;
+  max-width: 800px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const TimelineItem = styled.div`
+  width: 100%;
+  margin-top: 5%;
+`;
+
 export interface HomeProps {
   isLogged: boolean;
 }
@@ -42,8 +57,8 @@ export const Home: FC<HomeProps> = (props) => {
             {isLoading
             ? <p>CARGANDO...</p>
             : (props.isLogged
-              ? !isLoading && posts.map((post) => { return (<TimelinePost key={post._id} post={post}></TimelinePost>);})
-              : !isLoading && <PostGrid post={posts}/>)
+        ? !isLoading && <TimelineContainer>{posts.map((post) => { return (<TimelineItem><TimelinePost isLogged={props.isLogged} key={post._id} post={post}></TimelinePost></TimelineItem>); })}</TimelineContainer>
+              : !isLoading && <PostGrid isLogged={props.isLogged} post={posts}/>)
             }
           </Container>;
 };

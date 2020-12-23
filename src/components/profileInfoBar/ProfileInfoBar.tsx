@@ -1,7 +1,10 @@
 import styled from '@emotion/styled';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
+import { follow, getUserData, sendToBackend, unfollow, User } from '../../api';
 import { Button } from '../../subcomponents/Button';
 import { Statistic } from '../../subcomponents/Statistic';
+import { generateKey } from '../../utils/generateKey';
 
 const Container = styled.div`
   width: 100%;
@@ -70,23 +73,78 @@ const ButtonContainer = styled.div`
 
 export interface ProfileInfoBarProps{
   profileInfo: any;
+  isLogged: boolean;
+  setIsLogged: (isLogged: boolean) => void;
 }
 
 export const ProfileInfoBar: FC<ProfileInfoBarProps> = (props) => {
-  return <Container>
-    <Column1>{props.profileInfo.username || 'Unknown'}</Column1>
-            <Column2>
-              <StatisticContainer>
-                <StatisticSubContainer><Statistic number={props.profileInfo.publications}><span>publicaciones</span></Statistic></StatisticSubContainer>
-                <StatisticSubContainer><Statistic number={props.profileInfo.followers}><span>seguidores</span></Statistic></StatisticSubContainer>
-                <StatisticSubContainer><Statistic number={props.profileInfo.following}><span>seguidos</span></Statistic></StatisticSubContainer>
-              </StatisticContainer>
-              <DescriptionContainer> {props.profileInfo.description} </DescriptionContainer>
-            </Column2>
-            <Column3>
-              <ButtonContainer>
-                <Button>Seguir</Button>
-              </ButtonContainer>
-            </Column3>
-          </Container>;
+  const history = useHistory();
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isMe, setIsMe] = useState(getUserData()._id === props.profileInfo._id);
+  const [followers, setFollowers] = useState(props.profileInfo.followers);
+
+  useEffect(() => {
+
+    if (props.isLogged && !isMe){
+      let endpoint = `user/${getUserData()._id}/isFollowing/${props.profileInfo._id}`;
+
+      let RequestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+      };
+
+      sendToBackend(endpoint, RequestOptions)
+        .then((response) => {
+          setIsFollowing(response.data);
+          setIsLoading(false);
+        });
+    }
+    setIsLoading(false);
+  }, [isMe, props.isLogged, props.profileInfo._id]);
+
+  const handleFollow = (event: any) => {
+    if (props.isLogged) {
+      if(isFollowing){
+        unfollow(props.profileInfo._id);
+        setFollowers(followers - 1);
+      }else{
+        follow(props.profileInfo._id);
+        setFollowers(followers + 1);
+      }
+    }
+  };
+
+  const handleLogout = (event: any) => {
+    if(props.isLogged){
+      localStorage.clear();
+      props.setIsLogged(false);
+      history.push('/');
+    }
+  };
+
+  return <div>
+          {isLoading
+            ? <p>CARGANDO...</p>
+            : <Container>
+                <Column1>{props.profileInfo.username || 'Unknown'}</Column1>
+                <Column2>
+                  <StatisticContainer>
+                    <StatisticSubContainer><Statistic number={props.profileInfo.publications}><span>publicaciones</span></Statistic></StatisticSubContainer>
+                    <StatisticSubContainer><Statistic number={followers}><span>seguidores</span></Statistic></StatisticSubContainer>
+                    <StatisticSubContainer><Statistic number={props.profileInfo.following}><span>seguidos</span></Statistic></StatisticSubContainer>
+                  </StatisticContainer>
+                  <DescriptionContainer> {props.profileInfo.description} </DescriptionContainer>
+                </Column2>
+                <Column3>
+                  <ButtonContainer>
+                    {isMe
+                      ? <Button rounded onClick={handleLogout}>Cerrar Sesión</Button>
+                      : <Button disabled={!props.isLogged} secondary={isFollowing} onClick={handleFollow}>{isFollowing ? 'Dejar de seguir' : 'Seguir'}</Button>
+                    }
+                  </ButtonContainer>
+                </Column3>
+              </Container>
+          }
+        </div>;
 };

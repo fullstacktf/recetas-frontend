@@ -71,6 +71,7 @@ const IconGroup = styled.div`
 
 export interface PostPreviewProps {
   post: Post
+  isLogged: boolean;
 }
 
 const buttonSize = '25px';
@@ -79,43 +80,31 @@ const spaceBetween = '5px';
 
 export const PostPreview: FC<PostPreviewProps> = (props) => {
   const [saved, setSaved] = useState(false);
-  // const [image, setImage] = useState<string>('');
-  // const [title, setTitle] = useState('');
   const [likes, setLikes] = useState<number>(props.post.likes);
-  // const [comments, setComments] = useState<number>(0);
 
-  /*const setData = (post: Post) => {
-      setImage(
-        `${API}static/users/${post.owner.id}/posts/${post._id}/${post._id}.jpg`
-      );
-      setTitle(post.title);
-      setLikes(post.likes);
-      setComments(post.comments);
-  };*/
 
   const handleClickLikes = (isLiked: boolean) => {
-    console.log('SUMANDO CLICK');
-    const endpoint = `post/${props.post._id}/like`;
-    const userID = getUserData()._id;
-    if (isLiked) {
-      setLikes(likes + 1);
-      updateLike(endpoint, 'POST', { userID });
-    } else {
-      setLikes(likes - 1);
-      updateLike(endpoint, 'DELETE', { userID });
-    }
+      const endpoint = `post/${props.post._id}/like`;
+      const userID = getUserData()._id;
+      if (isLiked) {
+        setLikes(likes + 1);
+        updateLike(endpoint, 'POST', { userID });
+      } else {
+        setLikes(likes - 1);
+        updateLike(endpoint, 'DELETE', { userID });
+      }
   };
 
   const handleClickSave = (isSaved: boolean) => {
-    const endpoint = `post/${props.post._id}/save`;
-    const userID = getUserData()._id;
-    if (isSaved) {
-      setSaved(!saved);
-      updateSave(endpoint, 'POST', { userID });
-    } else {
-      setSaved(!saved);
-      updateSave(endpoint, 'DELETE', { userID });
-    }
+      const endpoint = `post/${props.post._id}/save`;
+      const userID = getUserData()._id;
+      if (isSaved) {
+        setSaved(!saved);
+        updateSave(endpoint, 'POST', { userID });
+      } else {
+        setSaved(!saved);
+        updateSave(endpoint, 'DELETE', { userID });
+      }
   };
 
   return (
@@ -136,7 +125,7 @@ export const PostPreview: FC<PostPreviewProps> = (props) => {
             icon
             number={likes}
           >
-            <Icon
+            <Icon disabled={!props.isLogged}
               src={NoLike}
               active_src={Like}
               handleClicks={handleClickLikes}
@@ -151,14 +140,17 @@ export const PostPreview: FC<PostPreviewProps> = (props) => {
             icon
             number={props.post.comments}
           >
-            <Icon
-              src={Comment}
-              size={buttonSize}
-            />
+            <Link role="button" to={`/post/${props.post._id}`}>
+                <Icon
+                  src={Comment}
+                  size={buttonSize}
+                />
+            </Link>
           </Statistic>
         </IconGroup>
         <IconGroup>
           <Icon
+            disabled={!props.isLogged}
             src={NoSave}
             active_src={Save}
             handleClicks={handleClickSave}

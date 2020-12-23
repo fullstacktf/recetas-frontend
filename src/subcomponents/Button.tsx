@@ -15,7 +15,7 @@ const StyledButton = styled.button<any>`
   padding-bottom: 10px;
 
   :hover{
-    cursor: pointer;
+    cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   }
 
   :focus {
@@ -32,6 +32,7 @@ interface ButtonProps {
   rounded?: boolean;
   secondary?: boolean;
   onClick?: (event: any) => void;
+  disabled?: boolean;
 }
 
 export const Button: FC<ButtonProps> = (props) => {
@@ -40,5 +41,5 @@ export const Button: FC<ButtonProps> = (props) => {
     props.onClick && props.onClick(event);
   };
 
-  return <StyledButton rounded={props.rounded} secondary={props.secondary} type={props.type} onClick={hanleOnClick}>{props.children}</StyledButton>;
+  return <StyledButton disabled={props.disabled} rounded={props.rounded} secondary={props.secondary} type={props.type} onClick={hanleOnClick}>{props.children}</StyledButton>;
 };

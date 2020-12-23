@@ -7,7 +7,11 @@ const Container = styled.div`
 
 `;
 
-export const SavedPosts: FC = () => {
+export interface SavedPostsProps{
+  isLogged: boolean;
+}
+
+export const SavedPosts: FC<SavedPostsProps> = (props) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [isLoading, setiSLoading] = useState(true);
 
@@ -27,6 +31,6 @@ export const SavedPosts: FC = () => {
       });
   }, []);
   return <Container>
-            {!isLoading && <PostGrid post={posts}/>}
+            {!isLoading && <PostGrid isLogged={props.isLogged} post={posts}/>}
           </Container>;
 };

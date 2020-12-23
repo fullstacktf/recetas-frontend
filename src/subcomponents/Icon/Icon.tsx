@@ -13,7 +13,7 @@ const Container = styled.div<any>`
   background-position: center center;
 
   :hover {
-    cursor: pointer;
+    cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   }
 `;
 
@@ -23,6 +23,7 @@ interface IconProps {
   size?: string;
   handleClicks?: (isActive: boolean) => void;
   isActive?: boolean;
+  disabled?: boolean
 }
 
 export const Icon: FC<IconProps> = (props) => {
@@ -39,10 +40,12 @@ export const Icon: FC<IconProps> = (props) => {
   };
 
     const handleClick = (event: any) => {
-      changeIcon();
-      props.handleClicks?.(!active);
-      setActive(!active);
+      if(!props.disabled){
+        changeIcon();
+        props.handleClicks?.(!active);
+        setActive(!active);
+      }
   };
 
-  return <Container src={image} onClick={handleClick} size={props.size}/>;
+  return <Container disabled={props.disabled} src={image} onClick={handleClick} size={props.size}/>;
 };

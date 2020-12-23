@@ -21,13 +21,13 @@ function App() {
     <Router>
           <Route exact path="/"><Redirect to="/home"/></Route>
           <Route exact path="/home" render={() => (<div><Header isLogged={isLogged}/><Home isLogged={isLogged}/></div>)}/>
-          <Route path="/post/:id" render={(props) => (<div><Header isLogged={isLogged}/><Post postID={props.match.params.id}/></div>)}/>
+          <Route path="/post/:id" render={(props) => (<div><Header isLogged={isLogged}/><Post isLogged={isLogged} postID={props.match.params.id}/></div>)}/>
           <Route path="/search" render={() => (<div><Header isLogged={isLogged}/><Search/></div>)}/>
           <Route path="/login" render={() => (<Login setIsLogged={setIsLogged}/>)}/>
           <Route path="/register" component={Register}/>
           <Route path="/newPost" render={() => (<div><Header isLogged={isLogged}/><NewPost/></div>)}/>
-          <Route path="/profile/:id?" render={(props) => (<div><Header isLogged={isLogged}/><Profile userID={props.match.params.id || getUserData()._id}/></div>)}/>
-          <Route path="/saved" render={() => (<div><Header isLogged={isLogged}/><SavedPosts/></div>)}/>
+          <Route path="/profile/:id?" render={(props) => (<div><Header isLogged={isLogged}/><Profile isLogged={isLogged} setIsLogged={setIsLogged} userID={props.match.params.id || getUserData()._id}/></div>)}/>
+          <Route path="/saved" render={() => (<div><Header isLogged={isLogged}/><SavedPosts isLogged={isLogged}/></div>)}/>
           {/* TODO Implement view to complete profile info <Route path="/completeProfile" component={Login}/>*/}
     </Router>
   );

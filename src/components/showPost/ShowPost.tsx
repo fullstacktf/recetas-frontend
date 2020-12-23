@@ -75,6 +75,7 @@ const FooterContainer = styled.div`
 
 export interface ShowPostProps {
   idPost: string;
+  isLogged: boolean;
 }
 
 export const ShowPost: FC<ShowPostProps> = (props) => {
@@ -96,7 +97,6 @@ export const ShowPost: FC<ShowPostProps> = (props) => {
 
   const setData = async (post: any) => {
     post.then((data: any) => {
-      console.log('POST DATA: ', data);
       checkImageUrl(`${API}static/users/${data.owner._id}/${data.owner._id}.jpg`)
       .then((isValid) =>{
         if(isValid){
@@ -162,7 +162,8 @@ export const ShowPost: FC<ShowPostProps> = (props) => {
                 <ShowImage image={image} maxWidth={WIDTH} maxHeight={HEIGHT}/>
               </SubContainer>
               <FooterContainer>
-                <PostFooter
+                <PostFooter postID={props.idPost}
+                  isLogged={props.isLogged}
                   size={'35px'}
                   likes={likes}
                   comments={comments}
