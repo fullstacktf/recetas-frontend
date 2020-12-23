@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import styled from '@emotion/styled';
 import NoLike from './assets/favorite_border-24px.svg';
 import Like from './assets/favorite-24px.svg';
@@ -7,8 +7,9 @@ import NoSave from './assets/bookmark_border-24px.svg';
 import Save from './assets/bookmark-24px.svg';
 import { Statistic } from '../../subcomponents/Statistic';
 import { Icon } from '../../subcomponents/Icon/Icon';
-import { API, getPostData, getUserData, Post, updateLike, updateSave } from '../../api';
+import { isPostSave } from '../../user';
 import { Link } from 'react-router-dom';
+import { API, getUserData, Post, updateLike, updateSave, updateUserData } from '../../api';
 
 const Container = styled.div`
   width: 200px;
@@ -79,32 +80,39 @@ const textSize = '12px';
 const spaceBetween = '5px';
 
 export const PostPreview: FC<PostPreviewProps> = (props) => {
-  const [saved, setSaved] = useState(false);
+  const [saved, setSaved] = useState(isPostSave(props.post._id));
   const [likes, setLikes] = useState<number>(props.post.likes);
 
-
   const handleClickLikes = (isLiked: boolean) => {
-      const endpoint = `post/${props.post._id}/like`;
-      const userID = getUserData()._id;
-      if (isLiked) {
-        setLikes(likes + 1);
-        updateLike(endpoint, 'POST', { userID });
-      } else {
-        setLikes(likes - 1);
-        updateLike(endpoint, 'DELETE', { userID });
-      }
+    const endpoint = `post/${props.post._id}/like`;
+    const userID = getUserData()._id;
+    if (isLiked) {
+      setLikes(likes + 1);
+      updateLike(endpoint, 'POST', { userID });
+    } else {
+      setLikes(likes - 1);
+      updateLike(endpoint, 'DELETE', { userID });
+    }
   };
 
   const handleClickSave = (isSaved: boolean) => {
-      const endpoint = `post/${props.post._id}/save`;
-      const userID = getUserData()._id;
-      if (isSaved) {
-        setSaved(!saved);
-        updateSave(endpoint, 'POST', { userID });
-      } else {
-        setSaved(!saved);
-        updateSave(endpoint, 'DELETE', { userID });
-      }
+    const endpoint = `post/${props.post._id}/save`;
+    const userID = getUserData()._id;
+    if (isSaved) {
+      setSaved(!saved);
+      updateSave(endpoint, 'POST', { userID }).then(() => {
+        updateUserData().then((data) => {
+          localStorage.setItem('userdata', JSON.stringify(data));
+        });
+      });
+    } else {
+      setSaved(!saved);
+      updateSave(endpoint, 'DELETE', { userID }).then(() => {
+        updateUserData().then((data) => {
+          localStorage.setItem('userdata', JSON.stringify(data));
+        });
+      });
+    }
   };
 
   return (
@@ -155,6 +163,7 @@ export const PostPreview: FC<PostPreviewProps> = (props) => {
             active_src={Save}
             handleClicks={handleClickSave}
             size={buttonSize}
+            isActive={saved}
           />
         </IconGroup>
       </Icons>

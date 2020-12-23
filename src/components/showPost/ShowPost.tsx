@@ -6,7 +6,15 @@ import PeopleImage from './assets/people-24px.svg';
 import { CollapseInput } from './ShowCollapse';
 import { ShowMultiple } from './ShowMultiple';
 import { ShowWithIcon } from './ShowWithIcon';
-import { API, checkImageUrl, getPostData, getUserData, updateLike, updateSave } from '../../api';
+import {
+  API,
+  checkImageUrl,
+  getPostData,
+  getUserData,
+  updateLike,
+  updateSave,
+  updateUserData
+} from '../../api';
 import { PostHeader } from '../timelinePost/subcomponents/PostHeader';
 import { PostFooter } from '../timelinePost/subcomponents/PostFooter';
 import { isPostSave } from '../../user';
@@ -145,10 +153,18 @@ export const ShowPost: FC<ShowPostProps> = (props) => {
     const userID = getUserData()._id;
     if (isSaved) {
       setSaved(!saved);
-      updateSave(endpoint, 'POST', { userID });
+      updateSave(endpoint, 'POST', { userID }).then(() => {
+        updateUserData().then((data) => {
+          localStorage.setItem('userdata', JSON.stringify(data));
+        });
+      });
     } else {
       setSaved(!saved);
-      updateSave(endpoint, 'DELETE', { userID });
+      updateSave(endpoint, 'DELETE', { userID }).then(() => {
+        updateUserData().then((data) => {
+          localStorage.setItem('userdata', JSON.stringify(data));
+        });
+      });
     }
   };
 
