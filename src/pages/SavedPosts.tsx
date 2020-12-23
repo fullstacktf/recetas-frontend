@@ -12,7 +12,7 @@ export const SavedPosts: FC = () => {
   const [isLoading, setiSLoading] = useState(true);
 
   useEffect(() => {
-    let endpoint = `post/${getUserData()._id}/save`;
+    let endpoint = `post/${getUserData()._id}/saved`;
 
     let RequestOptions = {
       method: 'GET',
