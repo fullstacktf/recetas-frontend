@@ -152,81 +152,78 @@ export const ShowPost: FC<ShowPostProps> = (props) => {
     }
   };
 
-  return (
-    <Container>
-      <HeaderContainer>
-        <PostHeader phofilePhoto={profile} owner={owner}/>
-      </HeaderContainer>
-      <SubContainer>
-        <ShowImage image={image} maxWidth={WIDTH} maxHeight={HEIGHT}/>
-      </SubContainer>
-      <FooterContainer>
-        {isDataReady && <PostFooter
-          size={'35px'}
-          likes={likes}
-          comments={comments}
-          handleLikes={handleClickLikes}
-          handleSave={handleClickSave}
-          isSaveActive={saved}
-          isLikeActive={liked}
-        />}
-      </FooterContainer>
-      <SubContainer>
-        <Title>{title}</Title>
-      </SubContainer>
-      <SubContainer>
-        <Line/>
-      </SubContainer>
-      <SubContainer>
-        <InfoContainer>
-          <ShowWithIcon image={TimeImage} info={time}/>
-          <ShowWithIcon image={PeopleImage} info={servings}/>
-        </InfoContainer>
-      </SubContainer>
-      <SubContainer>
-        <Line/>
-      </SubContainer>
-      <SubContainer aria-label="collapse-div">
-        <CollapseInput title="DESCRIPCIÓN" width={WIDTH}>
-          <Description>{description}</Description>
-        </CollapseInput>
-      </SubContainer>
-      <SubContainer aria-label="collapse-div">
-        <CollapseInput title="INGREDIENTES" width={WIDTH}>
-          {isDataReady && (
-            <ShowMultiple
-              numeric={false}
-              infoToShow={ingredients}
-              maxWidth={WIDTH}
-              maxHeight={HEIGHT}
-            />
-          )}
-        </CollapseInput>
-      </SubContainer>
-      <SubContainer aria-label="collapse-div">
-        <CollapseInput title="PASOS" width={WIDTH}>
-          {isDataReady && (
-            <ShowMultiple
-              numeric={true}
-              infoToShow={steps}
-              maxWidth={WIDTH}
-              maxHeight={HEIGHT}
-            />
-          )}
-        </CollapseInput>
-      </SubContainer>
-      <SubContainer aria-label="collapse-div">
-        <CollapseInput title="ETIQUETAS" width={WIDTH}>
-          {isDataReady && (
-            <ShowMultiple
-              numeric={false}
-              infoToShow={tags}
-              maxWidth={WIDTH}
-              maxHeight={HEIGHT}
-            />
-          )}
-        </CollapseInput>
-      </SubContainer>
-    </Container>
-  );
+  return <div>
+          {isDataReady
+          ? (<Container>
+              <HeaderContainer>
+                <PostHeader phofilePhoto={profile} owner={owner}/>
+              </HeaderContainer>
+              <SubContainer>
+                <ShowImage image={image} maxWidth={WIDTH} maxHeight={HEIGHT}/>
+              </SubContainer>
+              <FooterContainer>
+                <PostFooter
+                  size={'35px'}
+                  likes={likes}
+                  comments={comments}
+                  handleLikes={handleClickLikes}
+                  handleSave={handleClickSave}
+                  isSaveActive={saved}
+                  isLikeActive={liked}
+                />
+              </FooterContainer>
+              <SubContainer>
+                <Title>{title}</Title>
+              </SubContainer>
+              <SubContainer>
+                <Line/>
+              </SubContainer>
+              <SubContainer>
+                <InfoContainer>
+                  <ShowWithIcon image={TimeImage} info={time}/>
+                  <ShowWithIcon image={PeopleImage} info={servings}/>
+                </InfoContainer>
+              </SubContainer>
+              <SubContainer>
+                <Line/>
+              </SubContainer>
+              <SubContainer aria-label="collapse-div">
+                <CollapseInput title="DESCRIPCIÓN" width={WIDTH}>
+                  <Description>{description}</Description>
+                </CollapseInput>
+              </SubContainer>
+              <SubContainer aria-label="collapse-div">
+                <CollapseInput title="INGREDIENTES" width={WIDTH}>
+                    <ShowMultiple
+                      numeric={false}
+                      infoToShow={ingredients}
+                      maxWidth={WIDTH}
+                      maxHeight={HEIGHT}
+                    />
+                </CollapseInput>
+              </SubContainer>
+              <SubContainer aria-label="collapse-div">
+                <CollapseInput title="PASOS" width={WIDTH}>
+                    <ShowMultiple
+                      numeric={true}
+                      infoToShow={steps}
+                      maxWidth={WIDTH}
+                      maxHeight={HEIGHT}
+                    />
+                </CollapseInput>
+              </SubContainer>
+              <SubContainer aria-label="collapse-div">
+                <CollapseInput title="ETIQUETAS" width={WIDTH}>
+                    <ShowMultiple
+                      numeric={false}
+                      infoToShow={tags}
+                      maxWidth={WIDTH}
+                      maxHeight={HEIGHT}
+                    />
+                </CollapseInput>
+              </SubContainer>
+            </Container>)
+            : <p>CARGANDO...</p>
+    }
+    </div>;
 };
